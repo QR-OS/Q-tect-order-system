@@ -13,6 +13,6 @@ public class UserDTO {
     private String user_pw;
     private String user_ph;
     private String user_email;
-    private String store_id;
-    private int status;
+    private String store_id = null;
+    private int status = 1;
 }
