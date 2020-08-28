@@ -1,8 +1,10 @@
 package com.smallB.QOS.service;
 
-import com.smallB.QOS.domain.User;
+import com.smallB.QOS.domain.UserDto;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 public interface UserService {
-    void register(User param) throws Exception;
+    boolean register(UserDto user) throws Exception;
 
 }
