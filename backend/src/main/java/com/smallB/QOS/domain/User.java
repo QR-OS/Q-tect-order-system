@@ -1,4 +1,4 @@
-package com.smallB.QOS.dto;
+package com.smallB.QOS.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserDTO {
+public class User {
     private String user_id;
     private String user_name;
     private String user_pw;
