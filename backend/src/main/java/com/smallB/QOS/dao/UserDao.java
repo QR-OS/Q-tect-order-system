@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
     void register (UserDto user) throws Exception;
-    UserDto getUser (String user_id);
+    UserDto getUserById (String user_id);
 }

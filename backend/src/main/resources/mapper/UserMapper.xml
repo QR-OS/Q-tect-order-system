@@ -7,4 +7,8 @@
         VALUES (#{user_id},#{user_name},#{user_pw},#{user_ph},#{user_email},#{store_id},#{status})
     </select>
 
+    <select id="getUserById" parameterType="string" resultType="com.smallB.QOS.domain.UserDto">
+        SELECT * FROM users WHERE user_id = #{user_id}
+    </select>
+
 </mapper>

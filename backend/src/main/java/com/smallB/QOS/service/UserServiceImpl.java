@@ -16,4 +16,9 @@ public class UserServiceImpl implements UserService{
         userDao.register(userDto);
         return true;
     }
+
+    @Override
+    public UserDto getUserById(String user_id) throws Exception{
+        return userDao.getUserById(user_id);
+    }
 }
