@@ -1,12 +1,14 @@
 package com.smallB.QOS.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class UserDto {
     private String user_id;
     private String user_name;
