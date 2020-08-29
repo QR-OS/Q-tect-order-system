@@ -4,6 +4,7 @@ import com.smallB.QOS.domain.SessionRequestDto;
 import com.smallB.QOS.domain.SessionResponseDto;
 import com.smallB.QOS.domain.UserDto;
 import com.smallB.QOS.service.UserService;
+import com.smallB.QOS.util.JwtUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -22,12 +23,15 @@ public class SessionController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @PostMapping("/session")
     public ResponseEntity<SessionResponseDto> create(@RequestBody SessionRequestDto sessionRequestDto) throws Exception {
 
         UserDto userDto = userService.authenticate(sessionRequestDto.getUser_id(),sessionRequestDto.getUser_pw());
 
-        String accessToken=userDto.getAccessToken();
+        String accessToken= jwtUtil.createToken(userDto.getUser_id(),userDto.getUser_pw());
 
         String url = "/session";
 
