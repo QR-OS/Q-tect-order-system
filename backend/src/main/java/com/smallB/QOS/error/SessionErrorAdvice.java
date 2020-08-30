@@ -16,4 +16,11 @@ public class SessionErrorAdvice {
     public String handleUserIdWrong(){
         return "{User not found!}";
     }
+
+    @ResponseBody
+    @ResponseStatus
+    @ExceptionHandler(UnauthorizedException.class)
+    public String handleUnauthorized(){
+        return "{Unauthorized!}";
+    }
 }
