@@ -26,14 +26,14 @@ public class SessionController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @PostMapping("/session")
+    @PostMapping("/login")
     public ResponseEntity<SessionResponseDto> create(@RequestBody SessionRequestDto sessionRequestDto) throws Exception {
 
         UserDto userDto = userService.authenticate(sessionRequestDto.getUser_id(),sessionRequestDto.getUser_pw());
 
         String accessToken= jwtUtil.createToken(userDto.getUser_id(),userDto.getUser_pw());
 
-        String url = "/session";
+        String url = "/login";
 
         return ResponseEntity.created(new URI(url))
                 .body(SessionResponseDto.builder()
