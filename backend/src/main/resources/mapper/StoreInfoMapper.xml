@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smallB.QOS.storeInfo.dao.StoreInfoDao">
+    <insert id="addStore"
+            parameterType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        INSERT INTO store_info(`store_id`, `store_name`, `store_num`, `post_num`,
+                                `address1`, `address2`, `store_tel`, `orderable`,
+                                `bookable`, `holiday`, `open_time`, `close_time`, `store_state`)
+        VALUES (#{store_id}, #{store_name}, #{store_num}, #{post_num},
+                                #{address1}, #{address2}, #{store_tel}, #{orderable},
+                                #{bookable}, #{holiday}, #{open_time}, #{close_time}, #{store_state})
+    </insert>
+
+    <select id="findStoreByNum"
+            parameterType="string"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        SELECT *
+        FROM store_info
+        WHERE `store_num` = #{value}
+        AND `deleted` = false
+    </select>
+</mapper>

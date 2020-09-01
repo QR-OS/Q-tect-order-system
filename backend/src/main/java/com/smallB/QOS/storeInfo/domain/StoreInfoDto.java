@@ -1,7 +1,14 @@
-package com.smallB.QOS.store.domain;
+package com.smallB.QOS.storeInfo.domain;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class StoreInfoDto {
     private String store_id;
     private String store_name;
@@ -13,7 +20,7 @@ public class StoreInfoDto {
     private boolean orderable;
     private boolean bookable;
     private String holiday;
-    private LocalTime open_time;
-    private LocalTime close_time;
+    private String open_time;
+    private String close_time;
     private boolean store_state;
 }
