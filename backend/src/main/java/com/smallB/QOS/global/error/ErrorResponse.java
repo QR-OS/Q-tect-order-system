@@ -1,6 +1,5 @@
 package com.smallB.QOS.global.error;
 
-import com.smallB.QOS.global.error.Exception.ErrorCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.BindingResult;

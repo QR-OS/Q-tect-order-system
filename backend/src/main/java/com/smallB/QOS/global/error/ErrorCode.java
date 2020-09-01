@@ -1,4 +1,4 @@
-package com.smallB.QOS.global.error.Exception;
+package com.smallB.QOS.global.error;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -13,14 +13,14 @@ public enum ErrorCode {
     INVALID_TYPE_VALUE(400, "C005", " Invalid Type Value"),
     HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
 
-
-    // Member
-    EMAIL_DUPLICATION(400, "M001", "Email is Duplication"),
-    LOGIN_INPUT_INVALID(400, "M002", "Login input is invalid"),
-
     // Coupon
     COUPON_ALREADY_USE(400, "CO001", "Coupon was already used"),
-    COUPON_EXPIRE(400, "CO002", "Coupon was already expired")
+    COUPON_EXPIRE(400, "CO002", "Coupon was already expired"),
+
+    // User
+    USER_ID_DUPLICATION(400,"U001","User_id is Duplication"),
+    LOGIN_INPUT_INVALID(400, "U002", "Login input is invalid"),
+
 
     ;
     private final String code;
