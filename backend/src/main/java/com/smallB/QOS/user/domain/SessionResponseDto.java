@@ -1,4 +1,4 @@
-package com.smallB.QOS.domain;
+package com.smallB.QOS.user.domain;
 
 import lombok.Builder;
 import lombok.Data;

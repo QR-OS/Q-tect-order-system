@@ -1,14 +1,11 @@
-package com.smallB.QOS.util;
+package com.smallB.QOS.global.util;
 
-import com.smallB.QOS.error.UnauthorizedException;
+import com.smallB.QOS.user.error.UnauthorizedException;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.security.Key;
 

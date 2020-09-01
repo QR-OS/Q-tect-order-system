@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.smallB.QOS.dao.UserDao">
-    <select id="addUser" parameterType="com.smallB.QOS.domain.UserDto" resultType="com.smallB.QOS.domain.UserDto">
+<mapper namespace="com.smallB.QOS.user.dao.UserDao">
+    <select id="addUser" parameterType="com.smallB.QOS.user.domain.UserDto" resultType="com.smallB.QOS.user.domain.UserDto">
         INSERT INTO users(`user_id`,`user_name`,`user_pw`,`user_ph`,`user_email`,`store_id`,`status`)
         VALUES (#{user_id},#{user_name},#{user_pw},#{user_ph},#{user_email},#{store_id},#{status})
     </select>
 
-    <select id="findUserById" parameterType="string" resultType="com.smallB.QOS.domain.UserDto">
+    <select id="findUserById" parameterType="string" resultType="com.smallB.QOS.user.domain.UserDto">
         SELECT * FROM users WHERE user_id = #{user_id}
     </select>
 

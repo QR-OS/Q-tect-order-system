@@ -1,6 +1,6 @@
 package com.smallB.QOS;
 
-import com.smallB.QOS.util.JwtUtil;
+import com.smallB.QOS.global.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

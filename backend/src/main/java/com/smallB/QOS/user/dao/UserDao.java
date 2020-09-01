@@ -1,6 +1,6 @@
-package com.smallB.QOS.dao;
+package com.smallB.QOS.user.dao;
 
-import com.smallB.QOS.domain.UserDto;
+import com.smallB.QOS.user.domain.UserDto;
 import org.springframework.stereotype.Repository;
 
 @Repository

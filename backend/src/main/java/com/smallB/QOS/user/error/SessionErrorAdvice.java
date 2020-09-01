@@ -1,4 +1,4 @@
-package com.smallB.QOS.error;
+package com.smallB.QOS.user.error;
 
 import org.springframework.web.bind.annotation.*;
 

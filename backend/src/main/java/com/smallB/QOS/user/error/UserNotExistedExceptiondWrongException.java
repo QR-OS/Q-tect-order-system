@@ -1,4 +1,4 @@
-package com.smallB.QOS.error;
+package com.smallB.QOS.user.error;
 
 public class UserNotExistedExceptiondWrongException extends RuntimeException {
     public UserNotExistedExceptiondWrongException(String user_id){

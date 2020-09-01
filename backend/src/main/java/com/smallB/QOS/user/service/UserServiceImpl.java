@@ -1,10 +1,10 @@
-package com.smallB.QOS.service;
+package com.smallB.QOS.user.service;
 
-import com.smallB.QOS.dao.UserDao;
-import com.smallB.QOS.domain.UserDto;
-import com.smallB.QOS.error.PasswordWrongException;
-import com.smallB.QOS.error.UserExistedException;
-import com.smallB.QOS.error.UserNotExistedExceptiondWrongException;
+import com.smallB.QOS.user.error.PasswordWrongException;
+import com.smallB.QOS.user.error.UserExistedException;
+import com.smallB.QOS.user.error.UserNotExistedExceptiondWrongException;
+import com.smallB.QOS.user.dao.UserDao;
+import com.smallB.QOS.user.domain.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

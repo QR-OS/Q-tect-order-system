@@ -1,10 +1,10 @@
-package com.smallB.QOS.controller;
+package com.smallB.QOS.user.controller;
 
-import com.smallB.QOS.domain.SessionRequestDto;
-import com.smallB.QOS.domain.SessionResponseDto;
-import com.smallB.QOS.domain.UserDto;
-import com.smallB.QOS.service.UserService;
-import com.smallB.QOS.util.JwtUtil;
+import com.smallB.QOS.user.domain.SessionRequestDto;
+import com.smallB.QOS.user.domain.SessionResponseDto;
+import com.smallB.QOS.user.domain.UserDto;
+import com.smallB.QOS.user.service.UserService;
+import com.smallB.QOS.global.util.JwtUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,7 +17,7 @@ import java.net.URI;
 
 @RestController
 @EnableAutoConfiguration
-@MapperScan(basePackages = "com.smallB.QOS.dao")
+@MapperScan(basePackages = "com.smallB.QOS.user.dao")
 public class SessionController {
 
     @Autowired

@@ -1,6 +1,6 @@
 package com.smallB.QOS;
 
-import com.smallB.QOS.filter.JwtInterceptor;
+import com.smallB.QOS.global.interceptor.JwtInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

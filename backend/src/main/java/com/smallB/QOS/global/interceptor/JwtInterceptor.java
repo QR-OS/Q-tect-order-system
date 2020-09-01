@@ -1,9 +1,8 @@
-package com.smallB.QOS.filter;
+package com.smallB.QOS.global.interceptor;
 
-import com.smallB.QOS.error.UnauthorizedException;
-import com.smallB.QOS.util.JwtUtil;
+import com.smallB.QOS.user.error.UnauthorizedException;
+import com.smallB.QOS.global.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 

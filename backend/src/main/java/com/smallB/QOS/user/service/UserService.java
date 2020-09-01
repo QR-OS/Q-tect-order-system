@@ -1,7 +1,7 @@
-package com.smallB.QOS.service;
+package com.smallB.QOS.user.service;
 
-import com.smallB.QOS.domain.UserDto;
-import com.smallB.QOS.error.UserNotExistedExceptiondWrongException;
+import com.smallB.QOS.user.domain.UserDto;
+import com.smallB.QOS.user.error.UserNotExistedExceptiondWrongException;
 import org.springframework.stereotype.Service;
 
 @Service

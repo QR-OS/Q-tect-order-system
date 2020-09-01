@@ -1,7 +1,7 @@
-package com.smallB.QOS.controller;
+package com.smallB.QOS.user.controller;
 
-import com.smallB.QOS.service.UserService;
-import com.smallB.QOS.domain.UserDto;
+import com.smallB.QOS.user.service.UserService;
+import com.smallB.QOS.user.domain.UserDto;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @EnableAutoConfiguration
-@MapperScan(basePackages = "com.smallB.QOS.dao")
+@MapperScan(basePackages = "com.smallB.QOS.user.dao")
 public class UserController {
 
     @Autowired

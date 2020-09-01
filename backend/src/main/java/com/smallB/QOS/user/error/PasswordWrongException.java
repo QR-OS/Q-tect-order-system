@@ -1,4 +1,4 @@
-package com.smallB.QOS.error;
+package com.smallB.QOS.user.error;
 
 public class PasswordWrongException extends RuntimeException{
     public PasswordWrongException(){
