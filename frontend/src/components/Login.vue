@@ -5,22 +5,14 @@
     <v-card class="mx-auto" max-width="344" outlined>
       <v-layout column>
         <v-card-text>
-          <v-text-field v-model="user_id" label="ID"/>
-          <v-text-field v-model="user_pw" label="Password" type="password"/>
+          <v-text-field v-model="user_id" label="ID" />
+          <v-text-field v-model="user_pw" label="Password" type="password" />
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn
-            type="submit"
-            outlined
-            >회원가입</v-btn
-          >
-          <v-btn
-            type="submit"
-            outlined
-            >ID/PW 찾기</v-btn
-          >
-          <v-btn type="submit" outlined>
+          <router-link to="/selectregistertype">회원가입</router-link>
+          <router-link to="/">ID/PW 찾기</router-link>
+          <v-btn type="submit" outlined @click="login">
             로그인
           </v-btn>
         </v-card-actions>
@@ -30,10 +22,21 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: ["propsdata"],
-  data: () => ({}),
-  methods: {},
+  data() {
+    return { user_id: "", user_pw: "" };
+  },
+  methods: {
+    login() {
+      const res = axios.post("/login", {
+        user_id: this.user_id,
+        user_pw: this.user_pw,
+      });
+      console.log(res);
+    },
+  },
 };
 </script>
 
