@@ -23,9 +23,9 @@ export default {
   methods: {
     MoveToLogin() {
       this.$router.push({
-        name: "Login",
+        name: "Login"
       });
-    },
-  },
+    }
+  }
 };
 </script>

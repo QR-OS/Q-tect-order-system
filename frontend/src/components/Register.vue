@@ -26,11 +26,11 @@
         ></v-text-field>
         <v-text-field
           v-model="form.userInfo.confirmPw"
-          @change="checkConfirmPassword()"
           :error-messages="errors.confirmpassword"
           label="비밀번호 확인"
           type="password"
           required
+          @change="checkConfirmPassword()"
         ></v-text-field>
         <v-text-field
           v-model="form.userInfo.ph"
@@ -58,20 +58,20 @@ import StoreInfoForm from "./StoreInfoForm";
 
 export default {
   name: "Register",
+  components: {
+    "store-info-form": StoreInfoForm
+  },
   props: {
     visible: {
       type: Number,
-      default: 1,
+      default: 1
     },
     store_category: {
       type: Array,
       default() {
         return [];
-      },
-    },
-  },
-  components: {
-    "store-info-form": StoreInfoForm,
+      }
+    }
   },
   data() {
     return {
@@ -82,12 +82,12 @@ export default {
           pw: "",
           confilmPw: "",
           ph: "",
-          email: "",
-        },
+          email: ""
+        }
       },
       errors: {
-        confirmpassword: "",
-      },
+        confirmpassword: ""
+      }
     };
   },
   methods: {
@@ -113,10 +113,10 @@ export default {
         user_email: this.form.userInfo.email,
         store_id: this.form.store_id,
         // status 정의에 대해 향후 정확히 할 것.
-        status: this.visible,
+        status: this.visible
       });
       console.log(res);
-    },
-  },
+    }
+  }
 };
 </script>

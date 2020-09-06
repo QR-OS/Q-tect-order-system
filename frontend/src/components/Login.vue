@@ -37,10 +37,10 @@ export default {
     login() {
       const res = axios.post("/login", {
         user_id: this.user_id,
-        user_pw: this.user_pw,
+        user_pw: this.user_pw
       });
       console.log(res);
-    },
-  },
+    }
+  }
 };
 </script>
