@@ -1,35 +1,28 @@
 <!-- Login.Vue -->
 
 <template>
-  <v-container class="fill-height aligh-center d-flex justify-center" fluid>
-    <div class="fill-height aligh-center d-flex justify-center">
-      <v-card class="mx-auto" outlined>
-        <v-layout column>
-          <v-flex xs12 sm4>
-            <v-card-text>
-              <v-text-field v-model="user_id" label="ID" />
-              <v-text-field
-                v-model="user_pw"
-                label="Password"
-                type="password"
-              />
-            </v-card-text>
-          </v-flex>
+  <v-container class="fill-height" fluid>
+    <v-row align="center" justify="center">
+      <v-col>
+        <v-card class="mx-auto" max-width="400" outlined>
+          <v-card-title>로그인</v-card-title>
+          <v-card-text>
+            <v-text-field v-model="user_id" label="ID" />
+            <v-text-field v-model="user_pw" label="Password" type="password" />
+          </v-card-text>
           <v-spacer />
-          <v-flex xs12 sm4>
-            <v-card-actions>
-              <router-link to="/selectregistertype">회원가입</router-link>
-              <v-spacer />
-              <router-link to="/">ID/PW 찾기</router-link>
-              <v-spacer />
-              <v-btn type="submit" outlined @click="login">
-                로그인
-              </v-btn>
-            </v-card-actions>
-          </v-flex>
-        </v-layout>
-      </v-card>
-    </div>
+          <v-card-actions>
+            <router-link to="/selectregistertype">회원가입</router-link>
+            <v-spacer />
+            <router-link to="/">ID/PW 찾기</router-link>
+            <v-spacer />
+            <v-btn type="submit" outlined @click="login">
+              로그인
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -51,5 +44,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
