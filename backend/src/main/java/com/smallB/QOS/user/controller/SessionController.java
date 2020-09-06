@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -27,11 +28,11 @@ public class SessionController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<SessionResponseDto> create(@RequestBody SessionRequestDto sessionRequestDto) throws Exception {
+    public ResponseEntity<SessionResponseDto> create(@RequestBody @Valid SessionRequestDto sessionRequestDto) throws Exception {
 
-        UserDto userDto = userService.authenticate(sessionRequestDto.getUser_id(),sessionRequestDto.getUser_pw());
+        UserDto userDto = userService.authenticate(sessionRequestDto);
 
-        String accessToken= jwtUtil.createToken(userDto.getUser_id(),userDto.getUser_pw());
+        String accessToken= jwtUtil.createToken(sessionRequestDto);
 
         String url = "/login";
 
