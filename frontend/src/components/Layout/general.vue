@@ -1,20 +1,20 @@
 <template>
-  <div>
+  <v-app id="inspire">
     <v-app-bar app color="indigo" dark>
       <v-toolbar-title>QR코드주문시스템^^!</v-toolbar-title>
     </v-app-bar>
-    <v-main> <router-view></router-view></v-main>
+    <router-view></router-view>
     <v-footer color="indigo" app>
       <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
-  </div>
+  </v-app>
 </template>
 
 <script>
 export default {
-  name: "App",
-  data() {
-    return {};
+  props: {
+    source: String,
   },
+  data: () => ({}),
 };
 </script>
