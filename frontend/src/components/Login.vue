@@ -1,23 +1,35 @@
 <!-- Login.Vue -->
 
 <template>
-  <v-container class="fill-height" fluid>
-    <v-card class="mx-auto" max-width="344" outlined>
-      <v-layout column>
-        <v-card-text>
-          <v-text-field v-model="user_id" label="ID" />
-          <v-text-field v-model="user_pw" label="Password" type="password" />
-        </v-card-text>
-        <v-card-actions>
+  <v-container class="fill-height aligh-center d-flex justify-center" fluid>
+    <div class="fill-height aligh-center d-flex justify-center">
+      <v-card class="mx-auto" outlined>
+        <v-layout column>
+          <v-flex xs12 sm4>
+            <v-card-text>
+              <v-text-field v-model="user_id" label="ID" />
+              <v-text-field
+                v-model="user_pw"
+                label="Password"
+                type="password"
+              />
+            </v-card-text>
+          </v-flex>
           <v-spacer />
-          <router-link to="/selectregistertype">회원가입</router-link>
-          <router-link to="/">ID/PW 찾기</router-link>
-          <v-btn type="submit" outlined @click="login">
-            로그인
-          </v-btn>
-        </v-card-actions>
-      </v-layout>
-    </v-card>
+          <v-flex xs12 sm4>
+            <v-card-actions>
+              <router-link to="/selectregistertype">회원가입</router-link>
+              <v-spacer />
+              <router-link to="/">ID/PW 찾기</router-link>
+              <v-spacer />
+              <v-btn type="submit" outlined @click="login">
+                로그인
+              </v-btn>
+            </v-card-actions>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </div>
   </v-container>
 </template>
 
