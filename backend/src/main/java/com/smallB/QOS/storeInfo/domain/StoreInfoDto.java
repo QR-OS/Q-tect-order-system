@@ -7,9 +7,9 @@ import lombok.Setter;
 import java.time.LocalTime;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class StoreInfoDto {
+    @Setter
     private String store_id;
     private String store_name;
     private String store_num;

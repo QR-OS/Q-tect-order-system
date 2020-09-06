@@ -7,11 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
 
 @RestController
 @EnableAutoConfiguration
@@ -24,8 +21,14 @@ public class StoreInfoController {
     @PostMapping("/store")
     public ResponseEntity<String> createStore(@RequestBody StoreInfoDto resource) throws Exception {
         System.out.println(resource.getAddress1());
-        String message =  storeInfoService.createStore(resource);
+        String message = storeInfoService.createStore(resource);
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/store/{store_id}")
+    public ResponseEntity<StoreInfoDto> getStore(@PathVariable("store_id") final String store_id) throws Exception {
+        StoreInfoDto storeInfoDto = storeInfoService.getOneStoreInfo(store_id);
+        return new ResponseEntity<>(storeInfoDto, HttpStatus.OK);
     }
 
 }
