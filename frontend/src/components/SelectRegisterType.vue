@@ -24,13 +24,13 @@ export default {
     MoveToOwnerRegister() {
       this.$router.push({
         name: "Register",
-        params: { is_owner: 1 },
+        params: { visible: 1 },
       });
     },
     MoveToConsumerRegister() {
       this.$router.push({
         name: "Register",
-        params: { is_owner: 0 },
+        params: { visible: 0 },
       });
     },
   },

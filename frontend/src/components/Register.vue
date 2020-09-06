@@ -2,10 +2,12 @@
 
 <template>
   <v-container class="fill-height" fluid>
-    <v-row>
+    <v-row align="center" justify="center">
       <v-col>
-        <h1>회원가입</h1>
+        <h1 align="center" justify="center">회원가입</h1>
         <p>개인정보</p>
+
+        <!-- user 공통 개인정보 입력 폼 -->
         <v-text-field
           v-model="form.userInfo.name"
           label="이름"
@@ -39,51 +41,9 @@
           v-model="form.userInfo.email"
           label="이메일"
         ></v-text-field>
-        <v-card
-          v-if="$route.params.is_owner"
-          class="mx-auto"
-          max-width="344"
-          color="#B2EBF2"
-        >
-          <v-layout column>
-            <v-card-text>
-              <v-text-field
-                v-model="form.storeInfo.name"
-                label="상호명"
-                required
-              />
-              <v-text-field
-                v-model="form.storeInfo.id"
-                label="사업자번호"
-                required
-              />
-              <v-card>
-                <v-text-field
-                  v-model="form.storeInfo.post_num"
-                  label="우편번호"
-                  disabled="true"
-                ></v-text-field>
-                <v-btn @click="execDaumPostcode" outlined>우편번호 찾기</v-btn>
-                <v-text-field
-                  label="주소"
-                  v-model="form.storeInfo.address1"
-                  disabled="true"
-                ></v-text-field>
-                <v-text-field
-                  v-model="form.storeInfo.address2"
-                  label="상세주소"
-                  required
-                />
-              </v-card>
-              <v-sheet></v-sheet>
-              <v-btn @click="uploadImage" outlined>이미지 업로드</v-btn>
-              
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer />
-            </v-card-actions>
-          </v-layout>
-        </v-card>
+        <v-spacer />
+        <store-info-form />
+
         <v-btn type="submit" outlined @click="Register">
           가입
         </v-btn>
@@ -94,14 +54,24 @@
 
 <script>
 import axios from "axios";
+import StoreInfoForm from "./StoreInfoForm";
 
 export default {
   name: "Register",
   props: {
-    is_owner: {
+    visible: {
       type: Number,
-      default: 0,
+      default: 1,
     },
+    store_category: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
+  components: {
+    "store-info-form": StoreInfoForm,
   },
   data() {
     return {
@@ -114,79 +84,25 @@ export default {
           ph: "",
           email: "",
         },
-        storeInfo: {
-          name: "",
-          id: "",
-          post_num: "",
-          address1: "",
-          address2: "",
-          tel: "",
-          img: "",
-          type: [],
-          open_time: "",
-          close_time: "",
-        },
       },
       errors: {
         confirmpassword: "",
       },
-      searchWindow: {
-        display: "none",
-        height: "300px",
-      },
     };
   },
   methods: {
+    checkShowStoreForm() {
+      console.log(this.visible);
+      // ** 새로고침해도 이전에 router로 받아온 값이 저장되어있도록 수정해야 합니다.
+      // 혹은 router로 받아온 값을 바로 저장해서 그 값만을 사용하도록 해야 합니다.
+      // vuex사용?
+      return this.$route.params.visible == 1 || this.visible == 1;
+    },
     checkConfirmPassword() {
       if (this.form.password != this.form.confirmpassword) {
         this.errors.confirmpassword = "비밀번호 확인이 일치하지 않습니다.";
         return;
       }
-    },
-    execDaumPostcode() {
-      const currentScroll = Math.max(
-        document.body.scrollTop,
-        document.documentElement.scrollTop
-      );
-      // eslint-disable-next-line
-      new daum.Postcode({
-        onComplete: (data) => {
-          if (data.userSelectedType === "R") {
-            this.storeInfo.address1 = data.roadAddress;
-          } else {
-            this.storeInfo.address1 = data.jibunAddress;
-          }
-          if (data.userSelectedType === "R") {
-            if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-              this.storeInfo.address2 += data.bname;
-            }
-            if (data.buildingName !== "" && data.apartment === "Y") {
-              this.storeInfo.address2 +=
-                this.storeInfo.address2 !== ""
-                  ? `, ${data.buildingName}`
-                  : data.buildingName;
-            }
-            if (this.storeInfo.address2 !== "") {
-              this.storeInfo.address2 = ` (${this.storeInfo.address2})`;
-            }
-          } else {
-            this.storeInfo.address2 = "";
-          }
-          this.form.storeInfo.post_num = data.zonecode;
-          this.$refs.storeInfo.address2.focus();
-          this.searchWindow.display = "none";
-          document.body.scrollTop = currentScroll;
-        },
-        onResize: (size) => {
-          this.searchWindow.height = `${size.height}px`;
-        },
-        width: "100%",
-        height: "100%",
-      }).embed(this.$refs.searchWindow);
-      this.searchWindow.display = "block";
-    },
-    uploadImage(){
-
     },
     Register() {
       const res = axios.post("/register", {
@@ -196,12 +112,11 @@ export default {
         user_ph: this.form.userInfo.ph,
         user_email: this.form.userInfo.email,
         store_id: this.form.store_id,
-        status: 1,
+        // status 정의에 대해 향후 정확히 할 것.
+        status: this.visible,
       });
       console.log(res);
     },
   },
 };
 </script>
-
-<style></style>
