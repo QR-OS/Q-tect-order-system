@@ -3,7 +3,6 @@ package com.smallB.QOS.user.service;
 import com.smallB.QOS.user.dao.UserDao;
 import com.smallB.QOS.user.domain.SessionRequestDto;
 import com.smallB.QOS.user.domain.UserDto;
-import com.smallB.QOS.user.error.Exception.PasswordWrongException;
 import com.smallB.QOS.user.error.Exception.UnauthorizedException;
 import com.smallB.QOS.user.error.Exception.UserExistedException;
 import com.smallB.QOS.user.error.Exception.UserNotExistedException;
@@ -12,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 import static java.util.Objects.isNull;
@@ -46,8 +46,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto getUserById(String user_id) throws Exception{
-        return userDao.findUserById(user_id);
+    public UserDto getUserById(@Valid String user_id) throws Exception{
+        UserDto userDto = userDao.findUserById(user_id);
+        if(isNull(userDto)){
+            throw new UserNotExistedException(user_id);
+        }
+        return userDto;
     }
 
     @Override
