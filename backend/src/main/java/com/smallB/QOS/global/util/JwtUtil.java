@@ -1,6 +1,7 @@
 package com.smallB.QOS.global.util;
 
-import com.smallB.QOS.user.error.UnauthorizedException;
+import com.smallB.QOS.user.domain.SessionRequestDto;
+import com.smallB.QOS.user.error.Exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,13 +15,13 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    public String createToken(String user_id, String user_pw){
+    public String createToken(SessionRequestDto sessionRequestDto){
 
         Key key = Keys.hmacShaKeyFor(secret.getBytes());
 
         return Jwts.builder()
-                .claim("user_id",user_id)
-                .claim("user_pw",user_pw)
+                .claim("user_id",sessionRequestDto.getUser_id())
+                .claim("user_pw",sessionRequestDto.getUser_pw())
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
