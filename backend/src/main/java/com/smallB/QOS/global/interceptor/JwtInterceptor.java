@@ -1,6 +1,6 @@
 package com.smallB.QOS.global.interceptor;
 
-import com.smallB.QOS.user.error.UnauthorizedException;
+import com.smallB.QOS.user.error.Exception.UnauthorizedException;
 import com.smallB.QOS.global.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,15 +17,12 @@ public class JwtInterceptor implements HandlerInterceptor {
     private JwtUtil jwtUtil;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         final String token = (request.getHeader(HEADER_AUTH).substring("Bearer ".length()));
 
         if(token != null && jwtUtil.isUsable(token)){
-            System.out.println("JwtInterceptor class");
             return true;
         }else{
-            System.out.println("JwtInterceptor class");
             throw new UnauthorizedException();
         }
     }
