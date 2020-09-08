@@ -19,8 +19,9 @@ public enum ErrorCode {
 
     // User
     USER_ID_DUPLICATION(400,"U001","User_id is Duplication"),
-    USER_ID_NOT_EXSISTE(400,"U002","User_id is not Existed"),
+    USER_ID_NOT_EXIST(400,"U002","User_id is not Existed"),
     LOGIN_INPUT_INVALID(400, "U003", "Login input is invalid"),
+    USER_UPDATE_FAILED(400, "U004", "User update failed"),
 
 
     ;
