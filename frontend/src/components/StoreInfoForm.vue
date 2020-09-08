@@ -66,17 +66,18 @@
             </v-card-text>
           </v-card>
           <v-sheet></v-sheet>
-          <v-btn outlined @click="uploadImage">이미지 업로드</v-btn>
+          <v-btn outlined @click="uploadImage()">이미지 업로드</v-btn>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
         </v-card-actions>
       </v-layout>
     </v-card>
-
+    <v-container>
     <v-dialog v-model="dialog" width="500">
       <SearchPostNumber @child="parents"></SearchPostNumber>
     </v-dialog>
+    </v-container>
   </v-container>
 </template>
 

@@ -3,17 +3,21 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row>
-      <v-col>
-        <h1>회원가입</h1>
+      <v-col class="text-h3" align="center" justify="center">
+        회원가입
       </v-col>
     </v-row>
     <v-row>
-      <v-btn outlined @click="MoveToOwnerRegister">
-        매장 관리자
-      </v-btn>
-      <v-btn outlined @click="MoveToConsumerRegister">
-        일반회원
-      </v-btn>
+      <v-col align="center" justify="center">
+        <v-btn x-large outlined @click="moveToOwnerRegister">
+          매장 관리자
+        </v-btn>
+      </v-col>
+      <v-col>
+        <v-btn x-large outlined @click="moveToConsumerRegister">
+          일반회원
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -21,19 +25,19 @@
 <script>
 export default {
   methods: {
-    MoveToOwnerRegister() {
+    moveToOwnerRegister() {
       this.$router.push({
         name: "Register",
-        params: { visible: 1 }
+        params: { visible: 1 },
       });
     },
-    MoveToConsumerRegister() {
+    moveToConsumerRegister() {
       this.$router.push({
         name: "Register",
-        params: { visible: 0 }
+        params: { visible: 0 },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
