@@ -6,6 +6,7 @@ import com.smallB.QOS.user.domain.UserDto;
 import com.smallB.QOS.user.error.Exception.UnauthorizedException;
 import com.smallB.QOS.user.error.Exception.UserExistedException;
 import com.smallB.QOS.user.error.Exception.UserNotExistedException;
+import com.smallB.QOS.user.error.Exception.UserUpdateFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,5 +68,21 @@ public class UserServiceImpl implements UserService{
             throw new UnauthorizedException();
         }
         return userDto;
+    }
+
+    @Override
+    public Boolean updateUser(@Valid UserDto user) throws Exception{
+
+        if(!isNull(user.getUser_pw())){
+            user.setUser_pw(PasswordEncoder().encode(user.getUser_pw()));
+        }
+
+        int result = userDao.updateUser(user);
+
+        if(result==0){
+            throw new UserUpdateFailedException();
+        }
+
+        return true;
     }
 }

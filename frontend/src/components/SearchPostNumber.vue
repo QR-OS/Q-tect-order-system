@@ -1,11 +1,11 @@
 <template>
   <div ref="searchWindow" :style="searchWindow">
     <img
-      src="//t1.daumcdn.net/postcode/resource/images/close.png"
       id="btnFoldWrap"
+      src="//t1.daumcdn.net/postcode/resource/images/close.png"
       style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1"
-      @click="close"
       alt="close"
+      @click="close"
     />
   </div>
 </template>
@@ -13,25 +13,23 @@
 <script>
 export default {
   name: "SearchPostNumberModal",
-  props: ["hot_table"],
   data() {
     return {
       searchWindow: {
         display: "none",
-        height: "300px",
+        height: "300px"
       },
       postcode: "",
       address: "",
-      extraAddress: "",
+      extraAddress: ""
     };
   },
   mounted() {
-    console.log("mounted is called");
     this.execDaumPostcode();
   },
   methods: {
     close() {
-      this.$emit("close");
+      this.$emit("child", this.postcode, (this.address += this.extraAddress));
     },
     // 우편번호 API
     execDaumPostcode() {
@@ -41,7 +39,7 @@ export default {
       );
       // eslint-disable-next-line
       new daum.Postcode({
-        onComplete: (data) => {
+        onComplete: data => {
           if (data.userSelectedType === "R") {
             this.address = data.roadAddress;
           } else {
@@ -69,14 +67,14 @@ export default {
           document.body.scrollTop = currentScroll;
           this.close();
         },
-        onResize: (size) => {
+        onResize: size => {
           this.searchWindow.height = `${size.height}px`;
         },
         width: "100%",
-        height: "100%",
+        height: "100%"
       }).embed(this.$refs.searchWindow);
       this.searchWindow.display = "block";
-    },
-  },
+    }
+  }
 };
 </script>
