@@ -2,22 +2,24 @@ package com.smallB.QOS.user.domain;
 
 import lombok.*;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
 public class UserDto {
-    @Valid
+    @NotEmpty @NotBlank @NotNull
     private String user_id;
-    @Valid
     private String user_name;
-    @Valid
     private String user_pw;
     private String user_ph;
+    @Email
     private String user_email;
     private String store_id = null;
-    @Valid
     private int status = 1;
+    private boolean deleted;
 }

@@ -1,16 +1,20 @@
 <template>
   <v-app>
-    <v-container>
-      <v-app-bar app color="indigo">
-        <v-toolbar-title>QR코드주문시스템^^!</v-toolbar-title>
-        <v-spacer />
-        <v-btn @click="MoveToLogin">로그인</v-btn>
-      </v-app-bar>
-      <v-main> <router-view></router-view></v-main>
-      <v-footer color="indigo" app>
-        <span class="white--text">&copy; {{ new Date().getFullYear() }}</span>
-      </v-footer>
-    </v-container>
+    <v-app-bar app color="amber darken-1">
+      <v-toolbar-title class="text-none">
+        <v-btn text large @click="moveToHome">QR코드 주문 시스템^^!</v-btn>
+      </v-toolbar-title>
+      <v-spacer />
+      <v-btn @click="moveToLogin">로그인</v-btn>
+    </v-app-bar>
+    <v-main>
+      <v-fade-transition hide-on-leave>
+        <router-view></router-view>
+      </v-fade-transition>
+    </v-main>
+    <v-footer color="yellow lighten-4" app>
+      <span class="black--text">&copy; {{ new Date().getFullYear() }}</span>
+    </v-footer>
   </v-app>
 </template>
 
@@ -21,10 +25,17 @@ export default {
     return {};
   },
   methods: {
-    MoveToLogin() {
-      this.$router.push({
-        name: "Login",
-      });
+    moveToLogin() {
+      if (this.$route.name != "Login") {
+        this.$router.push({
+          name: "Login",
+        });
+      }
+    },
+    moveToHome() {
+      if (this.$route.path != "/") {
+        this.$router.push("/");
+      }
     },
   },
 };

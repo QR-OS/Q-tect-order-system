@@ -8,11 +8,11 @@ module.exports = {
           {
             module: "daum-postcode-api",
             entry: "http://dmaps.daum.net/map_js_init/postcode.v2.js",
-            global: "daum-postcode-api",
-          },
-        ],
-      }),
-    ],
+            global: "daum-postcode-api"
+          }
+        ]
+      })
+    ]
   },
   transpileDependencies: ["vuetify"],
   publicPath: "/",
@@ -21,8 +21,8 @@ module.exports = {
     proxy: {
       "/api": {
         target: "http://localhost:3000",
-        changeOrigin: true,
-      },
-    },
-  },
+        changeOrigin: true
+      }
+    }
+  }
 };
