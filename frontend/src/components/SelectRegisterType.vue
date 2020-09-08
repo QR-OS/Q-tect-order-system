@@ -28,16 +28,16 @@ export default {
     moveToOwnerRegister() {
       this.$router.push({
         name: "Register",
-        params: { visible: 1 },
+        params: { visible: 1 }
       });
     },
     moveToConsumerRegister() {
       this.$router.push({
         name: "Register",
-        params: { visible: 0 },
+        params: { visible: 0 }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

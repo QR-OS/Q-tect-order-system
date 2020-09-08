@@ -28,7 +28,7 @@ export default {
     moveToLogin() {
       if (this.$route.name != "Login") {
         this.$router.push({
-          name: "Login",
+          name: "Login"
         });
       }
     },
@@ -36,7 +36,7 @@ export default {
       if (this.$route.path != "/") {
         this.$router.push("/");
       }
-    },
-  },
+    }
+  }
 };
 </script>

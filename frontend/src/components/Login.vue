@@ -5,10 +5,7 @@
     <v-row align="center" justify="center">
       <v-col>
         <v-card class="mx-auto" max-width="400">
-          <v-toolbar
-            color="amber darken-1"
-            flat
-          >
+          <v-toolbar color="amber darken-1" flat>
             <v-card-title>로그인</v-card-title>
           </v-toolbar>
           <v-card-text>
@@ -17,12 +14,12 @@
           </v-card-text>
           <v-spacer />
           <v-card-actions>
-            <v-btn @click="moveToRegister" color="orange" text>회원가입</v-btn>
-            <v-btn @click="moveToFindIdPw" color="orange" text
+            <v-btn color="orange" text @click="moveToRegister">회원가입</v-btn>
+            <v-btn color="orange" text @click="moveToFindIdPw"
               >ID/PW 찾기</v-btn
             >
             <v-spacer />
-            <v-btn type="submit" @click="login" color="orange" text>
+            <v-btn type="submit" color="orange" text @click="login">
               로그인
             </v-btn>
           </v-card-actions>
@@ -43,20 +40,20 @@ export default {
     login() {
       const res = axios.post("/login", {
         user_id: this.userId,
-        user_pw: this.userPw,
+        user_pw: this.userPw
       });
       console.log(res);
     },
     moveToRegister() {
       this.$router.push({
-        name: "SelectRegisterType",
+        name: "SelectRegisterType"
       });
     },
     moveToFindIdPw() {
       this.$router.push({
-        name: "/",
+        name: "/"
       });
-    },
-  },
+    }
+  }
 };
 </script>

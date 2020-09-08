@@ -2,19 +2,19 @@
 
 <template>
   <v-container>
-    <v-card class="mx-auto" max-width="344" outlined>
+    <v-card class="mx-auto" max-width="500" outlined>
       <v-layout column>
         <v-card-text>
           <v-flex>
             <v-text-field
-              v-model="form.storeInfo.name"
+              v-model="form.storeInfo.store_name"
               label="상호명"
               required
             />
           </v-flex>
           <v-flex>
             <v-text-field
-              v-model="form.storeInfo.id"
+              v-model="form.storeInfo.store_id"
               label="사업자번호"
               required
             />
@@ -77,7 +77,6 @@
     <v-dialog v-if="dialog" v-model="dialog" width="500">
       <SearchPostNumber @child="parents"></SearchPostNumber>
     </v-dialog>
-    
   </v-container>
 </template>
 
@@ -88,6 +87,7 @@ export default {
   components: {
     SearchPostNumber
   },
+  props: ["storeInfoData"],
   data() {
     return {
       storeCategory: [
@@ -97,21 +97,9 @@ export default {
         { name: "중식", checked: false }
       ],
       form: {
-        storeInfo: {
-          name: "",
-          id: "",
-          post_num: "",
-          address1: "",
-          address2: "",
-          tel: "",
-          img: "",
-          type: [],
-          open_time: "",
-          close_time: ""
-        }
+        storeInfo: this.storeInfoData
       },
-      dialog: false,
-      hot_table: {}
+      dialog: false
     };
   },
   methods: {
