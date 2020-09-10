@@ -1,4 +1,4 @@
-package com.smallB.QOS.menu.domain;
+package com.smallB.QOS.product.domain;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class menuDto {
+public class ProductDto {
     @NotEmpty @NotBlank @NotNull
     private String product_id;
     @NotEmpty @NotBlank @NotNull
