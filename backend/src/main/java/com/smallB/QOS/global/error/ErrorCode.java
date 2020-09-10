@@ -23,6 +23,9 @@ public enum ErrorCode {
     LOGIN_INPUT_INVALID(400, "U003", "Login input is invalid"),
     USER_UPDATE_FAILED(400, "U004", "User update failed"),
 
+    //PRODUCT
+    PRODUCT_NOT_FOUND(400,"P001","Product NOT FOUND"),
+    PRODUCT_UPDATE_FAILED(400,"p002","Product Update Failed"),
 
     ;
     private final String code;
