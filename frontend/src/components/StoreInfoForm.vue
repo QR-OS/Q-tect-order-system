@@ -73,11 +73,11 @@
         </v-card-actions>
       </v-layout>
     </v-card>
-    <v-container>
-    <v-dialog v-model="dialog" width="500">
+
+    <v-dialog v-if="dialog" v-model="dialog" width="500">
       <SearchPostNumber @child="parents"></SearchPostNumber>
     </v-dialog>
-    </v-container>
+    
   </v-container>
 </template>
 
