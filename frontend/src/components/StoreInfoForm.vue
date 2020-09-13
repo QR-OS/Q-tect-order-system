@@ -51,18 +51,25 @@
               </v-flex>
               <v-layout row>
                 <v-flex>
-                  매장 분류
-                  <div v-for="(item, index) in storeCategory" :key="index">
-                    <input
-                      :id="item.name"
-                      v-model="item.checked"
-                      type="checkbox"
-                    />
-                    <label :for="item.name">{{ item.name }}</label>
-                  </div>
+                  <v-select
+                    v-model="storeCategory.value"
+                    :items="storeCategory.items"
+                    attach
+                    chips
+                    label="매장 분류"
+                    multiple
+                    flat
+                    solo
+                  ></v-select>
                 </v-flex>
               </v-layout>
-              매장 전화번호
+              <v-flex>
+            <v-text-field
+              v-model="form.storeInfo.store_id"
+              label="사업자번호"
+              required
+            />
+          </v-flex>
             </v-card-text>
           </v-card>
           <v-sheet></v-sheet>
@@ -90,14 +97,23 @@ export default {
   props: ["storeInfoData"],
   data() {
     return {
-      storeCategory: [
-        // 프론트 작성을 위한 예시 데이터입니다.
-        { name: "한식", checked: false },
-        { name: "분식", checked: false },
-        { name: "중식", checked: false }
-      ],
+      storeCategory: {
+        items: [
+          "한식",
+          "분식",
+          "중식",
+          "일식",
+          "양식",
+          "아시안",
+          "치킨",
+          "패스트푸드",
+          "카페/디저트",
+          "마켓"
+        ],
+        value: []
+      },
       form: {
-        storeInfo: this.storeInfoData
+        storeInfo: this.storeInfoData,
       },
       dialog: false
     };
