@@ -7,5 +7,7 @@ import org.springframework.stereotype.Service;
 public interface StoreInfoService {
     String createStore(StoreInfoDto resource) throws Exception;
 
-    StoreInfoDto getOneStoreInfo(String store_id) throws Exception;
+    StoreInfoDto getOneStoreInfo(String user_id) throws Exception;
+
+    void updateStoreInfo(String user_id, StoreInfoDto resource) throws Exception;
 }

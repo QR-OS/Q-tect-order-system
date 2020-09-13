@@ -25,10 +25,16 @@ public class StoreInfoController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @GetMapping("/store/{store_id}")
-    public ResponseEntity<StoreInfoDto> getStore(@PathVariable("store_id") final String store_id) throws Exception {
-        StoreInfoDto storeInfoDto = storeInfoService.getOneStoreInfo(store_id);
-        return new ResponseEntity<>(storeInfoDto, HttpStatus.OK);
+    @GetMapping("/store/{user_id}")
+    public StoreInfoDto getStore(@PathVariable("user_id") String user_id) throws Exception {
+        StoreInfoDto storeInfoDto = storeInfoService.getOneStoreInfo(user_id);
+        return storeInfoDto;
+    }
+
+    @PatchMapping("/store/{user_id}")
+    public void editStore(@PathVariable("user_id") final String user_id,
+                          @RequestBody StoreInfoDto resource) throws Exception {
+        storeInfoService.updateStoreInfo(user_id, resource);
     }
 
 }

@@ -15,4 +15,6 @@ public interface StoreInfoDao {
     UserDto findStoreByUserId(String user_id) throws Exception;
     //매장아이디로 매장 정보 들고오기
     StoreInfoDto findStoreById(String store_id) throws Exception;
+    //매장정보 업데이트
+    Integer updateStoreInfo(StoreInfoDto storeInfo) throws Exception;
 }

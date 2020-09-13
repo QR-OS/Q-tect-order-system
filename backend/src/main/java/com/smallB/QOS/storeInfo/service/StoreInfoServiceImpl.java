@@ -58,4 +58,24 @@ public class StoreInfoServiceImpl implements StoreInfoService{
         return storeResult;
     }
 
+    @Override
+    public void updateStoreInfo(String user_id, StoreInfoDto storeInfo) throws Exception {
+        UserDto userDto = storeInfoDao.findStoreByUserId(user_id);
+
+        System.out.println(1);
+        if(userDto == null) { throw new UserNotExistedException(user_id); }
+        if(userDto.getStatus() == 1) { throw new UnauthorizedUserException(user_id); }
+        if(userDto.getStore_id() == null) { throw new StoreNotExistedException(); }
+
+        storeInfo.setStore_id(userDto.getStore_id());
+
+        Integer result = storeInfoDao.updateStoreInfo(storeInfo);
+        System.out.println(result);
+
+        if(result == 0) {
+            throw new StoreUpdateFailedException();
+        }
+    }
+
+
 }
