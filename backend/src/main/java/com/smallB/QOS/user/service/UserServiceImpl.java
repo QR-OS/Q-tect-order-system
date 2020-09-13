@@ -37,6 +37,8 @@ public class UserServiceImpl implements UserService{
                 .user_email(userDto.getUser_email())
                 .user_ph(userDto.getUser_ph())
                 .user_pw(encodedPassword)
+                .store_id(userDto.getStore_id())
+                .status(userDto.getStatus())
                 .build();
         userDao.addUser(newUser);
         return true;
