@@ -22,6 +22,10 @@ public enum ErrorCode {
     USER_ID_NOT_EXSISTE(400,"U002","User_id is not Existed"),
     LOGIN_INPUT_INVALID(400, "U003", "Login input is invalid"),
 
+    //StoreInfo
+    STORE_ID_NOT_EXIST(400, "SI001", "Store_id is not Existed"),
+    STORE_UPDATE_FAILED(400, "SI002", "Store update failed"),
+    UNAUTHORIZED_USER(401, "SI003", "Unauthorized User"),
 
     ;
     private final String code;
