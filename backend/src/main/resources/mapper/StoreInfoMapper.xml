@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.smallB.QOS.storeInfo.dao.StoreInfoDao">
+
+    <sql id="checkDeleted">
+        AND `deleted` = false
+    </sql>
+
     <insert id="addStore"
             parameterType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
         INSERT INTO store_info(`store_id`, `store_name`, `store_num`, `post_num`,
@@ -17,8 +22,16 @@
             resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
         SELECT *
         FROM store_info
-        WHERE `store_num` = #{value}
-        AND `deleted` = false
+        WHERE store_num = #{value}
+        AND deleted = false
+    </select>
+
+    <select id="findStoreByUserId"
+            parameterType="string"
+            resultType="com.smallB.QOS.user.domain.UserDto">
+        SELECT *
+        FROM users
+        WHERE user_id = #{value}
     </select>
 
     <select id="findStoreById"
@@ -26,6 +39,6 @@
             resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
         SELECT *
         FROM store_info
-        WHERE `store_id` = #{store_id}
+        WHERE store_id = #{value}
     </select>
 </mapper>
