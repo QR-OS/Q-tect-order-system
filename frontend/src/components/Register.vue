@@ -3,50 +3,53 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
-      <v-col>
-        <h1 align="center" justify="center">회원가입</h1>
-        <p>개인정보</p>
+      <v-col cols="18" md="15" sm="10" xs="3">
+        <v-card :elevation="0">
+          <h1 align="center" justify="center">회원 가입</h1>
+          <p><b>개인 정보</b></p>
 
-        <!-- user 공통 개인정보 입력 폼 -->
-        <v-text-field
-          v-model="form.userInfo.name"
-          label="이름"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="form.userInfo.id"
-          label="아이디"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="form.userInfo.pw"
-          label="비밀번호"
-          type="password"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="form.userInfo.confirmPw"
-          @change="checkConfirmPassword()"
-          :error-messages="errors.confirmpassword"
-          label="비밀번호 확인"
-          type="password"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="form.userInfo.ph"
-          label="전화번호"
-          required
-        ></v-text-field>
-        <v-text-field
-          v-model="form.userInfo.email"
-          label="이메일"
-        ></v-text-field>
-        <v-spacer />
-        <store-info-form />
-
-        <v-btn type="submit" outlined @click="Register">
-          가입
-        </v-btn>
+          <!-- user 공통 개인정보 입력 폼 -->
+          <v-text-field
+            v-model="form.userInfo.name"
+            label="이름"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="form.userInfo.id"
+            label="아이디"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="form.userInfo.pw"
+            label="비밀번호"
+            type="password"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="form.userInfo.confirmPw"
+            :error-messages="errors.confirmpassword"
+            label="비밀번호 확인"
+            type="password"
+            required
+            @change="checkConfirmPassword()"
+          ></v-text-field>
+          <v-text-field
+            v-model="form.userInfo.ph"
+            label="전화번호"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="form.userInfo.email"
+            label="이메일"
+          ></v-text-field>
+          <v-spacer />
+          <store-info-form />
+          <div align="center" justify="center">
+            <v-btn type="submit" outlined @click="register">
+              가입
+            </v-btn>
+          </div>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -58,20 +61,20 @@ import StoreInfoForm from "./StoreInfoForm";
 
 export default {
   name: "Register",
+  components: {
+    "store-info-form": StoreInfoForm
+  },
   props: {
     visible: {
       type: Number,
-      default: 1,
+      default: 1
     },
     store_category: {
       type: Array,
       default() {
         return [];
-      },
-    },
-  },
-  components: {
-    "store-info-form": StoreInfoForm,
+      }
+    }
   },
   data() {
     return {
@@ -82,12 +85,12 @@ export default {
           pw: "",
           confilmPw: "",
           ph: "",
-          email: "",
-        },
+          email: ""
+        }
       },
       errors: {
-        confirmpassword: "",
-      },
+        confirmpassword: ""
+      }
     };
   },
   methods: {
@@ -104,19 +107,19 @@ export default {
         return;
       }
     },
-    Register() {
+    register() {
       const res = axios.post("/register", {
-        user_id: this.form.userInfo.id,
+        user_Id: this.form.userInfo.id,
         user_name: this.form.userInfo.name,
         user_pw: this.form.userInfo.pw,
         user_ph: this.form.userInfo.ph,
         user_email: this.form.userInfo.email,
-        store_id: this.form.store_id,
+        store_id: this.form.storeId,
         // status 정의에 대해 향후 정확히 할 것.
-        status: this.visible,
+        status: this.visible
       });
       console.log(res);
-    },
-  },
+    }
+  }
 };
 </script>
