@@ -64,12 +64,12 @@
                 </v-flex>
               </v-layout>
               <v-flex>
-            <v-text-field
-              v-model="form.storeInfo.store_id"
-              label="사업자번호"
-              required
-            />
-          </v-flex>
+                <v-text-field
+                  v-model="form.storeInfo.store_id"
+                  label="사업자번호"
+                  required
+                />
+              </v-flex>
             </v-card-text>
           </v-card>
           <v-sheet></v-sheet>
@@ -94,7 +94,7 @@ export default {
   components: {
     SearchPostNumber
   },
-  props: ["storeInfoData"],
+  props: ["storeInfo"],
   data() {
     return {
       storeCategory: {
@@ -113,7 +113,7 @@ export default {
         value: []
       },
       form: {
-        storeInfo: this.storeInfoData,
+        storeInfo: this.storeInfo
       },
       dialog: false
     };
