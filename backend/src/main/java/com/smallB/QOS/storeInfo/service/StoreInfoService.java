@@ -9,5 +9,5 @@ public interface StoreInfoService {
 
     StoreInfoDto getOneStoreInfo(String user_id) throws Exception;
 
-    void updateStoreInfo(String user_id, StoreInfoDto resource) throws Exception;
+    String updateStoreInfo(String user_id, StoreInfoDto resource) throws Exception;
 }
