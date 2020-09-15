@@ -2,7 +2,7 @@
 
 <template>
   <v-container>
-    <v-card class="mx-auto" max-width="344" outlined>
+    <v-card class="mx-auto" max-width="500" outlined>
       <v-layout column>
         <v-card-text>
           <v-flex>
@@ -77,7 +77,6 @@
     <v-dialog v-if="dialog" v-model="dialog" width="500">
       <SearchPostNumber @child="parents"></SearchPostNumber>
     </v-dialog>
-    
   </v-container>
 </template>
 
