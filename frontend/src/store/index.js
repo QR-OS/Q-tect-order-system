@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import jwt from "jsonwebtoken";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -30,8 +31,10 @@ export default new Vuex.Store({
       localStorage.setItem("user", JSON.stringify(user));
     },
     async logout(context) {
+      delete axios.defaults.headers.common["Authorization"];
       context.commit("SET_ACCESS_TOKEN", null);
       localStorage.removeItem("accessToken");
+      context.commit("SET_USER", null);
       localStorage.removeItem("user");
     },
   },
