@@ -48,7 +48,7 @@
 export default {
   data() {
     return {
-      show: false,
+      show: false
     };
   },
   mounted() {
@@ -58,16 +58,16 @@ export default {
     moveToOwnerRegister() {
       this.$router.push({
         name: "Register",
-        params: { visible: 2 },
+        params: { visible: 2 }
       });
     },
     moveToConsumerRegister() {
       this.$router.push({
         name: "Register",
-        params: { visible: 1 },
+        params: { visible: 1 }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

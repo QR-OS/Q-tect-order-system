@@ -2,16 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
-<<<<<<< HEAD
-import Login from "../components/Login.vue";
-import Register from "../components/Register.vue";
-import SelectRegisterType from "../components/SelectRegisterType.vue";
-import StoreInfo from "../views/store/StoreInfo.vue";
-=======
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import SelectRegisterType from "../views/SelectRegisterType.vue";
->>>>>>> develop
+import StoreInfo from "../views/store/StoreInfo.vue";
 
 Vue.use(VueRouter);
 
