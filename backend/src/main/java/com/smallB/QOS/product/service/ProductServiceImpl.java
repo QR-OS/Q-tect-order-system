@@ -2,6 +2,7 @@ package com.smallB.QOS.product.service;
 
 import com.smallB.QOS.product.dao.ProductDao;
 import com.smallB.QOS.product.domain.ProductDto;
+import com.smallB.QOS.product.error.CategoryNotFoundException;
 import com.smallB.QOS.product.error.ProductNotFoundException;
 import com.smallB.QOS.product.error.UpdateProductFailException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +103,16 @@ public class ProductServiceImpl implements ProductService {
         if(result == false) throw new UpdateProductFailException(productDto.getProduct_id());
 
         return true;
+    }
+
+    @Override
+    public List<String> getCategory(String store_id) throws Exception{
+        List<String> existed = productDao.findProductCategory(store_id);
+
+        if(isNull(existed) || existed.size()==0){
+            throw new CategoryNotFoundException(store_id);
+        }
+
+        return existed;
     }
 }
