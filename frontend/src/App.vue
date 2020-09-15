@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getLogout: "logout",
+      getLogout: "logout"
     }),
     async logout() {
       this.getLogout();
@@ -65,7 +65,7 @@ export default {
     moveToLogin() {
       if (this.$route.name != "Login") {
         this.$router.push({
-          name: "Login",
+          name: "Login"
         });
       }
     },
@@ -73,7 +73,7 @@ export default {
       if (this.$route.path != "/") {
         this.$router.push({ name: "Home" });
       }
-    },
-  },
+    }
+  }
 };
 </script>
