@@ -1,6 +1,7 @@
 package com.smallB.QOS.product.service;
 
 import com.smallB.QOS.product.domain.ProductDto;
+
 import java.util.List;
 
 public interface ProductService {
@@ -12,4 +13,6 @@ public interface ProductService {
     ProductDto createProduct(ProductDto productDto) throws Exception;
 
     boolean updateProduct(ProductDto productDto) throws  Exception;
+
+    List<String> getCategory(String store_id) throws Exception;
 }
