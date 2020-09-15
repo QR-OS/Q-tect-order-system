@@ -28,6 +28,11 @@ public class ProductController {
         return productService.getProducts(store_id);
     }
 
+    @GetMapping("/product/{store_id}/category")
+    public List<String> getCategory(@PathVariable @Valid String store_id) throws Exception{
+        return productService.getCategory(store_id);
+    }
+
     @PostMapping("/product")
     public ProductDto createProducts(@RequestBody ProductDto productDto) throws Exception{
         return productService.createProduct(productDto);
