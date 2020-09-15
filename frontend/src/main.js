@@ -4,9 +4,6 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
-import LoadScript from "vue-plugin-load-script";
-
-Vue.use(LoadScript);
 
 Vue.config.productionTip = false;
 axios.defaults.baseURL = "/api";
