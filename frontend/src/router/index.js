@@ -35,14 +35,11 @@ const routes = [
     path: "/selectregistertype",
     name: "SelectRegisterType",
     component: SelectRegisterType
-<<<<<<< HEAD
   },
   {
     path: "/store",
     name: "StoreInfo",
     component: StoreInfo
-=======
->>>>>>> develop
   }
 ];
 
