@@ -31,12 +31,17 @@ public class StoreInfoServiceImpl implements StoreInfoService{
         StoreInfoDto store = storeInfoDao.findStoreByNum(resource.getStore_num());
         if(nonNull(store)) return "이미 등록된 사업자번호입니다. 사업자번호를 다시 확인해주세요!";
 
-        //store_id 랜덤 문자열 생성
+        //store_id 랜덤 문자열 생성 및 중복 체크
+        boolean flag = true;
         CreateRandomStrUtil createRandomStrUtil = new CreateRandomStrUtil();
-        String randomStr = createRandomStrUtil.CreateRandomStr(25);
-
-        resource.setStore_id(randomStr);
-
+        while(flag) {
+            String randomStr = createRandomStrUtil.CreateRandomStr(25);
+            StoreInfoDto storeResult = storeInfoDao.findStoreById(randomStr);
+            if (storeResult == null) {
+                flag = false;
+                resource.setStore_id(randomStr);
+            }
+        }
 
         boolean storeFlag = storeInfoDao.addStore(resource);
         if(storeFlag) return "매장등록이 완료되었습니다!";
