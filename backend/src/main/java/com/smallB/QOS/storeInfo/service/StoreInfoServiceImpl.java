@@ -64,7 +64,7 @@ public class StoreInfoServiceImpl implements StoreInfoService{
     }
 
     @Override
-    public void updateStoreInfo(String user_id, StoreInfoDto storeInfo) throws Exception {
+    public String updateStoreInfo(String user_id, StoreInfoDto storeInfo) throws Exception {
         UserDto userDto = storeInfoDao.findStoreByUserId(user_id);
 
         System.out.println(1);
@@ -80,6 +80,7 @@ public class StoreInfoServiceImpl implements StoreInfoService{
         if(result == 0) {
             throw new StoreUpdateFailedException();
         }
+        return "Store update success!";
     }
 
 

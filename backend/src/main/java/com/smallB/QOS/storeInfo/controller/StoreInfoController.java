@@ -32,9 +32,10 @@ public class StoreInfoController {
     }
 
     @PatchMapping("/store/{user_id}")
-    public void editStore(@PathVariable("user_id") final String user_id,
+    public String editStore(@PathVariable("user_id") final String user_id,
                           @RequestBody StoreInfoDto resource) throws Exception {
-        storeInfoService.updateStoreInfo(user_id, resource);
+        String result = storeInfoService.updateStoreInfo(user_id, resource);
+        return result;
     }
 
 }
