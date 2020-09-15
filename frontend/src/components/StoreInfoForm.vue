@@ -14,7 +14,7 @@
           </v-flex>
           <v-flex>
             <v-text-field
-              v-model="form.store.store_id"
+              v-model="form.store.store_num"
               label="사업자번호"
               required
             />
@@ -63,13 +63,6 @@
                   ></v-select>
                 </v-flex>
               </v-layout>
-              <v-flex>
-                <v-text-field
-                  v-model="form.store.store_id"
-                  label="사업자번호"
-                  required
-                />
-              </v-flex>
             </v-card-text>
           </v-card>
           <v-sheet></v-sheet>
@@ -94,7 +87,7 @@ export default {
   components: {
     SearchPostNumber
   },
-  props: ["storeInfo"],
+  props: ['storeInfo'],
   data() {
     return {
       storeCategory: {
@@ -113,10 +106,15 @@ export default {
         value: []
       },
       form: {
-        store: this.storeInfo
+        store: [],
       },
       dialog: false
     };
+  },
+  created() {
+    console.log('들어온거니?');
+    this.form.store = this.storeInfo;
+    console.log(this.form.store);
   },
   methods: {
     uploadImage() {},
@@ -124,8 +122,8 @@ export default {
       this.dialog = true;
     },
     parents(code, address) {
-      this.form.storeInfo.post_num = code;
-      this.form.storeInfo.address1 = address;
+      this.form.store.post_num = code;
+      this.form.store.address1 = address;
       this.dialog = false;
     }
   }
