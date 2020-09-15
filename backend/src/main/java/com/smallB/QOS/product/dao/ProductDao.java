@@ -16,4 +16,6 @@ public interface ProductDao {
     ProductDto productIdDuplicationCheck(String product_id) throws Exception;
 
     boolean updateProductByProductIdAndStoreId(ProductDto productDto) throws Exception;
+
+    List<String> findProductCategory(String store_id) throws Exception;
 }
