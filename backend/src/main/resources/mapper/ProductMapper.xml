@@ -34,4 +34,10 @@
         WHERE
         product_id = #{product_id} AND store_id = #{store_id}
     </update>
+
+
+    <select id="findProductCategory" parameterType="string" resultType="string">
+        SELECT DISTINCT product_category FROM product WHERE store_id = #{store_id}
+    </select>
+
 </mapper>
