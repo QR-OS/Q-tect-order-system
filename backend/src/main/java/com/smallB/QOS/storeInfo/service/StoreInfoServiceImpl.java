@@ -1,5 +1,6 @@
 package com.smallB.QOS.storeInfo.service;
 
+import com.google.gson.JsonObject;
 import com.smallB.QOS.global.util.CreateRandomStrUtil;
 import com.smallB.QOS.storeInfo.dao.StoreInfoDao;
 import com.smallB.QOS.storeInfo.domain.StoreInfoDto;
@@ -8,13 +9,10 @@ import com.smallB.QOS.storeInfo.error.Exception.StoreNotExistedException;
 import com.smallB.QOS.storeInfo.error.Exception.UnauthorizedUserException;
 import com.smallB.QOS.user.domain.UserDto;
 import com.smallB.QOS.user.error.Exception.UserNotExistedException;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
-import java.util.Map;
-import java.util.Random;
 
 import static java.util.Objects.nonNull;
 
@@ -80,7 +78,10 @@ public class StoreInfoServiceImpl implements StoreInfoService{
         if(result == 0) {
             throw new StoreUpdateFailedException();
         }
-        return "Store update success!";
+
+        JsonObject obj = new JsonObject();
+        obj.addProperty("message", "Store update success!");
+        return obj.toString();
     }
 
 

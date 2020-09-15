@@ -1,5 +1,4 @@
 package com.smallB.QOS.storeInfo.service;
-
 import com.smallB.QOS.storeInfo.domain.StoreInfoDto;
 import org.springframework.stereotype.Service;
 
