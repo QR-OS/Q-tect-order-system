@@ -34,13 +34,8 @@
                           item.name
                         }}</v-card-title>
 
-<<<<<<< HEAD
                         <v-spacer></v-spacer>
                         <v-btn>dd</v-btn>
-=======
-                        <v-divider></v-divider>
-
->>>>>>> develop
                         <v-list dense>
                           <v-list-item>
                             <v-list-item-content>Calories:</v-list-item-content>
@@ -104,11 +99,8 @@
   </v-container>
 </template>
 <script>
-<<<<<<< HEAD
 import axios from "axios";
 
-=======
->>>>>>> develop
 export default {
   data() {
     return {
