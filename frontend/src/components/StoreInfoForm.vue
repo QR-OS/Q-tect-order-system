@@ -7,14 +7,14 @@
         <v-card-text>
           <v-flex>
             <v-text-field
-              v-model="form.storeInfo.store_name"
+              v-model="form.store.store_name"
               label="상호명"
               required
             />
           </v-flex>
           <v-flex>
             <v-text-field
-              v-model="form.storeInfo.store_id"
+              v-model="form.store.store_id"
               label="사업자번호"
               required
             />
@@ -25,7 +25,7 @@
               <v-layout row>
                 <v-flex>
                   <v-text-field
-                    v-model="form.storeInfo.post_num"
+                    v-model="form.store.post_num"
                     label="우편번호"
                     disabled
                   ></v-text-field>
@@ -36,7 +36,7 @@
               </v-layout>
               <v-flex>
                 <v-text-field
-                  v-model="form.storeInfo.address1"
+                  v-model="form.store.address1"
                   label="주소"
                   disabled
                 ></v-text-field>
@@ -44,7 +44,7 @@
               <v-flex>
                 <v-text-field
                   ref="extraAddress"
-                  v-model="form.storeInfo.address2"
+                  v-model="form.store.address2"
                   label="상세주소"
                   required
                 />
@@ -65,7 +65,7 @@
               </v-layout>
               <v-flex>
                 <v-text-field
-                  v-model="form.storeInfo.store_id"
+                  v-model="form.store.store_id"
                   label="사업자번호"
                   required
                 />
@@ -113,7 +113,7 @@ export default {
         value: []
       },
       form: {
-        storeInfo: this.storeInfo
+        store: this.storeInfo
       },
       dialog: false
     };
