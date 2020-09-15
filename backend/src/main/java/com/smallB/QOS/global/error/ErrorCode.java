@@ -26,7 +26,7 @@ public enum ErrorCode {
     //PRODUCT
     PRODUCT_NOT_FOUND(400,"P001","Product NOT FOUND"),
     PRODUCT_UPDATE_FAILED(400,"p002","Product Update Failed"),
-
+    CATEGORY_NOT_FOUND(400,"p003","Category NOT FOUND")
     ;
     private final String code;
     private final String message;
