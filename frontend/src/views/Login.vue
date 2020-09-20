@@ -66,14 +66,14 @@ export default {
     return {
       user: {
         userId: "",
-        userPw: "",
+        userPw: ""
       },
-      errorMsg: "",
+      errorMsg: ""
     };
   },
   methods: {
     ...mapActions({
-      updateToken: "login",
+      updateToken: "login"
     }),
     async login() {
       if (!this.user.userId || !this.user.userPw) {
@@ -83,7 +83,7 @@ export default {
       try {
         const res = await axios.post("/login", {
           user_id: this.user.userId,
-          user_pw: this.user.userPw,
+          user_pw: this.user.userPw
         });
         this.updateToken(res.data.accessToken);
         //this.$store.dispatch("updateToken", res.data.accessToken);
@@ -91,7 +91,7 @@ export default {
           "Authorization"
         ] = `Bearer ${res.data.accessToken}`;
         this.$router.push({
-          name: "Home",
+          name: "Home"
         });
       } catch (error) {
         this.errorMsg = error.response.data.message;
@@ -99,14 +99,14 @@ export default {
     },
     moveToRegister() {
       this.$router.push({
-        name: "SelectRegisterType",
+        name: "SelectRegisterType"
       });
     },
     moveToFindIdPw() {
       this.$router.push({
-        name: "/",
+        name: "FindIdPw"
       });
-    },
-  },
+    }
+  }
 };
 </script>
