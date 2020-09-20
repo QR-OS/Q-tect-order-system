@@ -9,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     accessToken: "",
-    user: {},
+    user: {}
   },
   mutations: {
     SET_ACCESS_TOKEN(state, token) {
@@ -20,7 +20,7 @@ export default new Vuex.Store({
     },
     SET_EDIT_TOKEN(state, token) {
       state.editToken = token;
-    },
+    }
   },
   actions: {
     login(context, token) {
@@ -36,12 +36,12 @@ export default new Vuex.Store({
       localStorage.removeItem("accessToken");
       context.commit("SET_USER", null);
       localStorage.removeItem("user");
-    },
+    }
   },
   modules: {},
   plugins: [
     createPersistedState({
-      paths: ["accessToken"],
-    }),
-  ],
+      paths: ["accessToken"]
+    })
+  ]
 });
