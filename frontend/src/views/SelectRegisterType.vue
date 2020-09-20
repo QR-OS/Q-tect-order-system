@@ -5,38 +5,36 @@
     <v-row align="center" justify="center">
       <v-col>
         <v-scroll-x-reverse-transition>
-          <v-card v-show="show" outlined class="mx-auto" max-width="400">
-            <v-containter class="pa-2">
-              <v-toolbar dense flat>
-                <v-card-title>회원가입</v-card-title>
-              </v-toolbar>
-              <v-spacer />
-              <v-card-actions class="px-15">
-                <v-row>
-                  <v-col align="center">
-                    <v-btn
-                      class="mx-1"
-                      depressed
-                      text
-                      @click="moveToOwnerRegister"
-                    >
-                      매장 관리자
-                    </v-btn>
-                  </v-col>
-                  <v-spacer />
-                  <v-col align="center">
-                    <v-btn
-                      class="mx-1"
-                      depressed
-                      outlined
-                      @click="moveToConsumerRegister"
-                    >
-                      일반 회원
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-card-actions>
-            </v-containter>
+          <v-card v-show="show" outlined class="mx-auto py-4" max-width="400">
+            <v-toolbar dense flat>
+              <v-card-title>회원가입</v-card-title>
+            </v-toolbar>
+            <v-spacer />
+            <v-card-actions class="px-15 py-8">
+              <v-row>
+                <v-col align="center">
+                  <v-btn
+                    class="mx-1"
+                    depressed
+                    outlined
+                    @click="moveToOwnerRegister"
+                  >
+                    매장 관리자
+                  </v-btn>
+                </v-col>
+                <v-spacer />
+                <v-col align="center">
+                  <v-btn
+                    class="mx-1"
+                    depressed
+                    outlined
+                    @click="moveToConsumerRegister"
+                  >
+                    일반 회원
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-actions>
           </v-card>
         </v-scroll-x-reverse-transition>
       </v-col>
@@ -46,6 +44,7 @@
 
 <script>
 export default {
+  name: "SelectRegisterType",
   data() {
     return {
       show: false

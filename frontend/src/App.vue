@@ -59,8 +59,9 @@ export default {
     }),
     async logout() {
       this.getLogout();
-      //await this.$store.dispatch("auth/logout");
-      this.$router.push({ name: "Home" });
+      if (this.$route.name != "Home") {
+        this.$router.push({ name: "Home" });
+      }
     },
     moveToLogin() {
       if (this.$route.name != "Login") {
