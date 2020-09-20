@@ -104,11 +104,7 @@ export default {
     },
     moveToFindIdPw() {
       this.$router.push({
-<<<<<<< HEAD
-        name: "/"
-=======
         name: "FindIdPw"
->>>>>>> develop
       });
     }
   }

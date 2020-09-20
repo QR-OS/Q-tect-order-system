@@ -42,14 +42,6 @@ const routes = [
   {
     path: "/selectregistertype",
     name: "SelectRegisterType",
-<<<<<<< HEAD
-    component: SelectRegisterType
-  },
-  {
-    path: "/store",
-    name: "StoreInfo",
-    component: StoreInfo
-=======
     component: SelectRegisterType,
     beforeEnter: shouldNotBeAuthorized()
   },
@@ -64,7 +56,11 @@ const routes = [
     name: "MyPage",
     component: MyPage,
     beforeEnter: requireAuth()
->>>>>>> develop
+  },
+  {
+    path: "/store",
+    name: "StoreInfo",
+    component: StoreInfo
   }
 ];
 
