@@ -7,14 +7,14 @@
         <v-card-text>
           <v-flex>
             <v-text-field
-              v-model="form.store.store_name"
+              v-model="storeInfo.store_name"
               label="상호명"
               required
             />
           </v-flex>
           <v-flex>
             <v-text-field
-              v-model="form.store.store_num"
+              v-model="storeInfo.store_num"
               label="사업자번호"
               required
             />
@@ -25,7 +25,7 @@
               <v-layout row>
                 <v-flex>
                   <v-text-field
-                    v-model="form.store.post_num"
+                    v-model="storeInfo.post_num"
                     label="우편번호"
                     disabled
                   ></v-text-field>
@@ -36,7 +36,7 @@
               </v-layout>
               <v-flex>
                 <v-text-field
-                  v-model="form.store.address1"
+                  v-model="storeInfo.address1"
                   label="주소"
                   disabled
                 ></v-text-field>
@@ -44,7 +44,7 @@
               <v-flex>
                 <v-text-field
                   ref="extraAddress"
-                  v-model="form.store.address2"
+                  v-model="storeInfo.address2"
                   label="상세주소"
                   required
                 />
@@ -87,7 +87,7 @@ export default {
   components: {
     SearchPostNumber
   },
-  props: ['storeInfo'],
+  props: ["storeInfo"],
   data() {
     return {
       storeCategory: {
@@ -105,16 +105,8 @@ export default {
         ],
         value: []
       },
-      form: {
-        store: [],
-      },
       dialog: false
     };
-  },
-  created() {
-    console.log('들어온거니?');
-    this.form.store = this.storeInfo;
-    console.log(this.form.store);
   },
   methods: {
     uploadImage() {},
@@ -122,8 +114,8 @@ export default {
       this.dialog = true;
     },
     parents(code, address) {
-      this.form.store.post_num = code;
-      this.form.store.address1 = address;
+      this.storeInfo.post_num = code;
+      this.storeInfo.address1 = address;
       this.dialog = false;
     }
   }

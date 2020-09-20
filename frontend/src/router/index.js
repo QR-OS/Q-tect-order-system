@@ -6,12 +6,9 @@ import About from "../views/About.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import SelectRegisterType from "../views/SelectRegisterType.vue";
-<<<<<<< HEAD
 import StoreInfo from "../views/store/StoreInfo.vue";
-=======
 import FindIdPw from "../views/FindIdPw.vue";
 import MyPage from "../views/MyPage.vue";
->>>>>>> develop
 
 Vue.use(VueRouter);
 
