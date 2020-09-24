@@ -14,9 +14,11 @@
     <update id="updateUser" parameterType="com.smallB.QOS.user.domain.UserDto">
         UPDATE users
         <trim prefix="SET" suffixOverrides=",">
+            <if test="user_name != null">user_name= #{user_name},</if>
             <if test="user_pw != null">user_pw = #{user_pw},</if>
             <if test="user_ph != null">user_ph= #{user_ph},</if>
             <if test="user_email != null">user_email= #{user_email},</if>
+            <if test="store_id != null">store_id= #{store_id},</if>
             <if test="status != null">status= #{status},</if>
             <if test="deleted != null">deleted= #{deleted},</if>
         </trim>
