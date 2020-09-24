@@ -41,7 +41,7 @@ export default new Vuex.Store({
   modules: {},
   plugins: [
     createPersistedState({
-      paths: ["accessToken"]
+      paths: ["accessToken", "user"]
     })
   ]
 });
