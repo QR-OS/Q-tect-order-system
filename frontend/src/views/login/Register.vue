@@ -79,7 +79,7 @@
 
 <script>
 import axios from "axios";
-import StoreInfoForm from "../components/StoreInfoForm";
+import StoreInfoForm from "../../components/StoreInfoForm";
 
 export default {
   name: "Register",
