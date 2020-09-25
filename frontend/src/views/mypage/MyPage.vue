@@ -14,14 +14,14 @@
               </v-alert>
               <!-- user 공통 개인정보 입력 폼 -->
               <v-text-field
-                v-model="userInfo.name"
+                v-model="userInfo.user_name"
                 :error-messages="errors.name"
                 label="이름"
                 @input="removeError('name')"
               ></v-text-field>
-              <v-text-field v-model="userInfo.id" readonly></v-text-field>
+              <v-text-field v-model="userInfo.user_id" readonly></v-text-field>
               <v-text-field
-                v-model="userInfo.pw"
+                v-model="userInfo.user_pw"
                 :success-messages="success.pw"
                 :error-messages="errors.pw"
                 label="비밀번호"
@@ -38,14 +38,14 @@
                 @change="checkConfirmPw"
               ></v-text-field>
               <v-text-field
-                v-model="userInfo.ph"
+                v-model="userInfo.user_ph"
                 :error-messages="errors.ph"
                 label="전화번호"
                 @input="removeError('ph')"
                 @change="checkPh"
               ></v-text-field>
               <v-text-field
-                v-model="userInfo.email"
+                v-model="userInfo.user_email"
                 :error-messages="errors.email"
                 label="이메일"
                 @input="removeError('email')"
@@ -66,24 +66,14 @@
 
 <script>
 import axios from "axios";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Register",
-  computed: {
-    ...mapState(["user"]),
-  },
   data() {
     return {
-      userInfo: {
-        id: "",
-        name: "",
-        pw: "",
-        confirmPw: "",
-        ph: "",
-        email: "",
-        status,
-      },
+      userInfo: {},
+      originalUserInfo: {},
       errors: {
         id: "",
         pw: "",
@@ -95,80 +85,117 @@ export default {
       success: {
         id: "",
       },
+      confilmPw: "",
       errorMsg: "",
       isLoading: true,
     };
   },
+  computed: {
+    ...mapState(["user"]),
+  },
   async created() {
+    const cloneObj = (obj) => JSON.parse(JSON.stringify(obj));
     let res = await axios.get("/user/" + this.user.user_id);
     res = res.data;
-    this.userInfo = res;
+    this.originalUserInfo = cloneObj(res);
+    this.originalUserInfo.user_pw = "";
+    this.userInfo = cloneObj(this.originalUserInfo);
     this.isLoading = false;
   },
   methods: {
+    ...mapActions({
+      getLogout: "logout",
+    }),
     removeError(field) {
       if (field == "id") this.success[field] = "";
       this.errors[field] = "";
     },
-    async checkpw() {
+    checkpw() {
       let pwreg = /^(?=.*[A-Za-z]+)(?=.*[0-9]+)(?=.*[`~!@#$%^&*()\-_+=;:"'?.,<>[\]{}/\\|]*).{8,32}$/;
-      if (!pwreg.test(this.userInfo.pw)) {
+      if (!pwreg.test(this.userInfo.user_pw)) {
         this.errors.pw =
           "비밀번호는 8자 이상의 영문자와 숫자를 필수로 사용해야 합니다.";
         return;
       }
     },
-    async checkConfirmPw() {
-      if (this.userInfo.pw != this.userInfo.confirmPw) {
+    checkConfirmPw() {
+      if (this.userInfo.user_pw != this.confirmPw) {
         this.errors.confirmPw = "비밀번호 확인이 일치하지 않습니다.";
         return;
       }
     },
-    async checkPh() {
-      if (!this.userInfo.ph) {
+    checkPh() {
+      if (!this.userInfo.user_ph) {
         this.errors.ph = "전화번호를 입력해 주세요.";
         return;
       }
       let phreg = /(^02.{0}|^01.{1}|[0-9]{3})-([0-9]{3,4})-([0-9]{4})$/;
-      if (!phreg.test(this.userInfo.ph)) {
+      if (!phreg.test(this.userInfo.user_ph)) {
         this.errors.ph = "전화번호 형식에 맞추어 입력해주세요.";
         return;
       }
     },
-    async checkEmail() {
+    checkEmail() {
       let reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if (!reg.test(this.userInfo.email)) {
+      if (!reg.test(this.userInfo.user_email)) {
         this.errors.email = "이메일 형식에 맞추어 입력해주세요.";
         return;
       }
     },
     checkError() {
       if (
-        this.errors.username != "" ||
-        this.errors.realname != "" ||
-        this.errors.password != "" ||
-        this.errors.confirmpassword != ""
+        this.errors.id != "" ||
+        this.errors.name != "" ||
+        this.errors.pw != "" ||
+        this.errors.confirmPw != "" ||
+        this.errors.ph != "" ||
+        this.errors.email != ""
       ) {
-        return true;
+        return false;
       }
-      return false;
+      return true;
+    },
+    checkForm() {
+      let result = true;
+      if (this.userInfo.user_id == "") {
+        this.errors.id = "아이디를 입력해주세요";
+        result = false;
+      }
+      if (this.userInfo.user_name == "") {
+        this.errors.name = "이름을 입력해주세요";
+        result = false;
+      }
+      if (this.userInfo.user_ph == "") {
+        this.errors.ph = "전화번호를 입력해주세요";
+        result = false;
+      }
+      if (this.userInfo.user_email == "") {
+        this.errors.email = "이메일을 입력해주세요";
+        result = false;
+      }
+      return result;
     },
     async updateInfo() {
-      if (!this.checkError()) {
+      if (!this.checkError() || !this.checkForm()) {
         return;
       }
       this.isLoading = true;
       try {
         let body = {
           user_id: this.userInfo.user_id,
-          user_name: this.userInfo.name,
-          user_pw: this.userInfo.pw,
-          user_ph: this.userInfo.ph,
-          user_email: this.userInfo.email,
-          store_id: this.userInfo.storeId,
         };
+        for (const key in this.userInfo) {
+          if (this.userInfo[key] != this.originalUserInfo[key]) {
+            body[key] = this.userInfo[key];
+          }
+        }
 
         await axios.patch("/user", body);
+
+        if (Object.prototype.hasOwnProperty.call(body, "user_pw")) {
+          this.getLogout();
+        }
+
         this.$router.push({
           name: "Home",
         });

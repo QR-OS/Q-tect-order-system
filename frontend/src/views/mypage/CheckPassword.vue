@@ -14,10 +14,10 @@
                 v-model="password"
                 label="비밀번호"
                 type="password"
-                @input="removeError()"
                 :error="!!errorMsg"
                 :error-messages="errorMsg"
                 dense
+                @input="removeError()"
               />
             </v-card-text>
             <v-spacer />

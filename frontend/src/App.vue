@@ -42,9 +42,7 @@
       </v-fade-transition>
     </v-main>
     <v-footer color="yellow lighten-4" app>
-      <span class="black--text"
-        >&copy; {{ new Date().getFullYear() }} 김지윤 최현석 허은지 황수민</span
-      >
+      <span class="black--text">&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
 </template>
