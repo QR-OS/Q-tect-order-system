@@ -84,19 +84,19 @@ import StoreInfoForm from "../../components/StoreInfoForm";
 export default {
   name: "Register",
   components: {
-    "store-info-form": StoreInfoForm
+    "store-info-form": StoreInfoForm,
   },
   props: {
     visible: {
       type: Number,
-      default: 0
+      default: 0,
     },
     storeCategory: {
       type: Array,
       default() {
         return [];
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -108,7 +108,7 @@ export default {
           confirmPw: "",
           ph: "",
           email: "",
-          store_id: ""
+          store_id: "",
         },
         storeInfo: {
           storeName: "",
@@ -123,8 +123,8 @@ export default {
           closeTime: "",
           orderable: true,
           bookable: false,
-          storeState: true
-        }
+          storeState: true,
+        },
       },
       errors: {
         id: "",
@@ -132,13 +132,13 @@ export default {
         confirmPw: "",
         ph: "",
         email: "",
-        name: ""
+        name: "",
       },
       success: {
-        id: ""
+        id: "",
       },
       errorMsg: "",
-      isLoading: false
+      isLoading: false,
     };
   },
   mounted() {
@@ -207,7 +207,7 @@ export default {
     },
     moveToRegister() {
       this.$router.push({
-        name: "SelectRegisterType"
+        name: "SelectRegisterType",
       });
     },
     checkForm() {
@@ -238,8 +238,21 @@ export default {
       }
       return result;
     },
+    checkError() {
+      if (
+        this.errors.id != "" ||
+        this.errors.name != "" ||
+        this.errors.pw != "" ||
+        this.errors.confirmPw != "" ||
+        this.errors.ph != "" ||
+        this.errors.email != ""
+      ) {
+        return false;
+      }
+      return true;
+    },
     async register() {
-      if (!this.checkForm()) {
+      if (!this.checkForm() || !this.checkError()) {
         return;
       }
       this.isLoading = true;
@@ -258,9 +271,9 @@ export default {
               holiday: this.form.storeInfo.holiday,
               open_time: this.form.storeInfo.openTime,
               close_time: this.form.storeInfo.closeTime,
-              store_state: this.form.storeInfo.storeState
+              store_state: this.form.storeInfo.storeState,
             })
-            .then(res => {
+            .then((res) => {
               this.form.userInfo.storeId = res.data.store_id;
             });
         } catch (error) {
@@ -275,16 +288,16 @@ export default {
           user_ph: this.form.userInfo.ph,
           user_email: this.form.userInfo.email,
           store_id: this.form.userInfo.storeId,
-          status: this.visible
+          status: this.visible,
         });
         this.$router.push({
-          name: "Home"
+          name: "Home",
         });
       } catch (error) {
         this.errorMsg = error.response.data.message;
       }
       this.isLoading = false;
-    }
-  }
+    },
+  },
 };
 </script>
