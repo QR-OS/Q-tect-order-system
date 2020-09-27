@@ -22,7 +22,7 @@ public enum ErrorCode {
     USER_ID_NOT_EXIST(400,"U002","User_id is not Existed"),
     LOGIN_INPUT_INVALID(400, "U003", "Login input is invalid"),
     USER_UPDATE_FAILED(400, "U004", "User update failed"),
-
+    TOKEN_EXPIRED(403,"U005","Token is Expired"),
 
     ;
     private final String code;
