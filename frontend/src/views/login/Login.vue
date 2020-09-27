@@ -19,6 +19,7 @@
                 :error="!!errorMsg"
                 dense
                 outlined
+                @input="removeError"
               />
               <v-text-field
                 v-model="user.userPw"
@@ -30,13 +31,16 @@
                 type="password"
                 :error="!!errorMsg"
                 :error-messages="errorMsg"
+                @input="removeError"
                 @keyup.enter="login"
               />
             </v-card-text>
             <v-spacer />
             <v-card-actions>
-              <v-btn text @click="moveToRegister">회원가입</v-btn>
-              <v-btn text @click="moveToFindIdPw">
+              <v-btn text @click="moveToPage('SelectRegisterType')"
+                >회원가입</v-btn
+              >
+              <v-btn text @click="moveToPage('FindIdPw')">
                 ID/PW 찾기
               </v-btn>
               <v-spacer />
@@ -66,15 +70,18 @@ export default {
     return {
       user: {
         userId: "",
-        userPw: ""
+        userPw: "",
       },
-      errorMsg: ""
+      errorMsg: "",
     };
   },
   methods: {
     ...mapActions({
-      updateToken: "login"
+      updateToken: "login",
     }),
+    removeError() {
+      this.errorMsg = "";
+    },
     async login() {
       if (!this.user.userId || !this.user.userPw) {
         this.errorMsg = "아이디와 비밀번호를 입력하세요.";
@@ -83,30 +90,17 @@ export default {
       try {
         const res = await axios.post("/login", {
           user_id: this.user.userId,
-          user_pw: this.user.userPw
+          user_pw: this.user.userPw,
         });
         this.updateToken(res.data.accessToken);
-        //this.$store.dispatch("updateToken", res.data.accessToken);
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${res.data.accessToken}`;
-        this.$router.push({
-          name: "Home"
-        });
+        this.moveToPage("Home");
       } catch (error) {
         this.errorMsg = error.response.data.message;
       }
     },
-    moveToRegister() {
-      this.$router.push({
-        name: "SelectRegisterType"
-      });
+    moveToPage(next) {
+      this.$router.push({ name: next });
     },
-    moveToFindIdPw() {
-      this.$router.push({
-        name: "FindIdPw"
-      });
-    }
-  }
+  },
 };
 </script>
