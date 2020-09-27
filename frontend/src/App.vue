@@ -56,11 +56,11 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(["accessToken", "user"])
+    ...mapState("auth", ["accessToken", "user"]),
   },
   methods: {
     ...mapActions({
-      getLogout: "logout"
+      getLogout: "auth/logout",
     }),
     async logout() {
       this.getLogout();
@@ -70,7 +70,7 @@ export default {
       if (this.$route.name != next) {
         this.$router.push({ name: next });
       }
-    }
-  }
+    },
+  },
 };
 </script>

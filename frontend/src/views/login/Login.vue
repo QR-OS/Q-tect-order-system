@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateToken: "login",
+      updateToken: "auth/login",
     }),
     removeError() {
       this.errorMsg = "";

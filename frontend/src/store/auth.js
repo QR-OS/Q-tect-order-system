@@ -1,8 +1,9 @@
-import createPersistedState from "vuex-persistedstate";
+
 import jwt from "jsonwebtoken";
 import axios from "axios";
 
 export default {
+  namespaced: true,
   state: {
     accessToken: "",
     user: {},
@@ -19,7 +20,7 @@ export default {
     },
   },
   actions: {
-    login(context, token) {
+    async login(context, token) {
       const user = jwt.decode(token);
       context.commit("SET_ACCESS_TOKEN", token);
       localStorage.setItem("accessToken", token);
@@ -35,9 +36,10 @@ export default {
       localStorage.removeItem("user");
     },
   },
-  plugins: [
-    createPersistedState({
-      paths: ["accessToken", "user"],
-    }),
-  ],
+  
+  getters: {
+    isLoggedIn(state) {
+      return !!state.accessToken;
+    },
+  },
 };

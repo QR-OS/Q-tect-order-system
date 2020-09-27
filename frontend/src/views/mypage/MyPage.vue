@@ -91,7 +91,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState("auth", ["user"]),
   },
   async created() {
     const cloneObj = (obj) => JSON.parse(JSON.stringify(obj));
@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getLogout: "logout",
+      getLogout: "auth/logout",
     }),
     removeError(field) {
       if (field == "id") this.success[field] = "";
