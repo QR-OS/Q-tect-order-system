@@ -20,7 +20,7 @@
             <v-container>
               <v-data-iterator
                 :items="
-                  menus.filter(it =>
+                  menus.filter((it) =>
                     it.product_category.includes(categories[tab])
                   )
                 "
@@ -73,7 +73,7 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-    <v-dialog v-model="dialog" max-width="290">
+    <!-- <v-dialog v-model="dialog" max-width="290">
       <v-card class="overflow-hidden" color="purple lighten-1" dark>
         <v-toolbar flat color="purple">
           <v-icon>mdi-account</v-icon>
@@ -120,8 +120,8 @@
       <v-card>
         <v-card-title class="headline"
           >Use Google's location service?</v-card-title
-        >
-
+        > -->
+    <!-- 
         <v-card-text>
           Let Google help apps determine location. This means sending anonymous
           location data to Google, even when no apps are running.
@@ -139,7 +139,7 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </v-container>
 </template>
 <script>
@@ -148,6 +148,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      userInfo: { storeId: "" },
       tab: null,
       itemsPerPage: 6,
       menus: {},
@@ -155,18 +156,22 @@ export default {
       dialog: {
         show: false,
         store_id: "",
-        product_id: ""
-      }
+        product_id: "",
+      },
     };
   },
   async created() {
+    const userInfoRes = await axios.get("/user/hschoi1105");
+    this.userInfo.storeId = userInfoRes.data.store_id;
+
     const categoryResponse = await axios.get(
-      "/product/sdafjsdfojasdfojasdjioasd/category"
+      `/product/${this.userInfo.storeId}/category`
     );
     this.categories = categoryResponse.data;
-    const menuResponse = await axios.get("/product/sdafjsdfojasdfojasdjioasd");
+
+    const menuResponse = await axios.get(`/product/${this.userInfo.storeId}`);
     this.menus = menuResponse.data;
   },
-  async method() {}
+  async method() {},
 };
 </script>
