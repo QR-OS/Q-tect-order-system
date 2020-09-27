@@ -52,11 +52,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState("auth", ["user"]),
   },
   methods: {
     ...mapActions({
-      updateToken: "login",
+      updateToken: "auth/login",
     }),
     removeError() {
       this.errorMsg = "";
