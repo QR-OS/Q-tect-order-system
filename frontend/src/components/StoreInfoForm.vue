@@ -49,6 +49,9 @@
                   required
                 />
               </v-flex>
+              <v-flex>
+                <v-file-input multiple label="매장 이미지"></v-file-input>
+              </v-flex>
               <v-layout row>
                 <v-flex>
                   <v-select
@@ -59,14 +62,51 @@
                     label="매장 분류"
                     multiple
                     flat
-                    solo
+                    class="ma-3"
                   ></v-select>
                 </v-flex>
               </v-layout>
+              <v-flex>
+                <v-text-field
+                  v-model="storeInfo.store_tel"
+                  label="매장 번호"
+                  required
+                />
+              </v-flex>
+              <v-layout row>
+                <v-flex>
+                  <v-select
+                    v-model="storeInfo.Nholiday.value"
+                    :items="storeInfo.Nholiday.items"
+                    item-text="value"
+                    item-value="value"
+                    attach
+                    chips
+                    label="휴무일"
+                    multiple
+                    return-object
+                    flat
+                    class="ma-3"
+                    @change="SortHoliday()"
+                  ></v-select>
+                </v-flex>
+              </v-layout>
+              <v-layout>
+                <v-col>
+                  <label>오픈 시간</label>
+                  <vue-timepicker
+                    v-model="storeInfo.open_time"
+                  ></vue-timepicker>
+                </v-col>
+                <v-col>
+                  <label>마감 시간</label>
+                  <vue-timepicker
+                    v-model="storeInfo.close_time"
+                  ></vue-timepicker>
+                </v-col>
+              </v-layout>
             </v-card-text>
           </v-card>
-          <v-sheet></v-sheet>
-          <v-btn outlined @click="uploadImage()">이미지 업로드</v-btn>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -82,10 +122,13 @@
 
 <script>
 import SearchPostNumber from "./SearchPostNumber";
+import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
+
 export default {
   name: "StoreInfoForm",
   components: {
-    SearchPostNumber
+    SearchPostNumber,
+    VueTimepicker
   },
   props: ["storeInfo"],
   data() {
@@ -109,7 +152,6 @@ export default {
     };
   },
   methods: {
-    uploadImage() {},
     SearchPostNum() {
       this.dialog = true;
     },
@@ -117,6 +159,14 @@ export default {
       this.storeInfo.post_num = code;
       this.storeInfo.address1 = address;
       this.dialog = false;
+    },
+    SortHoliday() {
+      function compare(a, b) {
+        if (a.key < b.key) return -1;
+        if (a.key > b.key) return 1;
+        return 0;
+      }
+      this.storeInfo.Nholiday.value.sort(compare);
     }
   }
 };

@@ -10,7 +10,7 @@
     >
       <StoreInfoComponent :store-info="storeInfo"></StoreInfoComponent>
       <div style="text-align: center;">
-        <v-btn class="ma-2" outlined large fab color="indigo" @click="data">
+        <v-btn class="ma-2" outlined large fab color="indigo" @click="edit">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </div>
@@ -42,7 +42,20 @@ export default {
   },
   data() {
     return {
-      storeInfo: {},
+      storeInfo: {
+        Nholiday: {
+          items: [
+            { key: 1, value: "월" },
+            { key: 2, value: "화" },
+            { key: 3, value: "수" },
+            { key: 4, value: "목" },
+            { key: 5, value: "금" },
+            { key: 6, value: "토" },
+            { key: 7, value: "일" }
+          ],
+          value: []
+        }
+      },
       loadingFlag: false,
       answerMsg: "",
       snackbar: false,
@@ -51,20 +64,35 @@ export default {
   },
   async created() {
     try {
-      console.log("들어옴");
       let res = await axios.get("/store/tnals97");
-      this.storeInfo = res.data;
-      console.log(this.storeInfo);
+      this.storeInfo = Object.assign(this.storeInfo, res.data);
+      for (let i in this.storeInfo.holiday) {
+        if (this.storeInfo.holiday[i] == "1") {
+          this.storeInfo.Nholiday.value.push(this.storeInfo.Nholiday.items[i]);
+        }
+      }
       this.loadingFlag = true;
     } catch (err) {
       this.storeInfo = err;
     }
   },
   methods: {
-    data() {
-      console.log(this.storeInfo);
+    edit() {
+      let hStr = "";
+      let pre = 1;
+      for (let day of this.storeInfo.Nholiday.value) {
+        for (let i = pre; i <= 7; i++) {
+          if (i == day.key) {
+            hStr += 1;
+            pre = i + 1;
+            break;
+          } else hStr += 0;
+        }
+      }
+      for (let i = hStr.length; i < 7; i++) hStr += 0;
+      this.storeInfo.holiday = hStr;
       axios.patch("/store/tnals97", this.storeInfo).then(res => {
-        this.answerMsg = res.data;
+        this.answerMsg = res.data.message;
         this.snackbar = true;
       });
     }
