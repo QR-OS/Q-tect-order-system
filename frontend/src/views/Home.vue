@@ -1,9 +1,18 @@
 <template>
   <div class="home">
-    <h1>여기는 홈이야</h1>
+    <h1>{{ user }}</h1>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      user: {},
+    };
+  },
+  created() {
+    console.log(this.$store.state.auth.user.user_id);
+  },
+};
 </script>
