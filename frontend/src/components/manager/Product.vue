@@ -10,80 +10,57 @@
       >
         <v-tabs-slider color="teal lighten-3"></v-tabs-slider>
 
-        <v-tab v-for="tabtitle in items" :key="tabtitle.tab">
-          Item {{ tabtitle.tab }}
+        <v-tab v-for="category in categories" :key="category">
+          {{ category }}
         </v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab" class="mx-auto">
-        <v-tab-item v-for="ele in items" :key="ele.tab">
+        <v-tab-item v-for="ele in menus" :key="ele.product_id">
           <v-card flat>
             <v-container>
-              <v-data-iterator :items="ditems" hide-default-footer>
+              <v-data-iterator
+                :items="
+                  menus.filter((it) =>
+                    it.product_category.includes(categories[tab])
+                  )
+                "
+                hide-default-footer
+              >
                 <template v-slot:default="props">
                   <v-row>
                     <v-col
                       v-for="item in props.items"
-                      :key="item.name"
+                      :key="item.product_id"
                       cols="12"
                       sm="6"
                       md="4"
                       lg="3"
                     >
                       <v-card>
-                        <v-card-title class="subheading font-weight-bold">{{
-                          item.name
-                        }}</v-card-title>
+                        <v-img
+                          height="200"
+                          width="auto"
+                          src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
+                        ></v-img>
+                        <v-card-title class="subheading font-weight-bold"
+                          >{{ item.product_name }}
+                          <v-spacer></v-spacer>
+                          <v-btn outlined>
+                            수정
+                          </v-btn>
+                        </v-card-title>
 
-                        <v-divider></v-divider>
-
+                        <v-spacer></v-spacer>
                         <v-list dense>
                           <v-list-item>
-                            <v-list-item-content>Calories:</v-list-item-content>
-                            <v-list-item-content class="align-end">{{
-                              item.calories
-                            }}</v-list-item-content>
-                          </v-list-item>
-
-                          <v-list-item>
-                            <v-list-item-content>Fat:</v-list-item-content>
-                            <v-list-item-content class="align-end">{{
-                              item.fat
-                            }}</v-list-item-content>
-                          </v-list-item>
-
-                          <v-list-item>
-                            <v-list-item-content>Carbs:</v-list-item-content>
-                            <v-list-item-content class="align-end">{{
-                              item.carbs
-                            }}</v-list-item-content>
-                          </v-list-item>
-
-                          <v-list-item>
-                            <v-list-item-content>Protein:</v-list-item-content>
-                            <v-list-item-content class="align-end">{{
-                              item.protein
-                            }}</v-list-item-content>
-                          </v-list-item>
-
-                          <v-list-item>
-                            <v-list-item-content>Sodium:</v-list-item-content>
-                            <v-list-item-content class="align-end">{{
-                              item.sodium
-                            }}</v-list-item-content>
-                          </v-list-item>
-
-                          <v-list-item>
-                            <v-list-item-content>Calcium:</v-list-item-content>
-                            <v-list-item-content class="align-end">{{
-                              item.calcium
-                            }}</v-list-item-content>
-                          </v-list-item>
-
-                          <v-list-item>
-                            <v-list-item-content>Iron:</v-list-item-content>
-                            <v-list-item-content class="align-end">{{
-                              item.iron
-                            }}</v-list-item-content>
+                            <v-list-item-content
+                              class="align-start font-weight-bold"
+                              >{{ item.product_price }}</v-list-item-content
+                            >
+                            <v-spacer></v-spacer>
+                            <div class="align-start font-weight-bold">
+                              {{ item.product_stock }}
+                            </div>
                           </v-list-item>
                         </v-list>
                       </v-card>
@@ -96,89 +73,106 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
+    <!-- <v-dialog v-model="dialog" max-width="290">
+      <v-card class="overflow-hidden" color="purple lighten-1" dark>
+        <v-toolbar flat color="purple">
+          <v-icon>mdi-account</v-icon>
+          <v-toolbar-title class="font-weight-light"
+            >User Profile</v-toolbar-title
+          >
+          <v-spacer></v-spacer>
+          <v-btn
+            color="purple darken-3"
+            fab
+            small
+            @click="isEditing = !isEditing"
+          >
+            <v-icon v-if="isEditing">mdi-close</v-icon>
+            <v-icon v-else>mdi-pencil</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-card-text>
+          <v-text-field
+            :disabled="!isEditing"
+            color="white"
+            label="Name"
+          ></v-text-field>
+          <v-autocomplete
+            :disabled="!isEditing"
+            :items="states"
+            :filter="customFilter"
+            color="white"
+            item-text="name"
+            label="State"
+          ></v-autocomplete>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn :disabled="!isEditing" color="success" @click="save">
+            Save
+          </v-btn>
+        </v-card-actions>
+        <v-snackbar v-model="hasSaved" :timeout="2000" absolute bottom left>
+          Your profile has been updated
+        </v-snackbar>
+      </v-card>
+      <v-card>
+        <v-card-title class="headline"
+          >Use Google's location service?</v-card-title
+        > -->
+    <!-- 
+        <v-card-text>
+          Let Google help apps determine location. This means sending anonymous
+          location data to Google, even when no apps are running.
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="green darken-1" text @click="dialog = false">
+            Disagree
+          </v-btn>
+
+          <v-btn color="green darken-1" text @click="dialog = false">
+            Agree
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog> -->
   </v-container>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
+      userInfo: { storeId: "" },
       tab: null,
-      items: [
-        { tab: "One", content: "Tab 1 Content" },
-        { tab: "Two", content: "Tab 2 Content" },
-        { tab: "Three", content: "Tab 3 Content" },
-        { tab: "Four", content: "Tab 4 Content" },
-        { tab: "Five", content: "Tab 5 Content" },
-        { tab: "Six", content: "Tab 6 Content" },
-        { tab: "Seven", content: "Tab 7 Content" },
-        { tab: "Eight", content: "Tab 8 Content" },
-        { tab: "Nine", content: "Tab 9 Content" },
-        { tab: "Ten", content: "Tab 10 Content" },
-      ],
       itemsPerPage: 6,
-      ditems: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          sodium: 87,
-          calcium: "14%",
-          iron: "1%",
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          sodium: 129,
-          calcium: "8%",
-          iron: "1%",
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          sodium: 337,
-          calcium: "6%",
-          iron: "7%",
-        },
-        {
-          name: "Cupcake",
-          calories: 3053,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          sodium: 413,
-          calcium: "3%",
-          iron: "8%",
-        },
-        {
-          name: "Jelly",
-          calories: 305421,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          sodium: 413,
-          calcium: "3%",
-          iron: "8%",
-        },
-        {
-          name: "Bob",
-          calories: 301235,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          sodium: 413,
-          calcium: "3%",
-          iron: "8%",
-        },
-      ],
+      menus: {},
+      categories: {},
+      dialog: {
+        show: false,
+        store_id: "",
+        product_id: "",
+      },
     };
   },
+  async created() {
+    console.log();
+    const userInfoRes = await axios.get("/user/hschoi1105");
+    this.userInfo.storeId = userInfoRes.data.store_id;
+
+    const categoryResponse = await axios.get(
+      `/product/${this.userInfo.storeId}/category`
+    );
+    this.categories = categoryResponse.data;
+
+    const menuResponse = await axios.get(`/product/${this.userInfo.storeId}`);
+    this.menus = menuResponse.data;
+  },
+  async method() {},
 };
 </script>
