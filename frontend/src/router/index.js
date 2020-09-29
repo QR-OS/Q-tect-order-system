@@ -9,6 +9,7 @@ import SelectRegisterType from "../views/login/SelectRegisterType.vue";
 import StoreInfo from "../views/store/StoreInfo.vue";
 import FindIdPw from "../views/login/FindIdPw.vue";
 import MyPage from "../views/mypage/MyPage.vue";
+import CategoryStoreList from "../views/store/CategoryStoreList.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
 import Product from "../components/manager/Product.vue";
 Vue.use(VueRouter);
@@ -69,8 +70,13 @@ const routes = [
   {
     path: "/store",
     name: "StoreInfo",
-    component: StoreInfo,
+    component: StoreInfo
   },
+  {
+    path: "/categorystorelist",
+    name: "CategoryStoreList",
+    component: CategoryStoreList
+  }
 ];
 
 const router = new VueRouter({
