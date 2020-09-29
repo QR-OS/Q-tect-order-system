@@ -3,11 +3,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
-import Login from "../views/login/Login.vue";
-import Register from "../views/login/Register.vue";
-import SelectRegisterType from "../views/login/SelectRegisterType.vue";
-import FindIdPw from "../views/login/FindIdPw.vue";
-import MyPage from "../views/mypage/MyPage.vue";
+import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
+import SelectRegisterType from "../views/SelectRegisterType.vue";
+import StoreInfo from "../views/store/StoreInfo.vue";
+import FindIdPw from "../views/FindIdPw.vue";
+import MyPage from "../views/MyPage.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
 
 Vue.use(VueRouter);
@@ -58,8 +59,13 @@ const routes = [
     path: "/mypage",
     name: "MyPage",
     component: MyPage,
-    beforeEnter: requireAuth(),
+    beforeEnter: requireAuth()
   },
+  {
+    path: "/store",
+    name: "StoreInfo",
+    component: StoreInfo
+  }
 ];
 
 const router = new VueRouter({
