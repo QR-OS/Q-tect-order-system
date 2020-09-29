@@ -9,72 +9,68 @@ import SelectRegisterType from "../views/login/SelectRegisterType.vue";
 import FindIdPw from "../views/login/FindIdPw.vue";
 import MyPage from "../views/mypage/MyPage.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
-
+import Product from "../components/manager/Product.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
   },
   {
     path: "/about",
     name: "About",
-    component: About
+    component: About,
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
-    beforeEnter: shouldNotBeAuthorized()
+    beforeEnter: shouldNotBeAuthorized(),
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
     props: true,
-    beforeEnter: shouldNotBeAuthorized()
+    beforeEnter: shouldNotBeAuthorized(),
   },
   {
     path: "/selectregistertype",
     name: "SelectRegisterType",
-<<<<<<< HEAD
-    component: SelectRegisterType
+    component: SelectRegisterType,
+    beforeEnter: shouldNotBeAuthorized(),
   },
   {
     path: "/product",
     name: "Product",
-    component: Product
-=======
-    component: SelectRegisterType,
-    beforeEnter: shouldNotBeAuthorized()
+    component: Product,
   },
   {
     path: "/findidpw",
     name: "FindIdPw",
     component: FindIdPw,
-    beforeEnter: shouldNotBeAuthorized()
+    beforeEnter: shouldNotBeAuthorized(),
   },
   {
     path: "/checkpw",
     name: "CheckPw",
     component: CheckPassword,
-    beforeEnter: requireAuth()
+    beforeEnter: requireAuth(),
   },
   {
     path: "/mypage",
     name: "MyPage",
     component: MyPage,
-    beforeEnter: requireAuth()
->>>>>>> develop
-  }
+    beforeEnter: requireAuth(),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
