@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <v-container>
     <v-row class="d-flex justify-center">
       <v-col cols="12" sm="6">
@@ -35,12 +36,18 @@
       >
     </v-row>
   </v-container>
+=======
+  <div class="home">
+    <h1>{{ user }}</h1>
+  </div>
+>>>>>>> 929d0ee9741918d5129a6c64ddffc5e179f7b30f
 </template>
 
 <script>
 export default {
   data() {
     return {
+<<<<<<< HEAD
       categoryItem: [
         { category: "한식" },
         { category: "중식" },
@@ -55,5 +62,13 @@ export default {
     },
     gotoStoreListPage() {}
   }
+=======
+      user: {},
+    };
+  },
+  created() {
+    console.log(this.$store.state.auth.user.user_id);
+  },
+>>>>>>> 929d0ee9741918d5129a6c64ddffc5e179f7b30f
 };
 </script>

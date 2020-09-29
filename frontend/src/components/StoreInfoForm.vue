@@ -7,14 +7,14 @@
         <v-card-text>
           <v-flex>
             <v-text-field
-              v-model="form.store.store_name"
+              v-model="storeInfo.store_name"
               label="상호명"
               required
             />
           </v-flex>
           <v-flex>
             <v-text-field
-              v-model="form.store.store_num"
+              v-model="storeInfo.store_num"
               label="사업자번호"
               required
             />
@@ -25,7 +25,7 @@
               <v-layout row>
                 <v-flex>
                   <v-text-field
-                    v-model="form.store.post_num"
+                    v-model="storeInfo.post_num"
                     label="우편번호"
                     disabled
                   ></v-text-field>
@@ -36,7 +36,7 @@
               </v-layout>
               <v-flex>
                 <v-text-field
-                  v-model="form.store.address1"
+                  v-model="storeInfo.address1"
                   label="주소"
                   disabled
                 ></v-text-field>
@@ -44,10 +44,13 @@
               <v-flex>
                 <v-text-field
                   ref="extraAddress"
-                  v-model="form.store.address2"
+                  v-model="storeInfo.address2"
                   label="상세주소"
                   required
                 />
+              </v-flex>
+              <v-flex>
+                <v-file-input multiple label="매장 이미지"></v-file-input>
               </v-flex>
               <v-layout row>
                 <v-flex>
@@ -59,14 +62,51 @@
                     label="매장 분류"
                     multiple
                     flat
-                    solo
+                    class="ma-3"
                   ></v-select>
                 </v-flex>
               </v-layout>
+              <v-flex>
+                <v-text-field
+                  v-model="storeInfo.store_tel"
+                  label="매장 번호"
+                  required
+                />
+              </v-flex>
+              <v-layout row>
+                <v-flex>
+                  <v-select
+                    v-model="storeInfo.Nholiday.value"
+                    :items="storeInfo.Nholiday.items"
+                    item-text="value"
+                    item-value="value"
+                    attach
+                    chips
+                    label="휴무일"
+                    multiple
+                    return-object
+                    flat
+                    class="ma-3"
+                    @change="SortHoliday()"
+                  ></v-select>
+                </v-flex>
+              </v-layout>
+              <v-layout>
+                <v-col>
+                  <label>오픈 시간</label>
+                  <vue-timepicker
+                    v-model="storeInfo.open_time"
+                  ></vue-timepicker>
+                </v-col>
+                <v-col>
+                  <label>마감 시간</label>
+                  <vue-timepicker
+                    v-model="storeInfo.close_time"
+                  ></vue-timepicker>
+                </v-col>
+              </v-layout>
             </v-card-text>
           </v-card>
-          <v-sheet></v-sheet>
-          <v-btn outlined @click="uploadImage()">이미지 업로드</v-btn>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -82,12 +122,15 @@
 
 <script>
 import SearchPostNumber from "./SearchPostNumber";
+import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
+
 export default {
   name: "StoreInfoForm",
   components: {
-    SearchPostNumber
+    SearchPostNumber,
+    VueTimepicker
   },
-  props: ['storeInfo'],
+  props: ["storeInfo"],
   data() {
     return {
       storeCategory: {
@@ -105,26 +148,25 @@ export default {
         ],
         value: []
       },
-      form: {
-        store: [],
-      },
       dialog: false
     };
   },
-  created() {
-    console.log('들어온거니?');
-    this.form.store = this.storeInfo;
-    console.log(this.form.store);
-  },
   methods: {
-    uploadImage() {},
     SearchPostNum() {
       this.dialog = true;
     },
     parents(code, address) {
-      this.form.store.post_num = code;
-      this.form.store.address1 = address;
+      this.storeInfo.post_num = code;
+      this.storeInfo.address1 = address;
       this.dialog = false;
+    },
+    SortHoliday() {
+      function compare(a, b) {
+        if (a.key < b.key) return -1;
+        if (a.key > b.key) return 1;
+        return 0;
+      }
+      this.storeInfo.Nholiday.value.sort(compare);
     }
   }
 };
