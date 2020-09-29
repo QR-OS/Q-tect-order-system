@@ -17,11 +17,11 @@ export default {
     return {
       searchWindow: {
         display: "none",
-        height: "300px"
+        height: "300px",
       },
       postcode: "",
       address: "",
-      extraAddress: ""
+      extraAddress: "",
     };
   },
   mounted() {
@@ -39,7 +39,7 @@ export default {
       );
       // eslint-disable-next-line
       new daum.Postcode({
-        onComplete: data => {
+        onComplete: (data) => {
           if (data.userSelectedType === "R") {
             this.address = data.roadAddress;
           } else {
@@ -67,14 +67,14 @@ export default {
           document.body.scrollTop = currentScroll;
           this.close();
         },
-        onResize: size => {
+        onResize: (size) => {
           this.searchWindow.height = `${size.height}px`;
         },
         width: "100%",
-        height: "100%"
+        height: "100%",
       }).embed(this.$refs.searchWindow);
       this.searchWindow.display = "block";
-    }
-  }
+    },
+  },
 };
 </script>

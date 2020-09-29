@@ -85,7 +85,7 @@ import SearchPostNumber from "./SearchPostNumber";
 export default {
   name: "StoreInfoForm",
   components: {
-    SearchPostNumber
+    SearchPostNumber,
   },
   data() {
     return {
@@ -93,7 +93,7 @@ export default {
         // 프론트 작성을 위한 예시 데이터입니다.
         { name: "한식", checked: false },
         { name: "분식", checked: false },
-        { name: "중식", checked: false }
+        { name: "중식", checked: false },
       ],
       form: {
         storeInfo: {
@@ -106,11 +106,11 @@ export default {
           img: "",
           type: [],
           open_time: "",
-          close_time: ""
-        }
+          close_time: "",
+        },
       },
       dialog: false,
-      hot_table: {}
+      hot_table: {},
     };
   },
   methods: {
@@ -122,7 +122,7 @@ export default {
       this.form.storeInfo.post_num = code;
       this.form.storeInfo.address1 = address;
       this.dialog = false;
-    }
-  }
+    },
+  },
 };
 </script>
