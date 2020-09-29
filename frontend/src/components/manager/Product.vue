@@ -161,6 +161,7 @@ export default {
     };
   },
   async created() {
+    console.log();
     const userInfoRes = await axios.get("/user/hschoi1105");
     this.userInfo.storeId = userInfoRes.data.store_id;
 
