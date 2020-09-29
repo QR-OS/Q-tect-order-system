@@ -23,6 +23,7 @@
                     :error="!!errorMsg"
                     dense
                     outlined
+                    @input="removeError"
                   />
                   <v-text-field
                     v-model="user.email"
@@ -32,6 +33,7 @@
                     type="text"
                     :error="!!errorMsg"
                     :error-messages="errorMsg"
+                    @input="removeError"
                   />
                 </v-card-text>
                 <v-card-actions class="pr-10 pb-10">
@@ -56,6 +58,7 @@
                     :error="!!errorMsg"
                     dense
                     outlined
+                    @input="removeError"
                   />
                   <v-text-field
                     v-model="user.id"
@@ -65,6 +68,7 @@
                     type="text"
                     :error="!!errorMsg"
                     :error-messages="errorMsg"
+                    @input="removeError"
                   />
                 </v-card-text>
                 <v-card-actions class="pr-10 pb-10">
@@ -110,17 +114,17 @@ export default {
       user: {
         id: "",
         name: "",
-        email: ""
+        email: "",
       },
       snackText: "",
       errorMsg: "",
-      snackbar: false
+      snackbar: false,
     };
   },
   watch: {
     tab() {
       this.errorMsg = "";
-    }
+    },
   },
   mounted() {
     this.show = true;
@@ -135,18 +139,28 @@ export default {
       // 전송 성공시 스낵바로 성공했음을 알림.
       //try {
       //  await axios();
-      // this.snackText = "가입 시 입력하셨던 메일로 아이디가 전송되었습니다.";
-      // this.snackbar = true;
+      this.snackText = "아이디는 000 입니다.";
+      this.snackbar = true;
       //} catch (error) {
       //  this.errorMsg = error.response.data.message;
       //}
+    },
+    removeError() {
+      this.errorMsg = "";
     },
     async findPw() {
       if (!this.user.id || !this.user.name) {
         this.errorMsg = "이름과 아이디를 입력하세요.";
         return;
       }
-    }
-  }
+      //try {
+      //  await axios();
+      this.snackText = "가입 시 입력하셨던 메일로 아이디가 전송되었습니다.";
+      this.snackbar = true;
+      //} catch (error) {
+      //  this.errorMsg = error.response.data.message;
+      //}
+    },
+  },
 };
 </script>

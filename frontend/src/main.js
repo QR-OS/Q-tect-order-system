@@ -10,11 +10,11 @@ axios.defaults.baseURL = "/api";
 axios.defaults.headers.common["Cache-Control"] = "no-cache";
 axios.defaults.headers.common[
   "Authorization"
-] = `Bearer ${store.state.accessToken}`;
+] = `Bearer ${store.state.auth.accessToken}`;
 
 new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

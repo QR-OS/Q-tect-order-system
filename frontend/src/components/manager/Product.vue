@@ -113,7 +113,7 @@ export default {
         { tab: "Seven", content: "Tab 7 Content" },
         { tab: "Eight", content: "Tab 8 Content" },
         { tab: "Nine", content: "Tab 9 Content" },
-        { tab: "Ten", content: "Tab 10 Content" }
+        { tab: "Ten", content: "Tab 10 Content" },
       ],
       itemsPerPage: 6,
       ditems: [
@@ -125,7 +125,7 @@ export default {
           protein: 4.0,
           sodium: 87,
           calcium: "14%",
-          iron: "1%"
+          iron: "1%",
         },
         {
           name: "Ice cream sandwich",
@@ -135,7 +135,7 @@ export default {
           protein: 4.3,
           sodium: 129,
           calcium: "8%",
-          iron: "1%"
+          iron: "1%",
         },
         {
           name: "Eclair",
@@ -145,7 +145,7 @@ export default {
           protein: 6.0,
           sodium: 337,
           calcium: "6%",
-          iron: "7%"
+          iron: "7%",
         },
         {
           name: "Cupcake",
@@ -155,7 +155,7 @@ export default {
           protein: 4.3,
           sodium: 413,
           calcium: "3%",
-          iron: "8%"
+          iron: "8%",
         },
         {
           name: "Jelly",
@@ -165,7 +165,7 @@ export default {
           protein: 4.3,
           sodium: 413,
           calcium: "3%",
-          iron: "8%"
+          iron: "8%",
         },
         {
           name: "Bob",
@@ -175,10 +175,10 @@ export default {
           protein: 4.3,
           sodium: 413,
           calcium: "3%",
-          iron: "8%"
-        }
-      ]
+          iron: "8%",
+        },
+      ],
     };
-  }
+  },
 };
 </script>

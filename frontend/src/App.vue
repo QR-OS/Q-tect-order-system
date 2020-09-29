@@ -2,15 +2,10 @@
   <v-app>
     <v-app-bar app color="amber darken-1">
       <v-toolbar-title class="text-none">
-        <v-btn text large @click="moveToHome">QR코드 주문 시스템^^!</v-btn>
+        <v-btn text large @click="moveToPage('Home')">Q-tect Order</v-btn>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn
-        v-if="!this.$store.state.accessToken"
-        text
-        dark
-        @click="moveToLogin"
-      >
+      <v-btn v-if="!accessToken" text dark @click="moveToPage('Login')">
         로그인
       </v-btn>
       <v-menu v-else offset-y :nudge-width="200">
@@ -22,6 +17,12 @@
         <v-card>
           <v-list>
             <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Hello, {{ user.user_id }}
+                </v-list-item-title>
+                <v-list-item-subtitle></v-list-item-subtitle>
+              </v-list-item-content>
               <v-list-item-action>
                 <v-btn text @click="logout">로그아웃</v-btn>
               </v-list-item-action>
@@ -29,7 +30,8 @@
           </v-list>
           <v-divider></v-divider>
           <v-list>
-            <v-list-item to="/mypage">마이페이지</v-list-item>
+            <v-list-item @click="moveToPage('CheckPw')">마이페이지</v-list-item>
+            <v-list-item @click="moveToPage('Home')">주문내역</v-list-item>
           </v-list>
         </v-card>
       </v-menu>
@@ -46,35 +48,29 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "App",
   data() {
     return {};
   },
+  computed: {
+    ...mapState("auth", ["accessToken", "user"]),
+  },
   methods: {
     ...mapActions({
-      getLogout: "logout"
+      getLogout: "auth/logout",
     }),
     async logout() {
       this.getLogout();
-      if (this.$route.name != "Home") {
-        this.$router.push({ name: "Home" });
+      this.moveToPage("Home");
+    },
+    moveToPage(next) {
+      if (this.$route.name != next) {
+        this.$router.push({ name: next });
       }
     },
-    moveToLogin() {
-      if (this.$route.name != "Login") {
-        this.$router.push({
-          name: "Login"
-        });
-      }
-    },
-    moveToHome() {
-      if (this.$route.path != "/") {
-        this.$router.push({ name: "Home" });
-      }
-    }
-  }
+  },
 };
 </script>
