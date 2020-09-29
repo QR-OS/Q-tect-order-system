@@ -1,4 +1,3 @@
-
 import jwt from "jsonwebtoken";
 import axios from "axios";
 
@@ -24,7 +23,6 @@ export default {
       const user = jwt.decode(token);
       context.commit("SET_ACCESS_TOKEN", token);
       localStorage.setItem("accessToken", token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       context.commit("SET_USER", user);
       localStorage.setItem("user", JSON.stringify(user));
     },
@@ -36,7 +34,7 @@ export default {
       localStorage.removeItem("user");
     },
   },
-  
+
   getters: {
     isLoggedIn(state) {
       return !!state.accessToken;

@@ -7,14 +7,14 @@
         <v-card-text>
           <v-flex>
             <v-text-field
-              v-model="form.storeInfo.name"
+              v-model="storeInfo.store_name"
               label="상호명"
               required
             />
           </v-flex>
           <v-flex>
             <v-text-field
-              v-model="form.storeInfo.id"
+              v-model="storeInfo.store_num"
               label="사업자번호"
               required
             />
@@ -25,7 +25,7 @@
               <v-layout row>
                 <v-flex>
                   <v-text-field
-                    v-model="form.storeInfo.post_num"
+                    v-model="storeInfo.post_num"
                     label="우편번호"
                     disabled
                   ></v-text-field>
@@ -36,7 +36,7 @@
               </v-layout>
               <v-flex>
                 <v-text-field
-                  v-model="form.storeInfo.address1"
+                  v-model="storeInfo.address1"
                   label="주소"
                   disabled
                 ></v-text-field>
@@ -44,29 +44,69 @@
               <v-flex>
                 <v-text-field
                   ref="extraAddress"
-                  v-model="form.storeInfo.address2"
+                  v-model="storeInfo.address2"
                   label="상세주소"
+                  required
+                />
+              </v-flex>
+              <v-flex>
+                <v-file-input multiple label="매장 이미지"></v-file-input>
+              </v-flex>
+              <v-layout row>
+                <v-flex>
+                  <v-select
+                    v-model="storeCategory.value"
+                    :items="storeCategory.items"
+                    attach
+                    chips
+                    label="매장 분류"
+                    multiple
+                    flat
+                    class="ma-3"
+                  ></v-select>
+                </v-flex>
+              </v-layout>
+              <v-flex>
+                <v-text-field
+                  v-model="storeInfo.store_tel"
+                  label="매장 번호"
                   required
                 />
               </v-flex>
               <v-layout row>
                 <v-flex>
-                  매장 분류
-                  <div v-for="(item, index) in storeCategory" :key="index">
-                    <input
-                      :id="item.name"
-                      v-model="item.checked"
-                      type="checkbox"
-                    />
-                    <label :for="item.name">{{ item.name }}</label>
-                  </div>
+                  <v-select
+                    v-model="storeInfo.Nholiday.value"
+                    :items="storeInfo.Nholiday.items"
+                    item-text="value"
+                    item-value="value"
+                    attach
+                    chips
+                    label="휴무일"
+                    multiple
+                    return-object
+                    flat
+                    class="ma-3"
+                    @change="SortHoliday()"
+                  ></v-select>
                 </v-flex>
               </v-layout>
-              매장 전화번호
+              <v-layout>
+                <v-col>
+                  <label>오픈 시간</label>
+                  <vue-timepicker
+                    v-model="storeInfo.open_time"
+                  ></vue-timepicker>
+                </v-col>
+                <v-col>
+                  <label>마감 시간</label>
+                  <vue-timepicker
+                    v-model="storeInfo.close_time"
+                  ></vue-timepicker>
+                </v-col>
+              </v-layout>
             </v-card-text>
           </v-card>
-          <v-sheet></v-sheet>
-          <v-btn outlined @click="uploadImage()">이미지 업로드</v-btn>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -82,46 +122,51 @@
 
 <script>
 import SearchPostNumber from "./SearchPostNumber";
+import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
+
 export default {
   name: "StoreInfoForm",
   components: {
-    SearchPostNumber
+    SearchPostNumber,
+    VueTimepicker
   },
+  props: ["storeInfo"],
   data() {
     return {
-      storeCategory: [
-        // 프론트 작성을 위한 예시 데이터입니다.
-        { name: "한식", checked: false },
-        { name: "분식", checked: false },
-        { name: "중식", checked: false }
-      ],
-      form: {
-        storeInfo: {
-          name: "",
-          id: "",
-          post_num: "",
-          address1: "",
-          address2: "",
-          tel: "",
-          img: "",
-          type: [],
-          open_time: "",
-          close_time: ""
-        }
+      storeCategory: {
+        items: [
+          "한식",
+          "분식",
+          "중식",
+          "일식",
+          "양식",
+          "아시안",
+          "치킨",
+          "패스트푸드",
+          "카페/디저트",
+          "마켓"
+        ],
+        value: []
       },
-      dialog: false,
-      hot_table: {}
+      dialog: false
     };
   },
   methods: {
-    uploadImage() {},
     SearchPostNum() {
       this.dialog = true;
     },
     parents(code, address) {
-      this.form.storeInfo.post_num = code;
-      this.form.storeInfo.address1 = address;
+      this.storeInfo.post_num = code;
+      this.storeInfo.address1 = address;
       this.dialog = false;
+    },
+    SortHoliday() {
+      function compare(a, b) {
+        if (a.key < b.key) return -1;
+        if (a.key > b.key) return 1;
+        return 0;
+      }
+      this.storeInfo.Nholiday.value.sort(compare);
     }
   }
 };
