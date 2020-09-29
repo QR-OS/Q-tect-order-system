@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smallB.QOS.product.dao.ProductDao">
+
+    <select id="findProductByProductIdAndStoreId" parameterType="string" resultType="com.smallB.QOS.product.domain.ProductDto">
+        SELECT * FROM product WHERE product_id = #{product_id} AND store_id = #{store_id} AND deleted = false
+    </select>
+
+    <select id="findProductByStoreId" parameterType="string" resultType="com.smallB.QOS.product.domain.ProductDto">
+        SELECT * FROM product WHERE store_id = #{store_id} AND deleted = false
+    </select>
+
+    <insert id="createProduct" parameterType="com.smallB.QOS.product.domain.ProductDto">
+        INSERT INTO product (`product_id`,`store_id`,`product_category`,`product_name`,`product_price`,`product_stock`,`product_image`,`product_state`,`deleted`)
+        VALUES (#{product_id},#{store_id},#{product_category},#{product_name},#{product_price},#{product_stock},#{product_image},#{product_state},#{deleted})
+    </insert>
+
+    <select id="productIdDuplicationCheck" parameterType="String" resultType="com.smallB.QOS.product.domain.ProductDto">
+        SELECT * FROM product WHERE product_id = #{product_id}
+    </select>
+
+    <update id="updateProductByProductIdAndStoreId" parameterType="com.smallB.QOS.product.domain.ProductDto">
+        UPDATE product
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="product_category != null">product_category = #{product_category},</if>
+            <if test="product_name != null">product_name= #{product_name},</if>
+            <if test="product_price != null">product_price= #{product_price},</if>
+            <if test="product_stock != null">product_stock= #{product_stock},</if>
+            <if test="product_image != null">product_image= #{product_image},</if>
+            <if test="product_state != null">product_state= #{product_state},</if>
+            <if test="deleted != null">deleted= #{deleted},</if>
+        </trim>
+        WHERE
+        product_id = #{product_id} AND store_id = #{store_id}
+    </update>
+
+
+    <select id="findProductCategory" parameterType="string" resultType="string">
+        SELECT DISTINCT product_category FROM product WHERE store_id = #{store_id}
+    </select>
+
+</mapper>

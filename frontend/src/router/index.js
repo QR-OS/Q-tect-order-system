@@ -3,14 +3,14 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
-import Login from "../views/Login.vue";
-import Register from "../views/Register.vue";
-import SelectRegisterType from "../views/SelectRegisterType.vue";
+import Login from "../views/login/Login.vue";
+import Register from "../views/login/Register.vue";
+import SelectRegisterType from "../views/login/SelectRegisterType.vue";
 import StoreInfo from "../views/store/StoreInfo.vue";
-import FindIdPw from "../views/FindIdPw.vue";
-import MyPage from "../views/MyPage.vue";
+import FindIdPw from "../views/login/FindIdPw.vue";
+import MyPage from "../views/mypage/MyPage.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
-
+import Product from "../components/manager/Product.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -44,6 +44,11 @@ const routes = [
     beforeEnter: shouldNotBeAuthorized(),
   },
   {
+    path: "/product",
+    name: "Product",
+    component: Product,
+  },
+  {
     path: "/findidpw",
     name: "FindIdPw",
     component: FindIdPw,
@@ -64,8 +69,8 @@ const routes = [
   {
     path: "/store",
     name: "StoreInfo",
-    component: StoreInfo
-  }
+    component: StoreInfo,
+  },
 ];
 
 const router = new VueRouter({

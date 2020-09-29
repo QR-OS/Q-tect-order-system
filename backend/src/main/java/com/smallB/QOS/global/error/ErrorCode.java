@@ -28,6 +28,12 @@ public enum ErrorCode {
     STORE_UPDATE_FAILED(400, "SI002", "Store update failed"),
     UNAUTHORIZED_USER(401, "SI003", "Unauthorized User"),
 
+    //PRODUCT
+    PRODUCT_NOT_FOUND(400,"P001","Product NOT FOUND"),
+    PRODUCT_UPDATE_FAILED(400,"p002","Product Update Failed"),
+    CATEGORY_NOT_FOUND(400,"p003","Category NOT FOUND"),
+
+
     ;
     private final String code;
     private final String message;
