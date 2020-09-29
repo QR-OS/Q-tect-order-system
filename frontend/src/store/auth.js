@@ -1,4 +1,3 @@
-
 import jwt from "jsonwebtoken";
 import axios from "axios";
 
@@ -35,7 +34,7 @@ export default {
       localStorage.removeItem("user");
     },
   },
-  
+
   getters: {
     isLoggedIn(state) {
       return !!state.accessToken;

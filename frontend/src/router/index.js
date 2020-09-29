@@ -16,56 +16,56 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
   },
   {
     path: "/about",
     name: "About",
-    component: About
+    component: About,
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
-    beforeEnter: shouldNotBeAuthorized()
+    beforeEnter: shouldNotBeAuthorized(),
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
     props: true,
-    beforeEnter: shouldNotBeAuthorized()
+    beforeEnter: shouldNotBeAuthorized(),
   },
   {
     path: "/selectregistertype",
     name: "SelectRegisterType",
     component: SelectRegisterType,
-    beforeEnter: shouldNotBeAuthorized()
+    beforeEnter: shouldNotBeAuthorized(),
   },
   {
     path: "/findidpw",
     name: "FindIdPw",
     component: FindIdPw,
-    beforeEnter: shouldNotBeAuthorized()
+    beforeEnter: shouldNotBeAuthorized(),
   },
   {
     path: "/checkpw",
     name: "CheckPw",
     component: CheckPassword,
-    beforeEnter: requireAuth()
+    beforeEnter: requireAuth(),
   },
   {
     path: "/mypage",
     name: "MyPage",
     component: MyPage,
-    beforeEnter: requireAuth()
-  }
+    beforeEnter: requireAuth(),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
