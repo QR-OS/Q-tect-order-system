@@ -1,9 +1,59 @@
 <template>
-  <div class="home">
-    <h1>여기는 홈이야</h1>
-  </div>
+  <v-container>
+    <v-row class="d-flex justify-center">
+      <v-col cols="12" sm="6">
+        <v-text-field
+          hint
+          outlined
+          append-icon="mdi-magnify"
+          @click:append="searchFunc"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row><v-divider light></v-divider></v-row>
+    <v-row justify="center">
+      <v-chip
+        v-for="item in categoryItem"
+        :key="item.category"
+        class="ma-2"
+        outlined
+        rounded-circle
+        large
+        chip
+        color="amber darken-1"
+        @click="$router.push(`/categorystorelist`)"
+        >{{ item.category }}</v-chip
+      >
+      <v-chip class="ma-2" large chip color="amber lighten-3" text-color="white"
+        >중식</v-chip
+      >
+      <v-chip class="ma-2" large chip color="amber darken-1" text-color="white"
+        >일식</v-chip
+      >
+      <v-chip class="ma-2" large chip color="amber lighten-3" text-color="white"
+        >마트</v-chip
+      >
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      categoryItem: [
+        { category: "한식" },
+        { category: "중식" },
+        { category: "일식" },
+        { category: "마트" }
+      ]
+    };
+  },
+  methods: {
+    searchFunc() {
+      console.log("1");
+    },
+    gotoStoreListPage() {}
+  }
+};
 </script>
