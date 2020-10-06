@@ -12,6 +12,7 @@ import MyPage from "../views/mypage/MyPage.vue";
 import CategoryStoreList from "../views/store/CategoryStoreList.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
 import Product from "../components/manager/Product.vue";
+import SearchStoreList from "../views/store/SearchStoreList.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -75,7 +76,14 @@ const routes = [
   {
     path: "/categorystorelist",
     name: "CategoryStoreList",
-    component: CategoryStoreList
+    component: CategoryStoreList,
+    props: true,
+  },
+  {
+    path: "/searchstorelist",
+    name: "SearchStoreList",
+    component: SearchStoreList,
+    props: true,
   }
 ];
 
