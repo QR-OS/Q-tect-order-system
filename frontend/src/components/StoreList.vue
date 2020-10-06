@@ -1,37 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-card outlined class="pa-3">
-        <v-row>
-          <v-col class="ma-0 pr-0">
-            <v-img
-              height="100"
-              width="100"
-              src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-            ></v-img>
-          </v-col>
-          <v-col class="pa-0">
-            <v-row class="pa-0">
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-subtitle>영업중</v-list-item-subtitle>
-                  <v-list-item-title>신전떡볶이</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-row>
-            <v-row class="pa-0"><v-divider class="mx-5"></v-divider></v-row>
-            <v-row class="pa-0">
-              <v-card-text class="pa-0 ml-2">
-                open 9:00 ~ close 11:30
-              </v-card-text>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-row>
-
-    <v-row>
-      <v-card class="ma-12">
+      <v-card class="ma-12" v-for="storeItem in storeInfoList" :key="storeItem.id">
         <v-row class="ma-0 pa-0" name="1">
           <v-col>
             <v-img
@@ -46,8 +16,9 @@
             <v-row name="2">
               <v-list-item class="pa-0">
                 <v-list-item-content>
-                  <v-list-item-subtitle>영업중</v-list-item-subtitle>
-                  <v-list-item-title>신전떡볶이</v-list-item-title>
+                  <v-list-item-subtitle v-if="storeItem.store_state">영업중</v-list-item-subtitle>
+                  <v-list-item-subtitle v-if="!storeItem.store_state">영업안함</v-list-item-subtitle>
+                  <v-list-item-title>{{ storeItem.store_name }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-row>
@@ -56,28 +27,9 @@
         <v-row><v-divider class="mx-5 pa-0"></v-divider></v-row>
         <v-row class="mt-0 mb-0">
           <v-card-text class="ml-2">
-            open 9:00 ~ close 11:30
+            open {{ storeItem.open_time }} ~ close {{ storeItem.close_time }}
           </v-card-text>
         </v-row>
-      </v-card>
-    </v-row>
-    <v-row>
-      <v-card class="mx-auto" width="200">
-        <v-img
-          height="100"
-          src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
-          class="white--text align-end"
-        >
-          <v-list-item dark class="font-weight-bold">
-            <v-list-item-content>
-              <v-list-item-subtitle>영업중</v-list-item-subtitle>
-              <v-list-item-title>신전떡볶이</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-img>
-        <v-card-text class="ml-2">
-          open 9:00 ~ close 11:30
-        </v-card-text>
       </v-card>
     </v-row>
   </v-container>
@@ -88,6 +40,7 @@ export default {
   data() {
     return {};
   },
+  props: ['storeInfoList'],
   methods: {}
 };
 </script>
