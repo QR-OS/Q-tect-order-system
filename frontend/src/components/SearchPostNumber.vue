@@ -1,13 +1,5 @@
 <template>
-  <div ref="searchWindow" :style="searchWindow">
-    <img
-      id="btnFoldWrap"
-      src="//t1.daumcdn.net/postcode/resource/images/close.png"
-      style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1"
-      alt="close"
-      @click="close"
-    />
-  </div>
+  <div ref="searchWindow" :style="searchWindow"></div>
 </template>
 
 <script>
