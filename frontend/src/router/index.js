@@ -81,19 +81,17 @@ const routes = [
     props: true,
   },
   {
-<<<<<<< HEAD
     path: "/searchstorelist",
     name: "SearchStoreList",
     component: SearchStoreList,
     props: true,
-  }
-=======
+  },
+  {
     path: "/storemain",
     name: "StoreMain",
     component: StoreMain,
     beforeEnter: requireAuth(),
   },
->>>>>>> develop
 ];
 
 const router = new VueRouter({
