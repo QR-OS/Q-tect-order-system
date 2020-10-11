@@ -3,6 +3,7 @@ package com.smallB.QOS.product.service;
 import com.smallB.QOS.product.domain.ProductDto;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface ProductService {
 
@@ -15,4 +16,6 @@ public interface ProductService {
     boolean updateProduct(ProductDto productDto) throws  Exception;
 
     List<String> getCategory(String store_id) throws Exception;
+
+    boolean deleteProduct(String product_id, String store_id) throws Exception;
 }
