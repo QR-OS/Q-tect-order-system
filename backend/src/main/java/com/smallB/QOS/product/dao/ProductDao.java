@@ -18,4 +18,6 @@ public interface ProductDao {
     boolean updateProductByProductIdAndStoreId(ProductDto productDto) throws Exception;
 
     List<String> findProductCategory(String store_id) throws Exception;
+
+    boolean deleteProductByProductIdAndStoreId(String product_id, String store_id) throws Exception;
 }
