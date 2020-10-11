@@ -40,4 +40,8 @@
         SELECT DISTINCT product_category FROM product WHERE store_id = #{store_id}
     </select>
 
+    <delete id="deleteProductByProductIdAndStoreId" parameterType="string">
+        DELETE FROM product WHERE product_id = #{product_id} AND store_id = #{store_id}
+    </delete>
+
 </mapper>
