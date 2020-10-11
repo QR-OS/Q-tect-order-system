@@ -9,7 +9,6 @@
       next-icon="mdi-arrow-right"
       prev-icon="mdi-arrow-left"
       show-arrows
-      :default="categoryName"
     >
       <v-tabs-slider color="yellow"></v-tabs-slider>
       <v-tab

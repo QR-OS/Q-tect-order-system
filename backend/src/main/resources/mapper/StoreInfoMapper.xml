@@ -3,10 +3,6 @@
 
 <mapper namespace="com.smallB.QOS.storeInfo.dao.StoreInfoDao">
 
-    <sql id="checkDeleted">
-        AND `deleted` = false
-    </sql>
-
     <insert id="addStore"
             parameterType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
         INSERT INTO store_info(`store_id`, `store_name`, `store_num`, `post_num`,
@@ -23,7 +19,6 @@
         SELECT *
         FROM store_info
         WHERE store_num = #{value}
-        AND deleted = false
     </select>
 
     <select id="findStoreByUserId"
