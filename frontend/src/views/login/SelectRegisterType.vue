@@ -17,7 +17,7 @@
                     class="mx-1"
                     depressed
                     outlined
-                    @click="moveToOwnerRegister"
+                    @click="moveToRegister(2)"
                   >
                     매장 관리자
                   </v-btn>
@@ -28,7 +28,7 @@
                     class="mx-1"
                     depressed
                     outlined
-                    @click="moveToConsumerRegister"
+                    @click="moveToRegister(1)"
                   >
                     일반 회원
                   </v-btn>
@@ -54,17 +54,8 @@ export default {
     this.show = true;
   },
   methods: {
-    moveToOwnerRegister() {
-      this.$router.push({
-        name: "Register",
-        params: { visible: 2 },
-      });
-    },
-    moveToConsumerRegister() {
-      this.$router.push({
-        name: "Register",
-        params: { visible: 1 },
-      });
+    moveToRegister(params) {
+      this.$router.push("/register?regType=" + params);
     },
   },
 };

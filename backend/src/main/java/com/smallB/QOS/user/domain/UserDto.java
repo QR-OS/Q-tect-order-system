@@ -21,5 +21,4 @@ public class UserDto {
     private String user_email;
     private String store_id = null;
     private int status = 1;
-    private boolean deleted;
 }

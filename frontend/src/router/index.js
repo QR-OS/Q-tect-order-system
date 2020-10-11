@@ -13,6 +13,8 @@ import CategoryStoreList from "../views/store/CategoryStoreList.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
 import Product from "../components/manager/Product.vue";
 import SearchStoreList from "../views/store/SearchStoreList.vue";
+import StoreMain from "../views/store/StoreMain";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -36,7 +38,6 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
-    props: true,
     beforeEnter: shouldNotBeAuthorized(),
   },
   {
@@ -80,11 +81,19 @@ const routes = [
     props: true,
   },
   {
+<<<<<<< HEAD
     path: "/searchstorelist",
     name: "SearchStoreList",
     component: SearchStoreList,
     props: true,
   }
+=======
+    path: "/storemain",
+    name: "StoreMain",
+    component: StoreMain,
+    beforeEnter: requireAuth(),
+  },
+>>>>>>> develop
 ];
 
 const router = new VueRouter({
