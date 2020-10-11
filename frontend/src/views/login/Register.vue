@@ -70,7 +70,7 @@
               :storeInfo="form.storeInfo"
               :btnName="btnName"
               @update="categoryUpdate"
-              @register="register"
+              @submit="register"
             />
             <v-card-actions
               v-if="$route.query.regType != 2"
@@ -295,7 +295,7 @@ export default {
           body.close_time = body.close_time.toString("HH:mm");
 
           const res = await axios.post("/store", body);
-          this.form.userInfo.storeId = res.data.store_id;
+          this.form.userInfo.storeId = res.data;
         } catch (error) {
           this.errorMsg = error.response.data.message;
           this.isLoading = false;
