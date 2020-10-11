@@ -13,6 +13,7 @@
           {{ category }}
         </v-tab>
       </v-tabs>
+
       <v-tabs-items v-model="tab" class="mx-auto">
         <v-tab-item v-for="ele in menus" :key="ele.product_id">
           <v-card flat>
@@ -23,8 +24,37 @@
                     it.product_category.includes(categories[tab])
                   )
                 "
+                :search="search"
                 hide-default-footer
               >
+                <template v-slot:header>
+                  <v-toolbar class="mb-1">
+                    <v-text-field
+                      v-model="search"
+                      clearable
+                      flat
+                      solo
+                      hide-details
+                      prepend-inner-icon="mdi-magnify"
+                      label="검색"
+                    ></v-text-field>
+                    <template v-if="!$vuetify.breakpoint.mdAndUp">
+                      <v-spacer></v-spacer>
+
+                      <v-btn large depressed @click="openProductCreateDialog()">
+                        <v-icon>mdi-plus</v-icon>
+                      </v-btn>
+                    </template>
+                    <template v-if="$vuetify.breakpoint.mdAndUp">
+                      <v-spacer></v-spacer>
+
+                      <v-btn large depressed @click="openProductCreateDialog()">
+                        <v-icon>mdi-plus</v-icon>
+                        메뉴추가
+                      </v-btn>
+                    </template>
+                  </v-toolbar>
+                </template>
                 <template v-slot:default="props">
                   <v-row>
                     <v-col
@@ -128,9 +158,8 @@
                 <v-switch
                   v-model="dialog.data.product_state"
                   :disabled="!dialog.isEditing"
-                  label="판매여부"
+                  label="준비중"
                   color="orange"
-                  value="판매여부"
                   hide-details
                 ></v-switch>
               </v-row>
@@ -166,11 +195,92 @@
             저장
           </v-btn>
         </v-card-actions>
-        <!-- <v-snackbar v-model="hasSaved" :timeout="2000" absolute bottom left>
-          Your profile has been updated
-        </v-snackbar> -->
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-if="createDialog.show"
+      v-model="createDialog.show"
+      max-width="350"
+    >
+      <v-card class="overflow-hidden">
+        <v-toolbar flat color="yellow darken-2">
+          <v-toolbar-title class="font-weight ma-2">상품 추가</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+        <v-container fluid>
+          <v-card-text>
+            <v-col>
+              <v-row>
+                <v-text-field
+                  v-model="createDialog.data.product_name"
+                  label="상품명"
+                ></v-text-field>
+              </v-row>
+              <v-row>
+                <v-autocomplete
+                  v-model="createDialog.data.product_category"
+                  :items="categories"
+                  item-text="category"
+                  label="카테고리"
+                ></v-autocomplete>
+              </v-row>
+              <v-row>
+                <v-text-field
+                  v-model="createDialog.data.product_price"
+                  label="상품가격"
+                ></v-text-field>
+              </v-row>
+              <v-row>
+                <v-text-field
+                  v-model="createDialog.data.product_stock"
+                  label="상품재고"
+                ></v-text-field>
+                <v-spacer></v-spacer>
+                <v-switch
+                  v-model="createDialog.data.product_state"
+                  label="준비중"
+                  color="orange"
+                  hide-details
+                ></v-switch>
+              </v-row>
+              <v-row>
+                <v-text-field
+                  v-model="createDialog.data.product_image"
+                  label="이미지를 넣을 공간입니다."
+                ></v-text-field>
+              </v-row>
+            </v-col>
+          </v-card-text>
+        </v-container>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn
+            color="yellow darken-3"
+            @click="closeProductCreateDialog"
+            outlined
+          >
+            취소
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="yellow darken-3" @click="create" outlined>
+            생성
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-snackbar
+      v-model="snackbar.show"
+      :timeout="snackbar.timeout"
+      :color="snackbar.color"
+    >
+      {{ snackbar.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="snackbar.show = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 <script>
@@ -188,6 +298,7 @@ export default {
       menus: {},
       categories: {},
       dialog: {
+        title: "",
         show: false,
         isEditing: false,
         data: {
@@ -201,22 +312,45 @@ export default {
           product_state: "",
         },
       },
+      createDialog: {
+        show: false,
+        data: {
+          store_id: "",
+          product_id: "",
+          product_category: "",
+          product_image: "",
+          product_name: "",
+          product_price: "",
+          product_stock: "",
+          product_state: "",
+        },
+      },
+      search: "",
+      snackbar: {
+        show: false,
+        timeout: 2000,
+        text: "",
+      },
     };
   },
   async created() {
-    const userInfoRes = await axios.get(`/user/${this.user.user_id}`);
-    this.userInfo.storeId = userInfoRes.data.store_id;
-
-    const categoryResponse = await axios.get(
-      `/product/${this.userInfo.storeId}/category`
-    );
-    this.categories = categoryResponse.data;
-
-    const menuResponse = await axios.get(`/product/${this.userInfo.storeId}`);
-    this.menus = menuResponse.data;
+    this.fetch();
   },
   methods: {
-    openProductUpdateDialog: function(item) {
+    async fetch() {
+      const userInfoRes = await axios.get(`/user/${this.user.user_id}`);
+      this.userInfo.storeId = userInfoRes.data.store_id;
+
+      const categoryResponse = await axios.get(
+        `/product/${this.userInfo.storeId}/category`
+      );
+      this.categories = categoryResponse.data;
+
+      const menuResponse = await axios.get(`/product/${this.userInfo.storeId}`);
+      this.menus = menuResponse.data;
+    },
+    openProductUpdateDialog(item) {
+      this.dialog.title = "상품 정보 수정";
       this.dialog.show = true;
       this.dialog.isEditing = false;
       this.dialog.data = {
@@ -225,22 +359,70 @@ export default {
         product_category: item.product_category,
         product_image: item.product_image,
         product_name: item.product_name,
-        product_price: item.product_price,
-        product_stock: item.product_stock,
+        product_price: parseInt(item.product_price),
+        product_stock: parseInt(item.product_stock),
         product_state: item.product_state,
       };
     },
-    closeProductUpdateDialog: function() {
+    closeProductUpdateDialog() {
       this.dialog.show = false;
       this.dialog.data = null;
     },
-    update: function() {
-      console.log("update");
-      const res = axios.patch("/product", this.dialog.data);
-      console.log(res.data);
+    openProductCreateDialog() {
+      this.createDialog.data.product_state = true;
+      this.createDialog.show = true;
     },
-    deleteProduct: function() {
-      console.log("delete");
+    closeProductCreateDialog() {
+      this.createDialog.show = false;
+    },
+    async create() {
+      try {
+        await axios.post("/product", {
+          store_id: this.userInfo.storeId,
+          product_category: this.createDialog.data.product_category,
+          product_image: this.createDialog.data.product_image,
+          product_name: this.createDialog.data.product_name,
+          product_price: parseInt(this.createDialog.data.product_price),
+          product_stock: parseInt(this.createDialog.data.product_stock),
+          product_state: this.createDialog.data.product_state,
+        });
+        await this.fetch();
+        this.showSnackbar("success", "상품 생성을 성공했습니다.");
+        this.fetch();
+        this.createDialog.data = null;
+        this.createDialog.show = false;
+      } catch (err) {
+        this.showSnackbar("error", err.message);
+      }
+    },
+    async update() {
+      try {
+        await axios.patch("/product", this.dialog.data);
+        await this.fetch();
+        this.showSnackbar("success", "업데이트에 성공했습니다.");
+      } catch (err) {
+        this.showSnackbar("error", err.message);
+      }
+      this.dialog.show = false;
+      this.dialog.data = null;
+    },
+    async deleteProduct() {
+      try {
+        await axios.delete(
+          `/product/${this.dialog.data.product_id}/${this.userInfo.storeId}`
+        );
+        await this.fetch();
+        this.showSnackbar("success", "상품 삭제를 성공했습니다.");
+        this.dialog.show = false;
+        this.dialog.data = null;
+      } catch (err) {
+        this.showSnackbar("error", err.message);
+      }
+    },
+    showSnackbar(color, text) {
+      this.snackbar.show = true;
+      this.snackbar.color = color;
+      this.snackbar.text = text;
     },
   },
 };
