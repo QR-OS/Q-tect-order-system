@@ -34,7 +34,6 @@ const routes = [
     path: "/register",
     name: "Register",
     component: Register,
-    props: true,
     beforeEnter: shouldNotBeAuthorized(),
   },
   {
