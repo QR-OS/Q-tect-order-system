@@ -8,7 +8,7 @@
     </select>
 
     <select id="findUserById" parameterType="string" resultType="com.smallB.QOS.user.domain.UserDto">
-        SELECT * FROM users WHERE user_id = #{user_id} AND deleted = false
+        SELECT * FROM users WHERE user_id = #{user_id}
     </select>
 
     <update id="updateUser" parameterType="com.smallB.QOS.user.domain.UserDto">
@@ -20,7 +20,6 @@
             <if test="user_email != null">user_email= #{user_email},</if>
             <if test="store_id != null">store_id= #{store_id},</if>
             <if test="status != null">status= #{status},</if>
-            <if test="deleted != null">deleted= #{deleted},</if>
         </trim>
         WHERE
         user_id = #{user_id}
