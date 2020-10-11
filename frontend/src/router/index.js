@@ -11,6 +11,8 @@ import FindIdPw from "../views/login/FindIdPw.vue";
 import MyPage from "../views/mypage/MyPage.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
 import Product from "../components/manager/Product.vue";
+import StoreMain from "../views/order/StoreMain.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -70,6 +72,12 @@ const routes = [
     path: "/store",
     name: "StoreInfo",
     component: StoreInfo,
+  },
+  {
+    path: "/storemain",
+    name: "StoreMain",
+    component: StoreMain,
+    beforeEnter: requireAuth(),
   },
 ];
 
