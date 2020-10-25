@@ -8,9 +8,7 @@ import axios from "axios";
 Vue.config.productionTip = false;
 axios.defaults.baseURL = "/api";
 axios.defaults.headers.common["Cache-Control"] = "no-cache";
-axios.defaults.headers.common[
-  "Authorization"
-] = `Bearer ${store.state.auth.accessToken}`;
+store.dispatch("auth/restore");
 
 new Vue({
   router,

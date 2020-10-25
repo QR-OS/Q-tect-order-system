@@ -115,4 +115,14 @@ public class ProductServiceImpl implements ProductService {
 
         return existed;
     }
+
+    @Override
+    public boolean deleteProduct(String product_id, String store_id) throws Exception{
+        ProductDto existed = productDao.findProductByProductIdAndStoreId(product_id,store_id);
+
+        if(isNull(existed)){
+            throw new ProductNotFoundException("상품");
+        }
+        return productDao.deleteProductByProductIdAndStoreId(product_id,store_id);
+    }
 }

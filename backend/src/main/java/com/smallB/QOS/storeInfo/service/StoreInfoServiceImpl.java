@@ -9,6 +9,7 @@ import com.smallB.QOS.storeInfo.error.Exception.CategoryNotExistedException;
 import com.smallB.QOS.storeInfo.error.Exception.StoreUpdateFailedException;
 import com.smallB.QOS.storeInfo.error.Exception.StoreNotExistedException;
 import com.smallB.QOS.storeInfo.error.Exception.UnauthorizedUserException;
+import com.smallB.QOS.storeInfo.error.Exception.*;
 import com.smallB.QOS.user.domain.UserDto;
 import com.smallB.QOS.user.error.Exception.UserNotExistedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class StoreInfoServiceImpl implements StoreInfoService{
     public String createStore (StoreInfoDto resource) throws Exception {
 
         StoreInfoDto store = storeInfoDao.findStoreByNum(resource.getStore_num());
-        if(nonNull(store)) return "이미 등록된 사업자번호입니다. 사업자번호를 다시 확인해주세요!";
+        if(nonNull(store)) { throw new StoreAlreadyExistException(); }
 
         //store_id 랜덤 문자열 생성 및 중복 체크
         boolean flag = true;
@@ -47,8 +48,8 @@ public class StoreInfoServiceImpl implements StoreInfoService{
         }
 
         boolean storeFlag = storeInfoDao.addStore(resource);
-        if(storeFlag) return "매장등록이 완료되었습니다!";
-        else return "매장등록에 실패하였습니다!";
+        if(storeFlag) return resource.getStore_id();
+        else { throw new StoreRegisterFailedException(); }
     }
 
     @Override

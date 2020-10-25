@@ -23,6 +23,7 @@ export default {
       const user = jwt.decode(token);
       context.commit("SET_ACCESS_TOKEN", token);
       localStorage.setItem("accessToken", token);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       context.commit("SET_USER", user);
       localStorage.setItem("user", JSON.stringify(user));
     },
@@ -32,6 +33,25 @@ export default {
       localStorage.removeItem("accessToken");
       context.commit("SET_USER", null);
       localStorage.removeItem("user");
+    },
+
+    restore(context) {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        let user = localStorage.getItem("user");
+        if (!accessToken || !user) {
+          return false;
+        }
+        user = JSON.parse(user);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+        context.commit("SET_ACCESS_TOKEN", accessToken);
+        context.commit("SET_USER", user);
+      } catch (err) {
+        context.dispatch("logout");
+        return false;
+      }
     },
   },
 

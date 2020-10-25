@@ -25,10 +25,8 @@ public class StoreInfoController {
     private StoreInfoService storeInfoService;
 
     @PostMapping("/store")
-    public ResponseEntity<String> createStore(@RequestBody StoreInfoDto resource) throws Exception {
-        System.out.println(resource.getAddress1());
-        String message = storeInfoService.createStore(resource);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+    public String createStore(@RequestBody StoreInfoDto resource) throws Exception {
+        return storeInfoService.createStore(resource);
     }
 
     @GetMapping("/store/{user_id}")
