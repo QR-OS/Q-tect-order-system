@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
@@ -22,6 +23,10 @@ public class OrderController {
         return orderService.getOrder(order_id,store_id);
     }
 
+    @GetMapping("/orders/{store_id}")
+    public List<OrderDto> getOrders(@PathVariable @Valid String store_id) throws Exception{
+        return orderService.getOrders(store_id);
+    }
     @PostMapping("/order")
     public OrderDto createOrder(@RequestBody @Valid OrderDto orderDto) throws Exception{
         return orderService.createOrder(orderDto);
