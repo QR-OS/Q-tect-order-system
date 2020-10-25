@@ -4,8 +4,7 @@
       <v-row>
         <v-col align="center">
           <v-img
-            src="https://picsum.photos/id/11/500/300"
-            lazy-src="https://picsum.photos/id/11/100/60"
+            :src="productInfo.product_image"
             max-width="300"
             max-height="200"
           >
@@ -64,6 +63,22 @@
           </v-btn>
         </v-col>
       </v-row>
+      <v-dialog v-if="dialog" v-model="dialog" max-width="300" max-height="100">
+        <v-card>
+          <v-card-title class="text-center">
+            장바구니에는 같은 가게의 상품만 담을 수 있습니다.
+          </v-card-title>
+          <v-card-text class="text-center">
+            선택하신 상품을 장바구니에 담을 경우 이전에 담은 상품은 삭제됩니다.
+          </v-card-text>
+          <v-card-action>
+            <v-row class="mx-0 pb-2" align="center" justify="center">
+              <v-btn text @click="cancel">취소</v-btn>
+              <v-btn text @click="clearAndAdd">담기</v-btn>
+            </v-row>
+          </v-card-action>
+        </v-card>
+      </v-dialog>
     </v-sheet>
   </v-container>
 </template>
@@ -81,6 +96,7 @@ export default {
         product_price: 0,
       },
       productAmount: 1,
+      dialog: false,
     };
   },
   async created() {
@@ -90,35 +106,55 @@ export default {
       );
       this.productInfo = res.data;
     } catch (error) {
-      this.errorMsg = error.response.data.message;
-      //this.productInfo.product_name = "sample";
-      //this.productInfo.product_price = 4500;
-      this.$emit("close", true);
+      this.$emit("close", -1);
     }
   },
   computed: {
     totalAmount() {
       return this.productAmount * this.productInfo.product_price;
     },
-
   },
   methods: {
     ...mapActions({
       addProductToCart: "bucket/addProductToCart",
+      clearCart: "bucket/clearCart",
     }),
-    async updatePage(){
-
-    },
+    async updatePage() {},
     amountUp() {
       this.productAmount += 1;
     },
     amountDown() {
       if (this.productAmount > 1) this.productAmount -= 1;
     },
-    addToCart() {
-      this.productInfo.productId = this.productId;
-      this.addProductToCart(this.productInfo);
-      this.$emit("close", false);
+    async addToCart() {
+      // order : cart에 추가할 상품 정보
+      let totalPrice = this.totalAmount;
+      let order = {
+        storeId: this.storeId,
+        productId: this.productId,
+        amount: this.productAmount,
+        name: this.productInfo.product_name,
+        price: this.productInfo.product_price,
+        totalPrice: totalPrice,
+      };
+      try {
+        let res = await this.addProductToCart(order);
+        console.log("response");
+        console.log(res);
+      } catch (error) {
+        this.dialog = true;
+        return;
+      }
+      console.log(this.$store.state.bucket.cart);
+      this.$emit("close", 1);
+    },
+    cancel() {
+      this.dialog = false;
+      this.$emit("close", 0);
+    },
+    async clearAndAdd() {
+      this.clearCart();
+      await this.addToCart();
     },
   },
 };
