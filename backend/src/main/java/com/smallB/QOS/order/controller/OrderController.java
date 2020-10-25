@@ -19,8 +19,10 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/order/:order_id/:store_id")
+    @GetMapping("/order/{order_id}/{store_id}")
     public OrderDto getOrder(@PathVariable @Valid String order_id, @PathVariable @Valid String store_id) throws Exception{
         return orderService.getOrder(order_id,store_id);
     }
+    
+
 }
