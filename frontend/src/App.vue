@@ -38,7 +38,7 @@
     </v-app-bar>
     <v-main>
       <v-fade-transition hide-on-leave>
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
       </v-fade-transition>
     </v-main>
     <v-footer color="yellow lighten-4" app>

@@ -17,7 +17,7 @@
 
 <script>
 import StoreListComponent from "../../components/StoreList";
-//import axios from "axios";
+import axios from "axios";
 export default {
   components: {
     StoreListComponent
@@ -25,7 +25,7 @@ export default {
 
   data() {
     return {
-      allStoreList: [
+      allstoreList: [
         { store_id: "1",
           store_name: "신전떡볶이",
           store_state: true,
@@ -41,22 +41,22 @@ export default {
           store_state: true,
           open_time: "18:00",
           close_time: "5:00" },
-          { store_id: "3",
+          { store_id: "4",
           store_name: "이디야",
           store_state: true,
           open_time: "9:00",
           close_time: "11:00" },
-          { store_id: "3",
+          { store_id: "5",
           store_name: "버거킹",
           store_state: true,
           open_time: "9:00",
           close_time: "23:00" },
-          { store_id: "3",
+          { store_id: "6",
           store_name: "생맥주와 통감자",
           store_state: true,
           open_time: "18:00",
           close_time: "5:00" },
-          { store_id: "3",
+          { store_id: "7",
           store_name: "에이바우트",
           store_state: true,
           open_time: "7:00",
@@ -64,6 +64,7 @@ export default {
       ],
       searchWord: {
         word: '',
+        storeList: [],
       },
     };
   },
@@ -71,11 +72,16 @@ export default {
   },
   async created() {
     this.searchWord.word = this.$route.query.word;
-    this.searchWord.storeList = this.allStoreList;
+    try {
+    const allStoreList = await axios.get("/store");
+    this.searchWord.storeList = allStoreList.data;
+    } catch(err) {
+      console.log(err);
+    }
   },
   methods: {
       searchFunc() {
-      //this.$router.push("/searchstorelist?word=" + this.searchWord);
+      this.$router.push("/searchstorelist?word=" + this.searchWord);
     },
   }
 };
