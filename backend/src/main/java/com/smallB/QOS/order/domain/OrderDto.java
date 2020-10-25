@@ -16,10 +16,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class OrderDto {
-    private boolean order_type;
+    @PositiveOrZero
+    private int order_type;
     private Date order_time;
     private Date book_time;
-    @NotEmpty @NotBlank @NotNull
     private String order_id;
     @PositiveOrZero
     private int total_price;
