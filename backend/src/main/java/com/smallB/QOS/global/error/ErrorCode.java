@@ -36,6 +36,8 @@ public enum ErrorCode {
     PRODUCT_UPDATE_FAILED(400,"p002","Product Update Failed"),
     CATEGORY_NOT_FOUND(400,"p003","Category NOT FOUND"),
 
+    //ORDER
+    ORDER_NOT_FOUND(400,"O001","Order NOT FOUND"),
 
     ;
     private final String code;
