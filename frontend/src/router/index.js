@@ -9,8 +9,12 @@ import SelectRegisterType from "../views/login/SelectRegisterType.vue";
 import StoreInfo from "../views/store/StoreInfo.vue";
 import FindIdPw from "../views/login/FindIdPw.vue";
 import MyPage from "../views/mypage/MyPage.vue";
+import CategoryStoreList from "../views/store/CategoryStoreList.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
 import Product from "../components/manager/Product.vue";
+import SearchStoreList from "../views/store/SearchStoreList.vue";
+import StoreMain from "../views/store/StoreMain";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -63,12 +67,30 @@ const routes = [
     path: "/mypage",
     name: "MyPage",
     component: MyPage,
-    beforeEnter: requireAuth(),
+    beforeEnter: requireAuth()
   },
   {
     path: "/store",
     name: "StoreInfo",
-    component: StoreInfo,
+    component: StoreInfo
+  },
+  {
+    path: "/categorystorelist",
+    name: "CategoryStoreList",
+    component: CategoryStoreList,
+    props: true,
+  },
+  {
+    path: "/searchstorelist",
+    name: "SearchStoreList",
+    component: SearchStoreList,
+    props: true,
+  },
+  {
+    path: "/storemain",
+    name: "StoreMain",
+    component: StoreMain,
+    beforeEnter: requireAuth(),
   },
 ];
 
