@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 import static java.util.Objects.isNull;
 
@@ -24,6 +25,15 @@ public class OrderServiceImpl implements OrderService{
             throw new OrderNotFoundException(order_id);
         }
         return orderDto;
+    }
+
+    @Override
+    public List<OrderDto> getOrders(String store_id) throws Exception{
+        List<OrderDto> orderDtos = orderDao.findOrders(store_id);
+        if(isNull(orderDtos)){
+            throw new OrderNotFoundException(store_id);
+        }
+        return orderDtos;
     }
 
     @Override
