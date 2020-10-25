@@ -38,6 +38,7 @@ public enum ErrorCode {
 
     //ORDER
     ORDER_NOT_FOUND(400,"O001","Order NOT FOUND"),
+    ORDER_CREATION_FAIL(400,"O002","Order CREATION FAIL"),
 
     ;
     private final String code;
