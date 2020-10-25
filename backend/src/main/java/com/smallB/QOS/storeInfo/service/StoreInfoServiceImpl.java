@@ -3,7 +3,9 @@ package com.smallB.QOS.storeInfo.service;
 import com.google.gson.JsonObject;
 import com.smallB.QOS.global.util.CreateRandomStrUtil;
 import com.smallB.QOS.storeInfo.dao.StoreInfoDao;
+import com.smallB.QOS.storeInfo.domain.StoreIdListDto;
 import com.smallB.QOS.storeInfo.domain.StoreInfoDto;
+import com.smallB.QOS.storeInfo.error.Exception.CategoryNotExistedException;
 import com.smallB.QOS.storeInfo.error.Exception.StoreUpdateFailedException;
 import com.smallB.QOS.storeInfo.error.Exception.StoreNotExistedException;
 import com.smallB.QOS.storeInfo.error.Exception.UnauthorizedUserException;
@@ -13,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+
+import java.awt.datatransfer.SystemFlavorMap;
+import java.util.ArrayList;
 
 import static java.util.Objects.nonNull;
 
@@ -84,5 +89,30 @@ public class StoreInfoServiceImpl implements StoreInfoService{
         return obj.toString();
     }
 
+    @Override
+    public ArrayList<StoreIdListDto> getStoresByCategory(String category) throws Exception {
+        ArrayList<StoreIdListDto> result = storeInfoDao.findStoreByCategory(category);
+        return result;
+    }
+
+    @Override
+    public ArrayList<StoreInfoDto> getStoresById(ArrayList<StoreIdListDto> storeIds) throws Exception {
+        ArrayList<StoreInfoDto> result = new ArrayList<>();
+        for(int i=0; i<storeIds.size(); i++) {
+            String store_id = storeIds.get(i).getStore_id();
+            StoreInfoDto store = storeInfoDao.findStoreById(store_id);
+            result.add(store);
+        }
+        if(result.size() == 0){
+            throw new CategoryNotExistedException();
+        }
+        return result;
+    }
+
+    @Override
+    public ArrayList<StoreInfoDto> getStores() throws  Exception {
+        ArrayList<StoreInfoDto> result = storeInfoDao.findStores();
+        return result;
+    }
 
 }

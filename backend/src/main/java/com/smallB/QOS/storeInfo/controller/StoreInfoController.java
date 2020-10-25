@@ -1,6 +1,9 @@
 package com.smallB.QOS.storeInfo.controller;
 
+import com.smallB.QOS.storeInfo.domain.StoreIdListDto;
 import com.smallB.QOS.storeInfo.domain.StoreInfoDto;
+import com.smallB.QOS.storeInfo.error.Exception.CategoryNotExistedException;
+import com.smallB.QOS.storeInfo.error.Exception.UnauthorizedCategoryException;
 import com.smallB.QOS.storeInfo.service.StoreInfoService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.ArrayList;
 
 
 @RestController
@@ -36,4 +42,14 @@ public class StoreInfoController {
         return storeInfoService.updateStoreInfo(user_id, resource);
     }
 
+    @GetMapping("/store")
+    public ArrayList<StoreInfoDto> getStoresByCategory(@Valid @RequestParam(value="category", required=false) String category) throws Exception {
+        ArrayList<StoreIdListDto> storeIds = new ArrayList<>();
+        if(category == "") throw new UnauthorizedCategoryException();
+        if (category != null) {
+            storeIds = storeInfoService.getStoresByCategory(category);
+            return storeInfoService.getStoresById(storeIds);
+        }
+        else return storeInfoService.getStores();
+    }
 }

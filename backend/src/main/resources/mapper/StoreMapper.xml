@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smallB.QOS.storeInfo.dao.StoreInfoDao">
+    <select id="findStoreByCategory"
+            parameterType="string"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreIdListDto">
+        SELECT *
+        FROM store_category
+        <if test='category != null and category != ""'>
+            WHERE store_type = #{category}
+        </if>
+    </select>
+</mapper>
