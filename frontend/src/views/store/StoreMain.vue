@@ -45,7 +45,7 @@
       </v-btn>
       <v-dialog v-if="dialog" v-model="dialog" max-width="500" max-height="700">
         <select-product
-          :storeId="storeInfo.store_id"
+          :storeInfo="storeInfo"
           productId="1234"
           @close="close"
         ></select-product>

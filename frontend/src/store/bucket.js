@@ -12,7 +12,6 @@ export default {
       //const itemToFind = state.cart.find((item) => item.id === product.id)
       //const idx = state.cart.indexOf(i)
       const idx = state.cart.findIndex((item) => item.id === product.id);
-      console.log("idx:%d", idx);
       if (idx > -1) state.cart.splice(idx, 1);
     },
     clearAllCart(state) {
@@ -33,14 +32,19 @@ export default {
               const cartItem = state.cart.find(
                 (item) => item.id === product.id
               );
-              console.log(cartItem);
 
               // 같은 상품이 존재할 경우 합쳐서 기존 상품은 삭제하고 새 상품을 다시 push
               // action에서는 state를 직접 수정하는 것을 지양하기 때문에 삭제->추가 형식으로 해결했습니다.
               if (cartItem) {
-                console.log("같은 상품이 있어!");
-                product.amount += cartItem.amount;
+                product.productAmount += cartItem.productAmount;
                 product.totalPrice += cartItem.totalPrice;
+                if (product.productAmount <= 0) {
+                  let err = new Error(
+                    "장바구니에 넣으려는 값이 0보다 같거나 작습니다."
+                  );
+                  err.name = "NegativeValueError";
+                  throw err;
+                }
                 commit("popProductToCart", cartItem);
                 commit("pushProductToCart", product);
               } else commit("pushProductToCart", product);
@@ -48,7 +52,9 @@ export default {
 
             // 같지 않은 경우 error를 반환(밖에서 예외처리 하도록 함)
             else {
-              throw new Error("fail");
+              let err = new Error("상점 정보가 다릅니다.");
+              err.name = "DifferentStoreIdError";
+              throw err;
             }
           } else {
             // 비어있는 카트에는 별다른 행동 없이 바로 상품을 추가합니다.
