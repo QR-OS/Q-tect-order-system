@@ -290,9 +290,12 @@ export default {
           },
         */
         this.$emit("update", this.storeCategory.value);
-        this.$emit("register", true);
+        /*
+          검사 결과가 이상이 없을 경우 true값을 인자로 넣어주고 submit이벤트를 호출합니다.
+        */
+        this.$emit("submit", true);
       } else {
-        this.$emit("register", false);
+        this.$emit("submit", false);
       }
     },
   },
