@@ -13,3 +13,10 @@ export const shouldNotBeAuthorized = () => (to, from, next) => {
   }
   next("/");
 };
+
+export const enterOrder = () => (to, from, next) => {
+  if (store.state.auth.accessToken && from.name == "Bucket") {
+    return next();
+  }
+  next("/home");
+};

@@ -1,4 +1,8 @@
-import { requireAuth, shouldNotBeAuthorized } from "../gaurd/auth.gaurd.js";
+import {
+  requireAuth,
+  shouldNotBeAuthorized,
+  enterOrder,
+} from "../gaurd/auth.gaurd.js";
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
@@ -13,7 +17,9 @@ import CategoryStoreList from "../views/store/CategoryStoreList.vue";
 import CheckPassword from "../views/mypage/CheckPassword.vue";
 import Product from "../components/manager/Product.vue";
 import SearchStoreList from "../views/store/SearchStoreList.vue";
-import StoreMain from "../views/store/StoreMain";
+import StoreMain from "../views/store/StoreMain.vue";
+import Bucket from "../views/order/Bucket.vue";
+import Order from "../views/order/Order.vue";
 
 Vue.use(VueRouter);
 
@@ -67,12 +73,12 @@ const routes = [
     path: "/mypage",
     name: "MyPage",
     component: MyPage,
-    beforeEnter: requireAuth()
+    beforeEnter: requireAuth(),
   },
   {
     path: "/store",
     name: "StoreInfo",
-    component: StoreInfo
+    component: StoreInfo,
   },
   {
     path: "/categorystorelist",
@@ -91,6 +97,18 @@ const routes = [
     name: "StoreMain",
     component: StoreMain,
     beforeEnter: requireAuth(),
+  },
+  {
+    path: "/bucket",
+    name: "Bucket",
+    component: Bucket,
+    beforeEnter: requireAuth(),
+  },
+  {
+    path: "/order",
+    name: "Order",
+    component: Order,
+    beforeEnter: enterOrder(),
   },
 ];
 
