@@ -52,6 +52,7 @@ export default {
         { category: "치킨" },
         { category: "패스트푸드" },
         { category: "카페/디저트" },
+        { category: "주점" },
         { category: "마켓" }
       ],
       searchWord: "",

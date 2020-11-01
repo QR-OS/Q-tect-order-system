@@ -40,6 +40,7 @@ public enum ErrorCode {
     PRODUCT_NOT_FOUND(400,"P001","Product NOT FOUND"),
     PRODUCT_UPDATE_FAILED(400,"p002","Product Update Failed"),
     CATEGORY_NOT_FOUND(400,"p003","Category NOT FOUND"),
+    CATEGORY_DUPLICATED(409,"p004","Category is Duplicated"),
 
 
     ;

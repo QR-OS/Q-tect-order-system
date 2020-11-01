@@ -22,6 +22,4 @@ public class ProductDto {
     private int product_stock;
     private String product_image;
     private boolean product_state = true;
-    private boolean deleted=false;
-
 }
