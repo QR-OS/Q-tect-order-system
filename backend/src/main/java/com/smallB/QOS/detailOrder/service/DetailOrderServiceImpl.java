@@ -25,4 +25,13 @@ public class DetailOrderServiceImpl implements DetailOrderService{
         }
         return detailOrderDtos;
     }
+
+    @Override
+    public DetailOrderDto createDetailOrder(DetailOrderDto detailOrderDto) throws Exception{
+        boolean res = detailOrderDao.createDetailOrder(detailOrderDto);
+        if(!res){
+            throw new DetailOrderNotFound(Integer.toString(detailOrderDto.getOrder_id()));
+        }
+        return detailOrderDto;
+    }
 }
