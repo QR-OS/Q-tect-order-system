@@ -9,10 +9,18 @@ export default {
       state.cart.push(product);
     },
     popProductToCart(state, product) {
-      //const itemToFind = state.cart.find((item) => item.id === product.id)
-      //const idx = state.cart.indexOf(i)
-      const idx = state.cart.findIndex((item) => item.id === product.id);
+      const idx = state.cart.findIndex(
+        (item) => item.productId === product.productId
+      );
       if (idx > -1) state.cart.splice(idx, 1);
+    },
+    updateProductToCart(state, product) {
+      const idx = state.cart.findIndex(
+        (item) => item.productId === product.productId
+      );
+      product.deleted = false;
+      state.cart[idx].productAmount = product.productAmount;
+      state.cart[idx].totalPrice = product.totalPrice;
     },
     clearAllCart(state) {
       state.cart = [];
@@ -30,11 +38,10 @@ export default {
             if (storeId == product.storeId) {
               // 같다면 cart내부에 같은 상품이 담겨있는지 확인
               const cartItem = state.cart.find(
-                (item) => item.id === product.id
+                (item) => item.productId === product.productId
               );
 
-              // 같은 상품이 존재할 경우 합쳐서 기존 상품은 삭제하고 새 상품을 다시 push
-              // action에서는 state를 직접 수정하는 것을 지양하기 때문에 삭제->추가 형식으로 해결했습니다.
+              // 같은 상품이 존재할 경우 update로 보낸다.
               if (cartItem) {
                 product.productAmount += cartItem.productAmount;
                 product.totalPrice += cartItem.totalPrice;
@@ -45,8 +52,7 @@ export default {
                   err.name = "NegativeValueError";
                   throw err;
                 }
-                commit("popProductToCart", cartItem);
-                commit("pushProductToCart", product);
+                commit("updateProductToCart", product);
               } else commit("pushProductToCart", product);
             }
 
@@ -67,7 +73,9 @@ export default {
       });
     },
     deleteProductToCart({ state, commit }, product) {
-      const cartItem = state.cart.find((item) => item.id === product.id);
+      const cartItem = state.cart.find(
+        (item) => item.productId === product.productId
+      );
       if (cartItem) {
         commit("popProductToCart", product);
       }
