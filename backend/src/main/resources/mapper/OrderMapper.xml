@@ -11,7 +11,7 @@
         SELECT * FROM `order` WHERE store_id = #{store_id}
     </select>
 
-    <insert id="createOrder" parameterType="com.smallB.QOS.order.domain.OrderDto">
+    <insert id="createOrder" parameterType="com.smallB.QOS.order.domain.OrderDto" useGeneratedKeys="true" keyColumn="order_id" keyProperty="order_id">
         INSERT INTO `order` (`order_type`,`order_time`,`book_time`,`order_id`,`total_price`,`pay_type`,`order_state`,`store_id`,`user_id`)
         VALUES (#{order_type},#{order_time},#{book_time},#{order_id},#{total_price},#{pay_type},#{order_state},#{store_id},#{user_id})
     </insert>
