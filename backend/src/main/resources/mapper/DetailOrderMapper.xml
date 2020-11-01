@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smallB.QOS.detailOrder.dao.DetailOrderDao">
+
+    <select id="findDetailOrder" parameterType="String" resultType="com.smallB.QOS.detailOrder.domain.DetailOrderDto">
+        SELECT * FROM `detail_order` WHERE order_id = #{order_id} AND store_id = #{store_id}
+    </select>
+
+</mapper>
