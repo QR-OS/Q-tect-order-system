@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderDto> getOrders(String store_id) throws Exception{
         List<OrderDto> orderDtos = orderDao.findOrders(store_id);
-        if(isNull(orderDtos)){
+        if(orderDtos.size()==0){
             throw new OrderNotFoundException(store_id);
         }
         return orderDtos;

@@ -22,18 +22,21 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/order/{order_id}/{store_id}")
-    public OrderDto getOrder(@PathVariable @Valid String order_id, @PathVariable @Valid String store_id) throws Exception{
-        return orderService.getOrder(order_id,store_id);
+    public ResponseEntity<?> getOrder(@PathVariable @Valid String order_id, @PathVariable @Valid String store_id) throws Exception{
+        Object res = orderService.getOrder(order_id,store_id);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
     @GetMapping("/orders/{store_id}")
-    public List<OrderDto> getOrders(@PathVariable @Valid String store_id) throws Exception{
-        return orderService.getOrders(store_id);
+    public ResponseEntity<?> getOrders(@PathVariable @Valid String store_id) throws Exception{
+        Object res = orderService.getOrders(store_id);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
     @PostMapping("/order")
-    public OrderDto createOrder(@RequestBody @Valid OrderDto orderDto) throws Exception{
-        return orderService.createOrder(orderDto);
+    public ResponseEntity<?> createOrder(@RequestBody @Valid OrderDto orderDto) throws Exception{
+        Object res = orderService.createOrder(orderDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
     @PatchMapping("/order/{order_id}/{store_id}")
