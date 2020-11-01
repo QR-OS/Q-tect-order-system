@@ -40,6 +40,9 @@ public enum ErrorCode {
     ORDER_NOT_FOUND(400,"O001","Order NOT FOUND"),
     ORDER_CREATION_FAIL(400,"O002","Order CREATION FAIL"),
     ORDER_UPDATE_FAIL(400,"O003","ORDER Update Fail"),
+
+    //DETAILORDER
+    DETAILORDER_NOT_FOUND(400,"D001","DetailOrder NOT FOUND"),
     ;
     private final String code;
     private final String message;
