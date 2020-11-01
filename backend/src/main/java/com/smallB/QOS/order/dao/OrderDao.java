@@ -8,6 +8,6 @@ import java.util.List;
 public interface OrderDao {
     OrderDto findOrder(String order_id, String store_id) throws Exception;
     List<OrderDto> findOrders(String store_id) throws Exception;
-    boolean createOrder(OrderDto orderDto) throws Exception;
+    void createOrder(OrderDto orderDto) throws Exception;
 
 }
