@@ -39,7 +39,7 @@ public enum ErrorCode {
     //ORDER
     ORDER_NOT_FOUND(400,"O001","Order NOT FOUND"),
     ORDER_CREATION_FAIL(400,"O002","Order CREATION FAIL"),
-
+    ORDER_UPDATE_FAIL(400,"O003","ORDER Update Fail"),
     ;
     private final String code;
     private final String message;
