@@ -8,4 +8,5 @@ import java.util.List;
 @Service
 public interface DetailOrderService {
     List<DetailOrderDto> getDetailOrder(String order_id, String user_id) throws Exception;
+    DetailOrderDto createDetailOrder(DetailOrderDto detailOrderDto) throws Exception;
 }

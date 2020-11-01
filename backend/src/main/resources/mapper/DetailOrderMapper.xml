@@ -4,7 +4,11 @@
 <mapper namespace="com.smallB.QOS.detailOrder.dao.DetailOrderDao">
 
     <select id="findDetailOrder" parameterType="String" resultType="com.smallB.QOS.detailOrder.domain.DetailOrderDto">
-        SELECT * FROM `detail_order` WHERE order_id = #{order_id} AND store_id = #{store_id}
+        SELECT * FROM `detail_order` WHERE order_id = #{order_id} AND user_id = #{user_id}
     </select>
 
+    <insert id="createDetailOrder" parameterType="com.smallB.QOS.detailOrder.domain.DetailOrderDto">
+        INSERT INTO `detail_order` (`order_id`,`store_id`,`product_id`,`order_quantity`,`user_id`)
+        VALUES (#{order_id},#{store_id},#{product_id},#{order_quantity},#{user_id})
+    </insert>
 </mapper>
