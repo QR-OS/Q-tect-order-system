@@ -20,6 +20,7 @@ import SearchStoreList from "../views/store/SearchStoreList.vue";
 import StoreMain from "../views/store/StoreMain.vue";
 import Bucket from "../views/order/Bucket.vue";
 import Order from "../views/order/Order.vue";
+import OrderState from "../views/order/OrderState.vue";
 
 Vue.use(VueRouter);
 
@@ -109,6 +110,12 @@ const routes = [
     name: "Order",
     component: Order,
     beforeEnter: enterOrder(),
+  },
+  {
+    path: "/orderstate",
+    name: "OrderState",
+    component: OrderState,
+    beforeEnter: requireAuth(),
   },
 ];
 
