@@ -2,8 +2,10 @@ package com.smallB.QOS.order.service;
 
 import com.smallB.QOS.order.dao.OrderDao;
 import com.smallB.QOS.order.domain.OrderDto;
+import com.smallB.QOS.order.domain.OrderStateUpdateDto;
 import com.smallB.QOS.order.error.OrderCreateFailException;
 import com.smallB.QOS.order.error.OrderNotFoundException;
+import com.smallB.QOS.order.error.OrderUpdateFailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +48,33 @@ public class OrderServiceImpl implements OrderService{
             throw new OrderCreateFailException();
         }
         return orderDto;
+    }
+
+    @Override
+    public OrderDto updateOrder(String order_id, String store_id, OrderStateUpdateDto orderStateUpdateDto) throws Exception{
+        //find orderInfo
+        OrderDto orderdto = orderDao.findOrder(order_id,store_id);
+
+        if(isNull(orderdto)){
+            throw new OrderNotFoundException(store_id);
+        }
+
+        orderStateUpdateDto.setOrder_id(Integer.parseInt(order_id));
+        orderStateUpdateDto.setStore_id(store_id);
+
+        if(orderStateUpdateDto.getOrder_state()!=null){
+            orderdto.setOrder_state(orderStateUpdateDto.getOrder_state());
+        }
+        if(isNull(orderStateUpdateDto.getOrder_type())){
+            orderdto.setOrder_type(orderStateUpdateDto.getOrder_type());
+        }
+
+        int result = orderDao.updateOrder(orderStateUpdateDto);
+
+        if(result==0){
+            throw new OrderUpdateFailException(order_id);
+        }
+
+        return orderdto;
     }
 }

@@ -15,4 +15,14 @@
         INSERT INTO `order` (`order_type`,`order_time`,`book_time`,`order_id`,`total_price`,`pay_type`,`order_state`,`store_id`,`user_id`)
         VALUES (#{order_type},#{order_time},#{book_time},#{order_id},#{total_price},#{pay_type},#{order_state},#{store_id},#{user_id})
     </insert>
+
+    <update id="updateOrder" parameterType="com.smallB.QOS.order.domain.OrderStateUpdateDto">
+        UPDATE `order`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="order_state != null">order_state = #{order_state},</if>
+            <if test="order_type != null">order_type= #{order_type},</if>
+        </trim>
+        WHERE order_id = #{order_id} AND store_id = #{store_id}
+    </update>
+
 </mapper>
