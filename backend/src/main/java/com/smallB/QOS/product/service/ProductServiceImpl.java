@@ -49,7 +49,6 @@ public class ProductServiceImpl implements ProductService {
                 .product_price(productDto.getProduct_price())
                 .product_stock(productDto.getProduct_stock())
                 .product_state(productDto.isProduct_state())
-                .deleted(false)
                 .build();
 
         boolean flag = true;

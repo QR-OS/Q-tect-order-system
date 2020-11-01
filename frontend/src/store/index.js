@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
 import auth from "./auth";
+import bucket from "./bucket";
 
 Vue.use(Vuex);
 
@@ -10,10 +11,10 @@ export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: { auth },
+  modules: { auth, bucket },
   plugins: [
     createPersistedState({
-      paths: ["auth"],
+      paths: ["auth", "bucket"],
     }),
   ],
 });
