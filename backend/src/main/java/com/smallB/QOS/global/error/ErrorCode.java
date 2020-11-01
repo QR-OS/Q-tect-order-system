@@ -28,10 +28,13 @@ public enum ErrorCode {
     STORE_ID_NOT_EXIST(400, "SI001", "Store_id is not Existed"),
     STORE_UPDATE_FAILED(400, "SI002", "Store Update Failed"),
     UNAUTHORIZED_USER(401, "SI003", "Unauthorized User"),
-    CATEGORY_NOT_EXIST(400, "SI004", "Category is not Existed"),
-    CATEGORY_INPUT_INVALID(400, "SI005", "Category input is invalid"),
     STORE_ALREADY_EXIST(409, "SI004", "Store Already Exist"),
     STORE_REGISTER_FAILED(400, "SI005", "Store Register Failed"),
+    STORE_CATEGORY_NOT_EXIST(400, "SI006", "Store Category is not Existed"),
+    STORE_CATEGORY_INPUT_INVALID(400, "SI007", "Store Category input is invalid"),
+    STORE_CATEGORY_CREATE_FAILED(400, "SI008", "Store Category Create Failed"),
+    STORE_CATEGORY_PARAM_INVALID(400, "SI009", "Store Category Parameter is invalid"),
+    STORE_CATEGORY_DELETE_FAILED(400, "SI010", "Store Category Delete Failed"),
 
     //PRODUCT
     PRODUCT_NOT_FOUND(400,"P001","Product NOT FOUND"),
