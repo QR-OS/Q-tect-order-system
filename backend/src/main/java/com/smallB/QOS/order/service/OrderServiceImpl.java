@@ -40,8 +40,9 @@ public class OrderServiceImpl implements OrderService{
     public OrderDto createOrder(OrderDto orderDto) throws Exception{
         orderDto.setOrder_time(new Date());
 
-        Boolean result = orderDao.createOrder(orderDto);
-        if(result != true) {
+        orderDao.createOrder(orderDto);
+
+        if(isNull(orderDto.getOrder_id())){
             throw new OrderCreateFailException();
         }
         return orderDto;
