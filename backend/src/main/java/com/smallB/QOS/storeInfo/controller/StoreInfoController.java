@@ -56,8 +56,8 @@ public class StoreInfoController {
         return storeInfoService.createStoreCategory(storeCategoryArrayDto.getStore_id(), storeCategoryArrayDto.getStoreType());
     }
 
-    @PatchMapping("/store/category")
-    public String editStoreCategory(@RequestBody StoreCategoryArrayDto storeCategoryArrayDto) throws Exception {
-        return storeInfoService.updateStoreCategory(storeCategoryArrayDto.getStore_id(), storeCategoryArrayDto.getStoreType());
+    @PatchMapping("/store/category/{user_id}")
+    public String editStoreCategory(@PathVariable("user_id") String user_id, @RequestBody StoreCategoryArrayDto storeCategoryArrayDto) throws Exception {
+        return storeInfoService.updateStoreCategory(user_id, storeCategoryArrayDto.getStore_id(), storeCategoryArrayDto.getStoreType());
     }
 }

@@ -163,9 +163,11 @@ public class StoreInfoServiceImpl implements StoreInfoService{
     }
 
     @Override
-    public String updateStoreCategory(String store_id, ArrayList<StoreTypeDto> storeTypeDto) throws Exception {
-        StoreInfoDto storeResult = storeInfoDao.findStoreById(store_id);//해당 store_id로 된 매장이 등록이 되어있는지 확인
-        if(storeResult == null) throw new StoreNotExistedException();//등록된 매장이 없을 때
+    public String updateStoreCategory(String user_id, String store_id, ArrayList<StoreTypeDto> storeTypeDto) throws Exception {
+        UserDto userDto = storeInfoDao.findStoreByUserId(user_id);
+        System.out.println(userDto.getStore_id());
+        System.out.println(store_id);
+        if(!userDto.getStore_id().equals(store_id)) throw new UnauthorizedUserException(user_id);
 
         ArrayList<StoreTypeDto> storeTypeDtos = storeInfoDao.findCategoryById(store_id);
         if(storeTypeDtos.size() != 0) {

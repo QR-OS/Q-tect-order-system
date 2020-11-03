@@ -22,7 +22,7 @@ public interface StoreInfoService {
 
     String createStoreCategory(String store_id, ArrayList<StoreTypeDto> storeType) throws Exception;
 
-    String updateStoreCategory(String store_id, ArrayList<StoreTypeDto> storeType) throws Exception;
+    String updateStoreCategory(String user_id, String store_id, ArrayList<StoreTypeDto> storeType) throws Exception;
 
     ArrayList<StoreTypeDto> getStoreCategory(String user_id) throws Exception;
 }
