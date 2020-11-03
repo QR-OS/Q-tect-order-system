@@ -11,7 +11,7 @@
           >
             주문하기
           </v-card-title>
-          <v-row>
+          <v-row v-if="bookable">
             <v-col align="end">
               <v-btn
                 :disabled="form.order_type === 0"
@@ -243,6 +243,9 @@ export default {
       reservationTime: "",
       availableDates: [],
       holiday: [],
+      bookable: true,
+      openTime: "00:00",
+      closeTime: "00:00",
       errorMsg: "",
       timeErrorMsg: "",
       // 예시
@@ -285,8 +288,11 @@ export default {
   async created() {
     try {
       //let res = await axios.get("/store/" + this.storeId);
-      let res = await axios.get("/store/1234");
+      let res = await axios.get("/store/test123");
       this.holiday = res.data.holiday.split("").map(Number);
+      this.bookable = res.data.bookable;
+      this.openTime = res.data.open_time;
+      this.closeTime = res.data.close_time;
     } catch (error) {
       this.errorMsg = error.response.data.message;
     }
@@ -297,27 +303,71 @@ export default {
       deleteProductToCart: "bucket/deleteProductToCart",
       clearCart: "bucket/clearCart",
     }),
-    async order() {
-      let body = Object.assign({}, this.form);
-      if (body.order_type === 1) {
+    isTimeBetween(startTime, endTime, serverTime) {
+      let start = moment(startTime, "H:mm");
+      let end = moment(endTime, "H:mm");
+      let server = moment(serverTime, "H:mm");
+      if (end < start) {
+        return (
+          (server >= start && server <= moment("23:59:59", "h:mm:ss")) ||
+          (server >= moment("0:00:00", "h:mm:ss") && server < end)
+        );
+      }
+      return server >= start && server < end;
+    },
+    checkform() {
+      if (this.form.order_type === 1) {
         if (this.reservationTime === "") {
           this.timeErrorMsg = "예약 시간을 올바르게 입력해주세요!";
-          return;
+          return false;
         }
         let bookTime = this.date + "T" + this.reservationTime;
-        if (moment(bookTime).isAfter(moment())) body.book_time = bookTime;
+        if (moment(bookTime).isAfter(moment())) this.form.book_time = bookTime;
         else {
           this.timeErrorMsg = "예약 시간을 올바르게 입력해주세요!";
-          return;
+          return false;
+        }
+        if (
+          !this.isTimeBetween(
+            this.openTime,
+            this.closeTime,
+            this.reservationTime
+          )
+        ) {
+          this.timeErrorMsg = "예약 시간을 올바르게 입력해주세요!";
+          return false;
         }
       }
+      return true;
+    },
+    async order() {
+      if (!this.checkform()) {
+        return;
+      }
+      let body = Object.assign({}, this.form);
       body.total_price = this.payValue;
       body.order_state = "주문 접수";
       body.store_id = this.cart[0].storeId;
       body.user_id = this.$store.state.auth.user.user_id;
       try {
         let res = await axios.post("/order", body);
-        this.$router.push("/orderstate?orderId=" + res.data.order_id);
+        let orderId = Number(res.data.order_id);
+        let productBody = {
+          order_id: orderId,
+          store_id: this.cart[0].storeId,
+          user_id: this.$store.state.auth.user.user_id,
+        };
+        for (let item of this.cart) {
+          productBody.product_id = item.productId;
+          productBody.order_quantity = item.productAmount;
+          console.log(productBody);
+          let res = await axios.post("/detailorder", productBody);
+          console.log(res.data);
+        }
+        this.$router.push({
+          name: "OrderState",
+          query: { orderId: res.data.order_id, storeId: res.data.store_id },
+        });
       } catch (error) {
         this.errorMsg = error.response.data.message;
       }
