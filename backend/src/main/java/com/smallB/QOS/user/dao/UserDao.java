@@ -8,4 +8,5 @@ public interface UserDao {
     void addUser (UserDto user) throws Exception;
     UserDto findUserById (String user_id) throws Exception;
     int updateUser(UserDto user) throws  Exception;
+    UserDto findUserByStoreId (String store_id) throws Exception;
 }
