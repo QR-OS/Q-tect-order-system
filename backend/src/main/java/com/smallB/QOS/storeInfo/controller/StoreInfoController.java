@@ -25,17 +25,17 @@ public class StoreInfoController {
     private StoreInfoService storeInfoService;
 
     @PostMapping("/store")
-    public String createStore(@RequestBody StoreInfoDto resource) throws Exception {
+    public String createStore(@Valid @RequestBody StoreInfoDto resource) throws Exception {
         return storeInfoService.createStore(resource);
     }
 
     @GetMapping("/store/{user_id}")
-    public StoreInfoDto getStore(@PathVariable("user_id") String user_id) throws Exception {
+    public StoreInfoDto getStore(@Valid @PathVariable("user_id") String user_id) throws Exception {
         return storeInfoService.getOneStoreInfo(user_id);
     }
 
     @PatchMapping("/store/{user_id}")
-    public String editStore(@PathVariable("user_id") final String user_id,
+    public String editStore(@Valid @PathVariable("user_id") final String user_id,
                           @RequestBody StoreInfoDto resource) throws Exception {
         return storeInfoService.updateStoreInfo(user_id, resource);
     }
