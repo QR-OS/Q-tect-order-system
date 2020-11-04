@@ -23,6 +23,7 @@ public enum ErrorCode {
     LOGIN_INPUT_INVALID(400, "U003", "Login input is invalid"),
     USER_UPDATE_FAILED(400, "U004", "User update failed"),
     TOKEN_EXPIRED(400,"U005","Token is Expired"),
+    USER_NOT_EXIST(400, "U005", "User not Existed"),
 
     //StoreInfo
     STORE_ID_NOT_EXIST(400, "SI001", "Store_id is not Existed"),
