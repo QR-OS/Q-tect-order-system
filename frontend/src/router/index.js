@@ -1,5 +1,6 @@
 import {
   requireAuth,
+  requireManageAuth,
   shouldNotBeAuthorized,
   enterOrder,
 } from "../gaurd/auth.gaurd.js";
@@ -81,6 +82,7 @@ const routes = [
     path: "/store",
     name: "StoreInfo",
     component: StoreInfo,
+    beforeEnter: requireManageAuth(),
   },
   {
     path: "/categorystorelist",
