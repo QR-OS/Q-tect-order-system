@@ -6,6 +6,7 @@ export default {
   state: {
     accessToken: "",
     user: {},
+    storeInfo: {},
   },
   mutations: {
     SET_ACCESS_TOKEN(state, token) {
@@ -14,8 +15,8 @@ export default {
     SET_USER(state, user) {
       state.user = user;
     },
-    SET_EDIT_TOKEN(state, token) {
-      state.editToken = token;
+    SET_MANAGER(state, storeInfo) {
+      state.storeInfo = storeInfo;
     },
   },
   actions: {
@@ -33,6 +34,11 @@ export default {
       localStorage.removeItem("accessToken");
       context.commit("SET_USER", null);
       localStorage.removeItem("user");
+      context.commit("SET_MANAGER", null);
+    },
+
+    async managerAuth(context, storeInfo) {
+      context.commit("SET_MANAGER", storeInfo);
     },
 
     restore(context) {
