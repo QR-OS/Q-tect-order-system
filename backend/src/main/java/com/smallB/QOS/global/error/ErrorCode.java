@@ -43,7 +43,13 @@ public enum ErrorCode {
     CATEGORY_NOT_FOUND(400,"p003","Category NOT FOUND"),
     CATEGORY_DUPLICATED(409,"p004","Category is Duplicated"),
 
+    //ORDER
+    ORDER_NOT_FOUND(400,"O001","Order NOT FOUND"),
+    ORDER_CREATION_FAIL(400,"O002","Order CREATION FAIL"),
+    ORDER_UPDATE_FAIL(400,"O003","ORDER Update Fail"),
 
+    //DETAILORDER
+    DETAILORDER_NOT_FOUND(400,"D001","DetailOrder NOT FOUND"),
     ;
     private final String code;
     private final String message;

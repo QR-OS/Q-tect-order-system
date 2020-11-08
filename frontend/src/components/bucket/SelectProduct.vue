@@ -88,7 +88,7 @@ import axios from "axios";
 import { mapActions } from "vuex";
 
 export default {
-  props: ["storeId", "productId"],
+  props: ["storeInfo", "productId"],
   data() {
     return {
       productInfo: {
@@ -102,7 +102,7 @@ export default {
   async created() {
     try {
       let res = await axios.get(
-        "/product/" + this.productId + "/" + this.storeId
+        "/product/" + this.productId + "/" + this.storeInfo.store_id
       );
       this.productInfo = res.data;
     } catch (error) {
@@ -130,11 +130,12 @@ export default {
       // order : cart에 추가할 상품 정보
       let totalPrice = this.totalAmount;
       let order = {
-        storeId: this.storeId,
+        storeId: this.storeInfo.store_id,
+        storeName: this.storeInfo.store_name,
         productId: this.productId,
-        amount: this.productAmount,
-        name: this.productInfo.product_name,
-        price: this.productInfo.product_price,
+        productName: this.productInfo.product_name,
+        productAmount: this.productAmount,
+        productPrice: this.productInfo.product_price,
         totalPrice: totalPrice,
       };
       try {
@@ -142,7 +143,10 @@ export default {
         console.log("response");
         console.log(res);
       } catch (error) {
-        this.dialog = true;
+        if (error.name == "DifferentStoreIdError") this.dialog = true;
+        else {
+          this.$emit("close", -1);
+        }
         return;
       }
       console.log(this.$store.state.bucket.cart);
