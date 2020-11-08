@@ -21,6 +21,7 @@ import StoreMain from "../views/store/StoreMain.vue";
 import Bucket from "../views/order/Bucket.vue";
 import Order from "../views/order/Order.vue";
 import OrderState from "../views/order/OrderState.vue";
+import OrderHistory from "../views/order/OrderHistory.vue";
 
 Vue.use(VueRouter);
 
@@ -115,6 +116,12 @@ const routes = [
     path: "/orderstate",
     name: "OrderState",
     component: OrderState,
+    beforeEnter: requireAuth(),
+  },
+  {
+    path: "/orderhistory",
+    name: "OrderHistory",
+    component: OrderHistory,
     beforeEnter: requireAuth(),
   },
 ];

@@ -31,7 +31,7 @@
           <v-divider></v-divider>
           <v-list>
             <v-list-item @click="moveToPage('CheckPw')">마이페이지</v-list-item>
-            <v-list-item @click="moveToPage('Home')">주문내역</v-list-item>
+            <v-list-item @click="moveToPage('OrderHistory')">주문내역</v-list-item>
           </v-list>
         </v-card>
       </v-menu>
