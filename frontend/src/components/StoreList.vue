@@ -18,7 +18,7 @@
               lg="3"
               class="ma-9"
             >
-              <v-card outlined min-width="200">
+              <v-card outlined min-width="200" @click="gotoStoreMainPage(storeItem.store_id)">
                 <v-row class="ma-0 pa-0">
                   <v-col>
                     <v-img
@@ -63,6 +63,7 @@
   </v-container>
 </template>
 <script>
+import axios from "axios";
 export default {
   props: ["storeInfoList"],
   data() {
@@ -71,7 +72,12 @@ export default {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    async gotoStoreMainPage(storeId) {
+      const res = await axios.get("/user/store_id/" + storeId);
+      this.$router.push("/storemain?id=" + res.data.user_id);
+    }
+  },
   created() {
     this.search = this.storeInfoList.word;
   },
