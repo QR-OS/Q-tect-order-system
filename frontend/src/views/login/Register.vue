@@ -296,6 +296,15 @@ export default {
 
           const res = await axios.post("/store", body);
           this.form.userInfo.storeId = res.data;
+
+          let categoryBody = {
+            store_id: this.form.userInfo.storeId,
+            storeType: [],
+          };
+          for (let item of this.form.storeCategory) {
+            categoryBody.storeType.push({ store_type: item });
+          }
+          await axios.post("/store/category", categoryBody);
         } catch (error) {
           this.errorMsg = error.response.data.message;
           this.isLoading = false;

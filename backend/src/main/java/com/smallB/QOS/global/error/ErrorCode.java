@@ -13,7 +13,7 @@ public enum ErrorCode {
     INVALID_TYPE_VALUE(400, "C005", " Invalid Type Value"),
     HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
 
-    // Coupon
+    // Coupons
     COUPON_ALREADY_USE(400, "CO001", "Coupon was already used"),
     COUPON_EXPIRE(400, "CO002", "Coupon was already expired"),
 
@@ -23,6 +23,7 @@ public enum ErrorCode {
     LOGIN_INPUT_INVALID(400, "U003", "Login input is invalid"),
     USER_UPDATE_FAILED(400, "U004", "User update failed"),
     TOKEN_EXPIRED(400,"U005","Token is Expired"),
+    USER_NOT_EXIST(400, "U005", "User not Existed"),
 
     //StoreInfo
     STORE_ID_NOT_EXIST(400, "SI001", "Store_id is not Existed"),
@@ -30,6 +31,11 @@ public enum ErrorCode {
     UNAUTHORIZED_USER(401, "SI003", "Unauthorized User"),
     STORE_ALREADY_EXIST(409, "SI004", "Store Already Exist"),
     STORE_REGISTER_FAILED(400, "SI005", "Store Register Failed"),
+    STORE_CATEGORY_NOT_EXIST(400, "SI006", "Store Category is not Existed"),
+    STORE_CATEGORY_INPUT_INVALID(400, "SI007", "Store Category input is invalid"),
+    STORE_CATEGORY_CREATE_FAILED(400, "SI008", "Store Category Create Failed"),
+    STORE_CATEGORY_PARAM_INVALID(400, "SI009", "Store Category Parameter is invalid"),
+    STORE_CATEGORY_DELETE_FAILED(400, "SI010", "Store Category Delete Failed"),
 
     //PRODUCT
     PRODUCT_NOT_FOUND(400,"P001","Product NOT FOUND"),

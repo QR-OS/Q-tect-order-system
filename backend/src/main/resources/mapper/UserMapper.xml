@@ -25,4 +25,8 @@
         user_id = #{user_id}
     </update>
 
+    <select id="findUserByStoreId" parameterType="string" resultType="com.smallB.QOS.user.domain.UserDto">
+        SELECT * FROM users WHERE store_id = #{store_id}
+    </select>
+
 </mapper>

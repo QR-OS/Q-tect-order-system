@@ -10,4 +10,5 @@ public interface UserService {
     UserDto getUserById(String user_id) throws Exception;
     UserDto authenticate(SessionRequestDto sessionRequestDto) throws Exception;
     Boolean updateUser(UserDto user) throws Exception;
+    UserDto getUserByStoreId(String store_id) throws Exception;
 }
