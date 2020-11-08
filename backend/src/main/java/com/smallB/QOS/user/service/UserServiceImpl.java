@@ -87,4 +87,12 @@ public class UserServiceImpl implements UserService{
 
         return true;
     }
+
+    public UserDto getUserByStoreId(@Valid String store_id) throws Exception{
+        UserDto userDto = userDao.findUserByStoreId(store_id);
+        if(isNull(userDto)) {
+            throw new UserNotExistedException();
+        }
+        return userDto;
+    }
 }

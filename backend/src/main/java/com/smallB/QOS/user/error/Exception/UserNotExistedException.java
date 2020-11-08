@@ -7,4 +7,7 @@ public class UserNotExistedException extends InvalidValueException {
     public UserNotExistedException(String user_id){
         super(user_id, ErrorCode.USER_ID_NOT_EXIST);
     }
+    public UserNotExistedException(){
+        super(ErrorCode.USER_NOT_EXIST);
+    }
 }

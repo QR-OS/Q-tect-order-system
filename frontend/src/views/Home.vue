@@ -44,14 +44,16 @@ export default {
     return {
       categoryItems: [
         { category: "한식" },
+        { category: "분식" },
         { category: "중식" },
         { category: "일식" },
-        { category: "분식" },
-        { category: "버거" },
+        { category: "양식" },
+        { category: "아시안" },
         { category: "치킨" },
-        { category: "마트" },
-        { category: "마트" },
-        { category: "마트" }
+        { category: "패스트푸드" },
+        { category: "카페/디저트" },
+        { category: "주점" },
+        { category: "마켓" }
       ],
       searchWord: "",
     };

@@ -33,4 +33,9 @@ public class UserController {
         userService.updateUser(resource);
         return resource;
     }
+
+    @GetMapping("/user/store_id/{store_id}")
+    public UserDto getUserByStoreId(@PathVariable @Valid String store_id) throws Exception{
+        return userService.getUserByStoreId(store_id);
+    }
 }

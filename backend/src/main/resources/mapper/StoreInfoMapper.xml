@@ -34,7 +34,7 @@
             resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
         SELECT *
         FROM store_info
-        WHERE store_id = #{value}
+        WHERE store_id = #{store_id}
     </select>
 
     <update id="updateStoreInfo"
@@ -55,5 +55,9 @@
 
     </update>
 
-
+    <select id="findStores"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        SELECT *
+        FROM store_info
+    </select>
 </mapper>
