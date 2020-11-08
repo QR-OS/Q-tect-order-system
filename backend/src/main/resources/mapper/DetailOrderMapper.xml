@@ -8,7 +8,7 @@
     </select>
 
     <insert id="createDetailOrder" parameterType="com.smallB.QOS.detailOrder.domain.DetailOrderDto">
-        INSERT INTO `detail_order` (`order_id`,`store_id`,`product_id`,`order_quantity`,`user_id`)
-        VALUES (#{order_id},#{store_id},#{product_id},#{order_quantity},#{user_id})
+        INSERT INTO `detail_order` (`order_id`,`store_id`,`product_id`,`order_quantity`,`user_id`,`product_name`,`product_price`)
+        VALUES (#{order_id},#{store_id},#{product_id},#{order_quantity},#{user_id},#{product_name},#{product_price})
     </insert>
 </mapper>
