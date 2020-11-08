@@ -1,6 +1,7 @@
 package com.smallB.QOS.storeInfo.service;
 import com.smallB.QOS.storeInfo.domain.StoreIdListDto;
 import com.smallB.QOS.storeInfo.domain.StoreInfoDto;
+import com.smallB.QOS.storeInfo.domain.StoreTypeDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,4 +19,10 @@ public interface StoreInfoService {
     ArrayList<StoreInfoDto> getStoresById(ArrayList<StoreIdListDto> storeIds) throws Exception;
 
     ArrayList<StoreInfoDto> getStores() throws Exception;
+
+    String createStoreCategory(String store_id, ArrayList<StoreTypeDto> storeType) throws Exception;
+
+    String updateStoreCategory(String user_id, String store_id, ArrayList<StoreTypeDto> storeType) throws Exception;
+
+    ArrayList<StoreTypeDto> getStoreCategory(String user_id) throws Exception;
 }

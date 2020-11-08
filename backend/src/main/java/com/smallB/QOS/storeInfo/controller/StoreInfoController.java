@@ -1,18 +1,13 @@
 package com.smallB.QOS.storeInfo.controller;
 
-import com.smallB.QOS.storeInfo.domain.StoreIdListDto;
-import com.smallB.QOS.storeInfo.domain.StoreInfoDto;
-import com.smallB.QOS.storeInfo.error.Exception.CategoryNotExistedException;
-import com.smallB.QOS.storeInfo.error.Exception.UnauthorizedCategoryException;
+import com.smallB.QOS.storeInfo.domain.*;
+import com.smallB.QOS.storeInfo.error.Exception.StoreCategoryParameterWrongValueException;
 import com.smallB.QOS.storeInfo.service.StoreInfoService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 
 
@@ -41,13 +36,28 @@ public class StoreInfoController {
     }
 
     @GetMapping("/store")
-    public ArrayList<StoreInfoDto> getStoresByCategory(@Valid @RequestParam(value="category", required=false) String category) throws Exception {
+    public ArrayList<StoreInfoDto> getStoresByCategory(@RequestParam(value="category", required=false) String category) throws Exception {
         ArrayList<StoreIdListDto> storeIds = new ArrayList<>();
-        if(category == "") throw new UnauthorizedCategoryException();
+        if(category == "") throw new StoreCategoryParameterWrongValueException();
         if (category != null) {
             storeIds = storeInfoService.getStoresByCategory(category);
             return storeInfoService.getStoresById(storeIds);
         }
         else return storeInfoService.getStores();
+    }
+
+    @GetMapping("/store/category/{user_id}")
+    public ArrayList<StoreTypeDto> getStoreCategory(@PathVariable("user_id") String user_id) throws Exception {
+        return storeInfoService.getStoreCategory(user_id);
+    }
+
+    @PostMapping("/store/category")
+    public String createStoreCategory(@RequestBody StoreCategoryArrayDto storeCategoryArrayDto) throws Exception {
+        return storeInfoService.createStoreCategory(storeCategoryArrayDto.getStore_id(), storeCategoryArrayDto.getStoreType());
+    }
+
+    @PatchMapping("/store/category/{user_id}")
+    public String editStoreCategory(@PathVariable("user_id") String user_id, @RequestBody StoreCategoryArrayDto storeCategoryArrayDto) throws Exception {
+        return storeInfoService.updateStoreCategory(user_id, storeCategoryArrayDto.getStore_id(), storeCategoryArrayDto.getStoreType());
     }
 }

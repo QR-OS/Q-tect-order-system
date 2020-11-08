@@ -3,7 +3,7 @@
 
 <mapper namespace="com.smallB.QOS.storeInfo.dao.StoreInfoDao">
     <select id="findStoreByCategory"
-            parameterType="string"
+            parameterType="String"
             resultType="com.smallB.QOS.storeInfo.domain.StoreIdListDto">
         SELECT *
         FROM store_category
@@ -11,4 +11,32 @@
             WHERE store_type = #{category}
         </if>
     </select>
+
+    <select id="findCategoryById"
+            parameterType="String"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreTypeDto">
+        SELECT *
+        FROM store_category
+        WHERE store_id = #{store_id}
+    </select>
+
+    <select id="findCategoryByStore"
+            parameterType="String"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreCategoryDto">
+        SELECT *
+        FROM store_category
+        WHERE store_type = #{store_type} AND store_id = #{store_id}
+    </select>
+
+    <insert id="addStoreCategory"
+            parameterType="String">
+        INSERT INTO store_category(`store_id`, `store_type`)
+        VALUES (#{store_id}, #{store_type})
+    </insert>
+
+    <delete id="deleteStoreCategory"
+            parameterType="String">
+        DELETE FROM store_category
+        WHERE store_id = #{store_id}
+    </delete>
 </mapper>
