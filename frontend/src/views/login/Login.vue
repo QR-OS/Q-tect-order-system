@@ -96,6 +96,7 @@ export default {
         this.updateToken(res.data.accessToken);
       } catch (error) {
         this.errorMsg = error.response.data.message;
+        return;
       }
       const userInfo = await axios.get("/user/" + this.user.userId);
       if (userInfo.data.status === 2) {
@@ -105,11 +106,12 @@ export default {
             store_name: storeInfo.data.store_name,
             store_id: storeInfo.data.store_id,
           });
-          this.moveToPage("Home");
         } catch (error) {
           this.errorMsg = error.response.data.message;
+          return;
         }
-      } else this.moveToPage("Home");
+      }
+      this.moveToPage("Home");
     },
     moveToPage(next) {
       this.$router.push({ name: next });
