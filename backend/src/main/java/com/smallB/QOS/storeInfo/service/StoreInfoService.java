@@ -25,4 +25,6 @@ public interface StoreInfoService {
     String updateStoreCategory(String user_id, String store_id, ArrayList<StoreTypeDto> storeType) throws Exception;
 
     ArrayList<StoreTypeDto> getStoreCategory(String user_id) throws Exception;
+
+    StoreInfoDto getOneStoreInfoByStoreId(String sotre_id) throws Exception;
 }
