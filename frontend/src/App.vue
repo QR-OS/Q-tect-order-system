@@ -31,14 +31,14 @@
           <v-divider></v-divider>
           <v-list>
             <v-list-item @click="moveToPage('CheckPw')">마이페이지</v-list-item>
-            <v-list-item @click="moveToPage('Home')">주문내역</v-list-item>
+            <v-list-item @click="moveToPage('OrderHistory')">주문내역</v-list-item>
           </v-list>
         </v-card>
       </v-menu>
     </v-app-bar>
     <v-main>
       <v-fade-transition hide-on-leave>
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
       </v-fade-transition>
     </v-main>
     <v-footer color="yellow lighten-4" app>

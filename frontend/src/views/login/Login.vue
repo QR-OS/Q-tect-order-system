@@ -78,6 +78,7 @@ export default {
   methods: {
     ...mapActions({
       updateToken: "auth/login",
+      managerAuth: "auth/managerAuth",
     }),
     removeError() {
       this.errorMsg = "";
@@ -93,10 +94,24 @@ export default {
           user_pw: this.user.userPw,
         });
         this.updateToken(res.data.accessToken);
-        this.moveToPage("Home");
       } catch (error) {
         this.errorMsg = error.response.data.message;
+        return;
       }
+      const userInfo = await axios.get("/user/" + this.user.userId);
+      if (userInfo.data.status === 2) {
+        try {
+          const storeInfo = await axios.get("/store/" + this.user.userId);
+          this.managerAuth({
+            store_name: storeInfo.data.store_name,
+            store_id: storeInfo.data.store_id,
+          });
+        } catch (error) {
+          this.errorMsg = error.response.data.message;
+          return;
+        }
+      }
+      this.moveToPage("Home");
     },
     moveToPage(next) {
       this.$router.push({ name: next });
