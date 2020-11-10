@@ -7,8 +7,14 @@
         SELECT * FROM `detail_order` WHERE order_id = #{order_id} AND user_id = #{user_id}
     </select>
 
+    <select id="findOneDetailOrder" parameterType="String" resultType="com.smallB.QOS.detailOrder.domain.DetailOrderDto">
+        SELECT * FROM `detail_order` WHERE order_id = #{order_id} AND user_id = #{user_id}
+        LIMIT 1;
+    </select>
+
     <insert id="createDetailOrder" parameterType="com.smallB.QOS.detailOrder.domain.DetailOrderDto">
         INSERT INTO `detail_order` (`order_id`,`store_id`,`product_id`,`order_quantity`,`user_id`,`product_name`,`product_price`)
         VALUES (#{order_id},#{store_id},#{product_id},#{order_quantity},#{user_id},#{product_name},#{product_price})
     </insert>
 </mapper>
+
