@@ -8,12 +8,11 @@
     <v-container
       v-else-if="storeInfo.store_name != null && loadingFlag == true"
     >
-      <StoreInfoComponent :store-info="storeInfo"></StoreInfoComponent>
-      <div style="text-align: center;">
-        <v-btn class="ma-2" outlined large fab color="indigo" @click="edit">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-      </div>
+      <StoreInfoComponent
+        :store-info="storeInfo"
+        :btnName="btnName"
+        @submit="edit"
+      ></StoreInfoComponent>
       <v-snackbar v-model="snackbar" :timeout="timeout">
         {{ answerMsg }}
 
@@ -38,7 +37,7 @@ import axios from "axios";
 
 export default {
   components: {
-    StoreInfoComponent
+    StoreInfoComponent,
   },
   data() {
     return {
@@ -51,20 +50,23 @@ export default {
             { key: 4, value: "목" },
             { key: 5, value: "금" },
             { key: 6, value: "토" },
-            { key: 7, value: "일" }
+            { key: 7, value: "일" },
           ],
-          value: []
-        }
+          value: [],
+        },
       },
       loadingFlag: false,
       answerMsg: "",
       snackbar: false,
-      timeout: 2000
+      timeout: 2000,
+      btnName: "수정",
     };
   },
   async created() {
     try {
-      let res = await axios.get("/store/tnals97");
+      let res = await axios.get(
+        "/store/" + this.$store.state.auth.user.user_id
+      );
       this.storeInfo = Object.assign(this.storeInfo, res.data);
       for (let i in this.storeInfo.holiday) {
         if (this.storeInfo.holiday[i] == "1") {
@@ -91,12 +93,14 @@ export default {
       }
       for (let i = hStr.length; i < 7; i++) hStr += 0;
       this.storeInfo.holiday = hStr;
-      axios.patch("/store/tnals97", this.storeInfo).then(res => {
-        this.answerMsg = res.data.message;
-        this.snackbar = true;
-      });
-    }
-  }
+      axios
+        .patch("/store/" + this.$store.state.auth.user.user_id, this.storeInfo)
+        .then((res) => {
+          this.answerMsg = res.data.message;
+          this.snackbar = true;
+        });
+    },
+  },
 };
 </script>
 <style>
