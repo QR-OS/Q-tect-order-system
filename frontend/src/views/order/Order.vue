@@ -287,8 +287,11 @@ export default {
   },
   async mounted() {
     try {
-      const storeUserId = await axios.get("user/store_id/" + this.storeId);
-      const res = await axios.get("/store/" + storeUserId.user_id);
+      console.log(this.cart[0].storeId);
+      const storeUserId = await axios.get(
+        "user/store_id/" + this.cart[0].storeId
+      );
+      const res = await axios.get("/store/" + storeUserId.data.user_id);
       this.holiday = res.data.holiday.split("").map(Number);
       this.bookable = res.data.bookable;
       this.openTime = res.data.open_time;
