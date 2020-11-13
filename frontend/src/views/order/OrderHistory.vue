@@ -126,13 +126,11 @@ export default {
     },
   },
   methods: {
-    moveToStoreMain(storeId) {
-      // storeid를 통해 주인의 userid를 받아옴
-      console.log(storeId);
-      let userId = "test123";
+    async moveToStoreMain(storeId) {
+      const res = await axios.get("user/store_id/" + storeId);
       this.$router.push({
         name: "StoreMain",
-        query: { id: userId },
+        query: { id: res.data.user_id },
       });
     },
     moveToOrderState(orderId, storeId) {

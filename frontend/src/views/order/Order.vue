@@ -287,8 +287,8 @@ export default {
   },
   async mounted() {
     try {
-      //let res = await axios.get("/store/" + this.storeId);
-      let res = await axios.get("/store/test123");
+      const storeUserId = await axios.get("user/store_id/" + this.storeId);
+      const res = await axios.get("/store/" + storeUserId.user_id);
       this.holiday = res.data.holiday.split("").map(Number);
       this.bookable = res.data.bookable;
       this.openTime = res.data.open_time;
