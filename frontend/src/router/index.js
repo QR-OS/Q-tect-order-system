@@ -20,6 +20,7 @@ import Product from "../components/manager/Product.vue";
 import SearchStoreList from "../views/store/SearchStoreList.vue";
 import StoreMain from "../views/store/StoreMain.vue";
 import StoreOrderManage from "../views/store/StoreOrderManage.vue";
+import StoreCompletedOrderManage from "../views/store/StoreCompletedOrderManage.vue";
 import Bucket from "../views/order/Bucket.vue";
 import Order from "../views/order/Order.vue";
 import OrderState from "../views/order/OrderState.vue";
@@ -131,6 +132,12 @@ const routes = [
     path: "/storeordermanage",
     name: "StoreOrderManage",
     component: StoreOrderManage,
+    beforeEnter: requireManageAuth(),
+  },
+  {
+    path: "/storecompletedordermanage",
+    name: "StoreCompletedOrderManage",
+    component: StoreCompletedOrderManage,
     beforeEnter: requireManageAuth(),
   },
 ];
