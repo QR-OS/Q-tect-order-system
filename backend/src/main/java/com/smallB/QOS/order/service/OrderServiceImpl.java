@@ -109,7 +109,10 @@ public class OrderServiceImpl implements OrderService{
             tmp.setStore_id(order.getStore_id());
             tmp.setUser_id(order.getUser_id());
             System.out.println(order.getStore_id());
-            tmp.setStore_name(storeInfoDao.findStoreById(order.getStore_id()).getStore_name());
+            tmp.setStore_name(storeInfoDao.findStoreByStoreId(order.getStore_id()).getStore_name());
+            System.out.println(order.getStore_id());
+            System.out.println(order.getUser_id());
+            System.out.println(order.getOrder_id());
             tmp.setCeo_product_name(detailOrderDao.findOneDetailOrder(tmp.getOrder_id(),tmp.getUser_id()).getProduct_name());
             tmp.setDetail_order_count(detailOrderDao.findDetailOrder(tmp.getOrder_id(),tmp.getUser_id()).size());
 
