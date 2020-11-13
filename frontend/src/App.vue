@@ -1,6 +1,10 @@
 <template>
   <v-app>
     <v-app-bar app color="amber darken-1">
+      <v-app-bar-nav-icon
+        v-if="!!storeInfo"
+        @click="drawer = true"
+      ></v-app-bar-nav-icon>
       <v-toolbar-title class="text-none">
         <v-btn text large @click="moveToPage('Home')">Q-tect Order</v-btn>
       </v-toolbar-title>
@@ -31,11 +35,74 @@
           <v-divider></v-divider>
           <v-list>
             <v-list-item @click="moveToPage('CheckPw')">마이페이지</v-list-item>
-            <v-list-item @click="moveToPage('OrderHistory')">주문내역</v-list-item>
+            <v-list-item @click="moveToPage('OrderHistory')"
+              >주문내역</v-list-item
+            >
           </v-list>
         </v-card>
       </v-menu>
     </v-app-bar>
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-list nav dense>
+        <v-list-item-group
+          v-model="group"
+          active-class="amber--text text--darken-4"
+        >
+          <v-list-item @click="moveToPage('StoreInfo')">
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>매장 정보</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item @click="moveToPage('Product')">
+            <v-list-item-icon>
+              <v-icon>mdi-clipboard-edit-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>메뉴/상품 관리</v-list-item-title>
+          </v-list-item>
+          <v-list-group prepend-icon="mdi-database">
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>데이터 집계</v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>매출 현황</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>메뉴별</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>시간별</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+          <v-list-group prepend-icon="mdi-credit-card-multiple-outline">
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>주문 현황</v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list-item @click="moveToPage('StoreOrderManage')">
+              <v-list-item-content>
+                <v-list-item-title>실시간</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="moveToPage('StoreCompletedOrderManage')">
+              <v-list-item-content>
+                <v-list-item-title>완료, 취소</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
     <v-main>
       <v-fade-transition hide-on-leave>
         <router-view :key="$route.fullPath"></router-view>
@@ -53,10 +120,10 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "App",
   data() {
-    return {};
+    return { drawer: false, group: null };
   },
   computed: {
-    ...mapState("auth", ["accessToken", "user"]),
+    ...mapState("auth", ["accessToken", "user", "storeInfo"]),
   },
   methods: {
     ...mapActions({
