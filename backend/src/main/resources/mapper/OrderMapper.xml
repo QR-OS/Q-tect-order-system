@@ -25,4 +25,7 @@
         WHERE order_id = #{order_id} AND store_id = #{store_id}
     </update>
 
+    <select id="findOrdersByUserId" parameterType="String" resultType="com.smallB.QOS.order.domain.OrderDto">
+        SELECT * FROM `order` WHERE user_id = #{user_id}
+    </select>
 </mapper>

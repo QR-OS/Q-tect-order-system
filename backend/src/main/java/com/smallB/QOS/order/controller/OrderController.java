@@ -33,6 +33,13 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
+    @GetMapping("/order/{user_id}")
+    public ResponseEntity<?> getOrdersByUserId(@PathVariable @Valid String user_id) throws Exception{
+        System.out.println("in");
+        Object res = orderService.getOrdersByUserId(user_id);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
     @PostMapping("/order")
     public ResponseEntity<?> createOrder(@RequestBody @Valid OrderDto orderDto) throws Exception{
         Object res = orderService.createOrder(orderDto);
@@ -45,3 +52,5 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 }
+
+

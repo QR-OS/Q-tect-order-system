@@ -11,4 +11,6 @@ public interface OrderDao {
     List<OrderDto> findOrders(String store_id) throws Exception;
     void createOrder(OrderDto orderDto) throws Exception;
     int updateOrder(OrderStateUpdateDto orderStateUpdateDto) throws Exception;
+    List<OrderDto> findOrdersByUserId(String user_id) throws Exception;
 }
+
