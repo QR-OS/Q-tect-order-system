@@ -35,4 +35,6 @@ public interface StoreInfoDao {
     boolean addStoreCategory(String store_id, String store_type) throws Exception;
 
     boolean deleteStoreCategory(String store_id) throws Exception;
+
+    StoreInfoDto findStoreByStoreId(String store_id) throws Exception;
 }

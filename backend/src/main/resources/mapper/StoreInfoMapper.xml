@@ -60,4 +60,10 @@
         SELECT *
         FROM store_info
     </select>
+
+    <select id="findStoreByStoreId"
+            parameterType="String"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        SELECT * FROM store_info WHERE store_id = #{store_id}
+    </select>
 </mapper>
