@@ -30,6 +30,11 @@ public class StoreInfoController {
         return storeInfoService.getOneStoreInfo(user_id);
     }
 
+    @GetMapping("/store/info/{store_id}")
+    public StoreInfoDto getStoreByStoreId(@PathVariable("store_id") String store_id) throws Exception{
+        return storeInfoService.getOneStoreInfoByStoreId(store_id);
+    }
+
     @PatchMapping("/store/{user_id}")
     public String editStore(@Valid @PathVariable("user_id") final String user_id,
                           @RequestBody StoreInfoDto resource) throws Exception {

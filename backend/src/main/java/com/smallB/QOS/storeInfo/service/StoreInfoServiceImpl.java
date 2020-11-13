@@ -13,6 +13,7 @@ import com.smallB.QOS.user.domain.UserDto;
 import com.smallB.QOS.user.error.Exception.UserNotExistedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.session.StoreType;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -202,5 +203,12 @@ public class StoreInfoServiceImpl implements StoreInfoService{
             return obj.toString();
         }//모든 category들이 다 등록되었을 때
         else throw new StoreCategoryCreateFailedException();//모든 category가 등록되지 않았을 때
+    }
+
+    @Override
+    public StoreInfoDto getOneStoreInfoByStoreId(String store_id) throws Exception{
+        StoreInfoDto storeInfoDto = storeInfoDao.findStoreByStoreId(store_id);
+
+        return storeInfoDto;
     }
 }
