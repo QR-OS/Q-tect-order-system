@@ -87,6 +87,8 @@
 
 <script>
 import axios from "axios";
+import Stomp from 'webstomp-client'
+import SockJS from 'sockjs-client'
 
 export default {
   data() {
@@ -95,6 +97,7 @@ export default {
       orderlist: [],
       storeName: "",
       errorMsg: "",
+      orderState: "",
     };
   },
   async mounted() {
@@ -113,6 +116,31 @@ export default {
     } catch (error) {
       this.errorMsg = error.response.data.message;
     }
+  },
+  created() {
+    this.socketConnect();
+  },
+  methods: {
+    socketConnect() {
+      console.log("start");
+      let socket = new SockJS("http://localhost:3000/api");
+      this.stompClient = Stomp.over(socket);
+      this.stompClient.connect(
+        {},
+        frame => {
+          this.connected = true;
+          console.log('연결 성공', frame);
+          this.stompClient.subscribe(`/socket/user/${this.$route.query.orderId}/user/${this.$store.state.auth.user.user_id}` , res => {
+              this.orderState = JSON.parse(res.body).order_state
+              console.log(this.orderState);
+          })
+        },
+        error => {
+          console.log('연결 실패', error);
+          this.connected = false;
+        }
+      )
+    },
   },
 };
 </script>

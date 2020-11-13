@@ -202,6 +202,8 @@
 import { mapActions, mapState } from "vuex";
 import axios from "axios";
 import moment from "moment";
+import Stomp from 'webstomp-client'
+import SockJS from 'sockjs-client'
 
 export default {
   computed: {
@@ -293,6 +295,7 @@ export default {
       this.bookable = res.data.bookable;
       this.openTime = res.data.open_time;
       this.closeTime = res.data.close_time;
+      this.socketConnect();
     } catch (error) {
       this.errorMsg = error.response.data.message;
     }
@@ -350,6 +353,9 @@ export default {
       body.store_id = this.cart[0].storeId;
       body.user_id = this.$store.state.auth.user.user_id;
       try {
+        //socket으로 admin에게 주문 보내는 부분
+        this.stompClient.send(`/socket.user/${body.store_id}`, JSON.stringify(body), {});
+
         let res = await axios.post("/order", body);
         let orderId = Number(res.data.order_id);
         let productBody = {
@@ -404,6 +410,22 @@ export default {
       }
       this.availableDates = availableDates;
       this.allowedDates();
+    },
+    socketConnect() {
+      console.log("start");
+      let socket = new SockJS("http://localhost:3000/api");
+      this.stompClient = Stomp.over(socket);
+      this.stompClient.connect(
+        {},
+        frame => {
+          this.connected = true;
+          console.log('연결 성공', frame);
+        },
+        error => {
+          console.log('연결 실패', error);
+          this.connected = false;
+        }
+      );
     },
   },
 };
