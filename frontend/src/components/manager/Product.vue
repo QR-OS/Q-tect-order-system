@@ -459,7 +459,18 @@ export default {
         await this.fetch();
         this.showSnackbar("success", "상품 생성을 성공했습니다.");
         this.fetch();
-        this.createDialog.data = null;
+        this.createDialog={
+          data: {
+          store_id: "",
+          product_id: "",
+          product_category: "",
+          product_image: "",
+          product_name: "",
+          product_price: "",
+          product_stock: "",
+          product_state: "",
+        }
+        };
         this.createDialog.show = false;
         this.state = true;
       } catch (err) {
