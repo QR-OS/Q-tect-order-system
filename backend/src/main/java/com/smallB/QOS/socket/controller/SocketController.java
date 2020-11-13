@@ -9,10 +9,14 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class SocketController {
     @MessageMapping("/socket.manager")
-
     @SendTo("/socket/user")
-
     public OrderStateToUserDto ManagerToUserHandler(OrderStateToUserDto order_state) {
         return order_state;
+    }
+
+    @MessageMapping("/socket.user")
+    @SendTo("/socket/manager")
+    public OrderDto UserToManagerHandler(OrderDto orderDto) {
+        return orderDto;
     }
 }
