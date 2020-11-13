@@ -285,7 +285,7 @@ export default {
       ],
     };
   },
-  async created() {
+  async mounted() {
     try {
       //let res = await axios.get("/store/" + this.storeId);
       let res = await axios.get("/store/test123");
@@ -341,6 +341,8 @@ export default {
       return true;
     },
     async order() {
+      this.date = moment().format("YYYY-MM-DD");
+      this.currentDate = moment().format("YYYY-MM-DD");
       if (!this.checkform()) {
         return;
       }
@@ -366,6 +368,7 @@ export default {
           let res = await axios.post("/detailorder", productBody);
           console.log(res.data);
         }
+        this.clearCart();
         this.$router.push({
           name: "OrderState",
           query: { orderId: res.data.order_id, storeId: res.data.store_id },

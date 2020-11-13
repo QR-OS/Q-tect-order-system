@@ -17,7 +17,7 @@
     </v-row>
   </v-container>
   <v-container v-else>
-    <v-row>
+    <v-row class="mx-3 mt-3">
       <!--간단한 메장정보-->
       <v-col cols="3">
         <v-img
@@ -36,17 +36,23 @@
       </v-col>
       <v-col cols="7" class="mt-10">
         <v-row>
-          <v-subheader :inset="inset" v-if="storeInfo.store_state">
-            영업중
-          </v-subheader>
-          <v-subheader :inset="inset" v-if="!storeInfo.store_state">
-            영업안함
-          </v-subheader>
-          <span class="text-h4">{{ storeInfo.store_name }}</span>
+          <v-col>
+            <v-subheader :inset="inset" v-if="storeInfo.store_state">
+              영업중
+            </v-subheader>
+            <v-subheader :inset="inset" v-if="!storeInfo.store_state">
+              영업안함
+            </v-subheader>
+          </v-col>
+          <v-col align="start" class="pa-0 text-md-h4 font-weight-bold">
+            {{ storeInfo.store_name }}
+          </v-col>
         </v-row>
         <v-row class="mt-5 ml-3">
-          open {{ storeInfo.open_time }} ~ close
-          {{ storeInfo.close_time }}
+          <v-col>
+            open {{ storeInfo.open_time }} ~ close
+            {{ storeInfo.close_time }}
+          </v-col>
         </v-row>
         <v-row class="mx-3">
           <v-col md="3" sm="5">
@@ -54,10 +60,14 @@
               휴무일
             </v-subheader>
           </v-col>
+        </v-row>
+        <v-row><v-divider /></v-row>
+        <v-row class="mx-3">
           <v-col
             class="mx-0 px-0"
-            md="2"
+            md="1"
             sm="2"
+            xs="4"
             v-for="(item, idx) in storeInfo.holiday"
             :key="idx"
           >
@@ -71,10 +81,12 @@
         <!--자세한 메장정보-->
         <v-expansion-panels flat>
           <v-expansion-panel>
-            <v-expansion-panel-header />
+            <v-expansion-panel-header class="font-weight-bold">
+              가게정보</v-expansion-panel-header
+            >
             <v-expansion-panel-content>
               <v-row>
-                <v-col>
+                <v-col col="12" xs="12" sm="6" md="3">
                   <v-row>
                     <v-col>
                       <v-subheader :inset="inset">
@@ -87,8 +99,7 @@
                     <v-col class="ml-4">{{ storeInfo.store_num }} </v-col>
                   </v-row>
                 </v-col>
-
-                <v-col>
+                <v-col col="12" xs="12" sm="6" md="3">
                   <v-row>
                     <v-col>
                       <v-subheader :inset="inset">
@@ -162,8 +173,8 @@
     <v-row>
       <v-divider></v-divider>
     </v-row>
-    <v-row class="mt-5 mr-5 mb-5">
-      <span class="text-h4">메뉴</span>
+    <v-row class="ma-5">
+      <span class="text-md-h5 text-sm-h6 font-weight-bold">메뉴</span>
       <v-spacer></v-spacer>
     </v-row>
     <v-row>
@@ -223,6 +234,19 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-fab-transition>
+      <v-btn
+        color="yellow darken-2 mb-5 mr-5"
+        fixed
+        fab
+        dark
+        bottom
+        right
+        @click="$router.push({ name: 'Bucket' })"
+      >
+        <v-icon>mdi-cart</v-icon>
+      </v-btn>
+    </v-fab-transition>
     <!--메뉴 누르면 뜨는 다이얼로그-->
     <v-dialog v-if="dialog" v-model="dialog" max-width="500" max-height="700">
       <select-product

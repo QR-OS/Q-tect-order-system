@@ -14,7 +14,15 @@
           <v-row
             align="center"
             justify="center"
-            v-for="(item, idx) in orderlist"
+            class="mb-10"
+            v-if="orderList.length === 0 || typeof orderList === 'undefined'"
+          >
+            주문내역이 없습니다!
+          </v-row>
+          <v-row
+            align="center"
+            justify="center"
+            v-for="(item, idx) in orderList"
             :key="idx"
           >
             <v-card class="mx-md-10 mx-xs-6 pb-2 mb-4">
@@ -26,7 +34,15 @@
                   {{ getTime[idx] }}
                 </v-card-subtitle>
                 <v-card-text>
-                  <div>{{ item.total_price }}원</div>
+                  <v-row>
+                    <v-col>
+                      {{ item.ceo_product_name }} 외
+                      {{ item.detail_order_count }}개
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>{{ item.total_price }}원</v-col>
+                  </v-row>
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
@@ -60,58 +76,39 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import moment from "moment";
 
 export default {
   data() {
     return {
-      orderlist: [
-        {
-          store_name: "신전떡볶이",
-          order_type: 0,
-          order_time: "2020-11-03T12:00:38.000+00:00",
-          book_time: null,
-          order_id: "16",
-          total_price: 5500,
-          pay_type: "신용카드",
-          order_state: "주문 접수",
-          store_id: "7E803T0qnH7mevP1MYhEwH0Vo",
-          user_id: "1234",
-        },
-        {
-          store_name: "신전떡볶이",
-          order_type: 0,
-          order_time: "2020-11-08T20:14:48.000+00:00",
-          book_time: null,
-          order_id: "15",
-          total_price: 9500,
-          pay_type: "신용카드",
-          order_state: "주문 접수",
-          store_id: "7E803T0qnH7mevP1MYhEwH0Vo",
-          user_id: "1234",
-        },
-      ],
+      orderList: [],
       orderTime: [],
-      currentDate: moment(),
+      currentDate: moment().utcOffset(0),
       errorMsg: "",
     };
   },
   async mounted() {
     try {
-      console.log("mounted");
+      const res = await axios.get(
+        "/order/" + this.$store.state.auth.user.user_id
+      );
+      this.orderList = res.data;
+      this.orderList.sort(function(a, b) {
+        return new Date(b.order_time) - new Date(a.order_time);
+      });
     } catch (error) {
-      this.errorMsg = error.response.data.message;
+      if (error.response.status !== 400)
+        this.errorMsg = error.response.data.message;
     }
   },
   computed: {
     getTime() {
+      this.fetch();
       let rtn = [];
-      for (let i in this.orderlist) {
-        let orderTime = moment(
-          this.orderlist[i].order_time,
-          "YYYY-MM-DD HH:mm"
-        );
+      const offset = this.currentDate.utcOffset();
+      for (let i in this.orderList) {
+        let orderTime = moment(this.orderList[i].order_time).utcOffset(offset);
         let diff = moment.duration(this.currentDate.diff(orderTime));
         if (this.currentDate.format("YYYY") !== orderTime.format("YYYY")) {
           rtn.push(moment(orderTime).format("YYYY/MM/DD"));
@@ -143,6 +140,9 @@ export default {
         name: "OrderState",
         query: { orderId: orderId, storeId: storeId },
       });
+    },
+    fetch() {
+      this.currentDate = moment();
     },
   },
 };
