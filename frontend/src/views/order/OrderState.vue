@@ -86,7 +86,9 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
+import Stomp from 'webstomp-client';
+import SockJS from 'sockjs-client';
 
 export default {
   data() {
@@ -108,11 +110,30 @@ export default {
       );
       this.orderlist = list.data;
 
-      const storeInfo = await axios.get("/store/test123");
+      const res2 = await axios.get(`user/store_id/${this.$route.query.storeId}`);
+      const storeInfo = await axios.get('/store/' + res2.data.user_id);
       this.storeName = storeInfo.data.store_name;
     } catch (error) {
       this.errorMsg = error.response.data.message;
     }
   },
+  created() {
+    this.connect();
+  },
+  methods: {
+    connect() {
+      const serverURL = 'http://localhost:3000/api';
+      let socket = new SockJS(serverURL);
+      this.stompClient = Stomp.over(socket);
+      this.stompClient.connect({}, function(frame) {
+        this.connected = true;
+        console.log('Connected: ' + frame);
+        this.stompClient.subscribe(`/socket/${this.$route.query.storeId}/user/${this.$route.query.orderId}`,
+        function(res) {
+          this.orderForm.order_state = JSON.parse(res.body).order_state;
+        });
+      });
+    }
+  }
 };
 </script>

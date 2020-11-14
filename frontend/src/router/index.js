@@ -19,11 +19,12 @@ import CheckPassword from "../views/mypage/CheckPassword.vue";
 import Product from "../components/manager/Product.vue";
 import SearchStoreList from "../views/store/SearchStoreList.vue";
 import StoreMain from "../views/store/StoreMain.vue";
-import StoreOrderManage from "../views/store/StoreOrderManage.vue";
 import Bucket from "../views/order/Bucket.vue";
 import Order from "../views/order/Order.vue";
 import OrderState from "../views/order/OrderState.vue";
 import OrderHistory from "../views/order/OrderHistory.vue";
+import StoreState from "../views/test/StoreStateTest.vue";
+import UserStoreState from "../views/test/UserStoreStateTest.vue";
 
 Vue.use(VueRouter);
 
@@ -128,10 +129,14 @@ const routes = [
     beforeEnter: requireAuth(),
   },
   {
-    path: "/storeordermanage",
-    name: "StoreOrderManage",
-    component: StoreOrderManage,
-    beforeEnter: requireManageAuth(),
+    path: "/store/state",
+    name: "StroeState",
+    component: StoreState
+  },
+  {
+    path: "/store/user/state",
+    name: "UserStoreState",
+    component: UserStoreState
   },
 ];
 

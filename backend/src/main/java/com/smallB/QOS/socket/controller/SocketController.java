@@ -8,11 +8,10 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class SocketController {
-    @MessageMapping("/socket.manager")
-
-    @SendTo("/socket/user")
-
+    @MessageMapping("/socket.manager/{store_id}/{order_id}")
+    @SendTo("/socket/{store_id}/user/{order_id}")
     public OrderStateToUserDto ManagerToUserHandler(OrderStateToUserDto order_state) {
+        System.out.println("들어왔습니다!");
         return order_state;
     }
 }
