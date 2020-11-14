@@ -223,7 +223,8 @@ export default {
       while (idx > -1) {
         idx = this.orderList.findIndex(
           (item) =>
-            item.order_state == "주문 거절" || item.order_state == "주문 완료"
+            item.order_state !== "주문 접수" ||
+            item.order_state !== "주문 준비 중"
         );
         if (idx > -1) this.orderList.splice(idx, 1);
         else break;

@@ -1,48 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar app color="amber darken-1">
-      <v-app-bar-nav-icon
-        v-if="!!storeInfo"
-        @click="drawer = true"
-      ></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-none">
-        <v-btn text large @click="moveToPage('Home')">Q-tect Order</v-btn>
-      </v-toolbar-title>
-      <v-spacer />
-      <v-btn v-if="!accessToken" text dark @click="moveToPage('Login')">
-        로그인
-      </v-btn>
-      <v-menu v-else offset-y :nudge-width="200">
-        <template v-slot:activator="{ on }">
-          <v-btn text dark v-on="on">
-            <v-icon>mdi-account-circle</v-icon>
-          </v-btn>
-        </template>
-        <v-card>
-          <v-list>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Hello, {{ user.user_id }}
-                </v-list-item-title>
-                <v-list-item-subtitle></v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-action>
-                <v-btn text @click="logout">로그아웃</v-btn>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list>
-          <v-divider></v-divider>
-          <v-list>
-            <v-list-item @click="moveToPage('CheckPw')">마이페이지</v-list-item>
-            <v-list-item @click="moveToPage('OrderHistory')"
-              >주문내역</v-list-item
-            >
-          </v-list>
-        </v-card>
-      </v-menu>
-    </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer
+      v-if="!!storeInfo && Object.keys(storeInfo).length !== 0"
+      app
+      clipped
+      v-model="drawer"
+    >
       <v-list nav dense>
         <v-list-item-group
           v-model="group"
@@ -103,6 +66,49 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
+    <v-app-bar clipped-left app color="amber darken-1">
+      <v-app-bar-nav-icon
+        v-if="!!storeInfo && Object.keys(storeInfo).length !== 0"
+        @click.stop="drawer = !drawer"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title class="text-none">
+        <v-btn text large @click="moveToPage('Home')">Q-tect Order</v-btn>
+      </v-toolbar-title>
+      <v-spacer />
+      <v-btn v-if="!accessToken" text dark @click="moveToPage('Login')">
+        로그인
+      </v-btn>
+      <v-menu v-else offset-y :nudge-width="200">
+        <template v-slot:activator="{ on }">
+          <v-btn text dark v-on="on">
+            <v-icon>mdi-account-circle</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-list>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Hello, {{ user.user_id }}
+                </v-list-item-title>
+                <v-list-item-subtitle></v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn text @click="logout">로그아웃</v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+          <v-divider></v-divider>
+          <v-list>
+            <v-list-item @click="moveToPage('CheckPw')">마이페이지</v-list-item>
+            <v-list-item @click="moveToPage('OrderHistory')"
+              >주문내역</v-list-item
+            >
+          </v-list>
+        </v-card>
+      </v-menu>
+    </v-app-bar>
+
     <v-main>
       <v-fade-transition hide-on-leave>
         <router-view :key="$route.fullPath"></router-view>
