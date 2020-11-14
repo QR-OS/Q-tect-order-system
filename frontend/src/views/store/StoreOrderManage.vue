@@ -181,8 +181,10 @@
 </template>
 
 <script>
-import axios from "axios";
-import moment from "moment";
+import axios from 'axios';
+import moment from 'moment';
+import Stomp from 'webstomp-client';
+import SockJS from 'sockjs-client';
 
 export default {
   data() {
@@ -212,18 +214,19 @@ export default {
     };
   },
   async created() {
+    this.connect();
     try {
       const storeInfo = await axios.get(
         "/store/" + this.$store.state.auth.user.user_id
       );
       this.storeId = storeInfo.data.store_id;
-      const res = await axios.get("/orders/" + storeInfo.data.store_id);
+      const res = await axios.get("/orders/" + this.storeId);
       this.orderList = res.data;
       let idx = 0;
       while (idx > -1) {
         idx = this.orderList.findIndex(
           (item) =>
-            item.order_state !== "주문 접수" ||
+            item.order_state !== "주문 접수" &&
             item.order_state !== "주문 준비 중"
         );
         if (idx > -1) this.orderList.splice(idx, 1);
@@ -271,6 +274,9 @@ export default {
         this.errorMsg = error.response.message;
       }
       this.isLoading = false;
+      this.orderItem.order_state = state;
+      const socketMsg = { order_state : state };
+      this.stompClient.send("/socket.manager/" + this.storeId + "/" + this.orderItem.order_id, JSON.stringify(socketMsg), {});
     },
     async selectAllComplete() {
       for (const val of this.selected) {
@@ -291,6 +297,22 @@ export default {
           }
         }
       });
+    },
+    connect() {
+      const serverURL = "http://localhost:3000/api";
+      let socket = new SockJS(serverURL);
+      this.stompClient = Stomp.over(socket);
+      this.stompClient.connect(
+        {},
+        frame => {
+          console.log('소켓 연결 성공', frame);
+          this.connected = true;
+        }
+      ),
+      error => {
+        console.log('소켓 연결 실패', error);
+        this.connected = false;
+      }
     },
   },
 };

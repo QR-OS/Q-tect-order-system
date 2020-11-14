@@ -26,6 +26,7 @@
             class="text-h4 font-weight-bold"
             align="center"
             justify="center"
+            v-model="orderForm.order_state"
           >
             {{ orderForm.order_state }}
           </v-row>
@@ -125,14 +126,21 @@ export default {
       const serverURL = 'http://localhost:3000/api';
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
-      this.stompClient.connect({}, function(frame) {
-        this.connected = true;
-        console.log('Connected: ' + frame);
-        this.stompClient.subscribe(`/socket/${this.$route.query.storeId}/user/${this.$route.query.orderId}`,
-        function(res) {
-          this.orderForm.order_state = JSON.parse(res.body).order_state;
-        });
-      });
+      this.stompClient.connect(
+        {},
+        frame => {
+          console.log('소켓 연결 성공', frame);
+          this.connected = true;
+          this.stompClient.subscribe(`/socket/${this.$route.query.storeId}/user/${this.$route.query.orderId}`, res => {
+            console.log(res.body);
+            this.orderForm.order_state = JSON.parse(res.body).order_state;
+          });
+        },
+        error => {
+          console.log('소켓 연결 실패', error);
+          this.connected = false;
+        }
+      )
     }
   }
 };

@@ -141,6 +141,12 @@ const routes = [
     component: UserStoreState
   },
   {
+    path: "/storeordermanage",
+    name: "StoreOrderManage",
+    component: StoreOrderManage,
+    beforeEnter: requireManageAuth(),
+  },
+  {
     path: "/storecompletedordermanage",
     name: "StoreCompletedOrderManage",
     component: StoreCompletedOrderManage,
