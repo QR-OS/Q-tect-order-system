@@ -112,8 +112,10 @@
 </template>
 
 <script>
-import axios from "axios";
-import moment from "moment";
+import axios from 'axios';
+import moment from 'moment';
+import Stomp from 'webstomp-client';
+import SockJS from 'sockjs-client';
 
 export default {
   data() {
@@ -151,6 +153,7 @@ export default {
     },
   },
   async created() {
+    this.connect();
     try {
       const storeInfo = await axios.get(
         "/store/" + this.$store.state.auth.user.user_id
@@ -205,6 +208,8 @@ export default {
         this.errorMsg = error.response.message;
       }
       this.isLoading = false;
+      const socketMsg = { order_state : state };
+      this.stompClient.send("/socket.manager/" + this.storeId + "/" + this.orderItem.order_id, JSON.stringify(socketMsg), {});
     },
     async selectAllCompleteToCancel() {
       for (const val of this.selected) {
@@ -212,6 +217,22 @@ export default {
         await this.patchOrderState("주문 준비 중");
       }
     },
+    connect() {
+      const serverURL = 'http://localhost:3000/api';
+      let socket = new SockJS(serverURL);
+      this.stompClient = Stomp.over(socket);
+      this.stompClient.connect(
+        {},
+        frame => {
+          console.log('소켓 연결 성공', frame);
+          this.connected = true;
+        }
+      ),
+      error => {
+        console.log('소켓 연결 실패', error);
+        this.connected = false;
+      }
+    }
   },
 };
 </script>
