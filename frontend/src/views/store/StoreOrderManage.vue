@@ -305,12 +305,12 @@ export default {
       this.stompClient.connect(
         {},
         frame => {
-          console.log('소켓 연결 성공', frame);
+          this.$log.info('소켓 연결 성공', frame);
           this.connected = true;
         }
       ),
       error => {
-        console.log('소켓 연결 실패', error);
+        this.$log.info('소켓 연결 실패', error);
         this.connected = false;
       }
     },

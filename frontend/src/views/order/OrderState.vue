@@ -129,7 +129,7 @@ export default {
       this.stompClient.connect(
         {},
         frame => {
-          console.log('소켓 연결 성공', frame);
+          this.$log.info('소켓 연결 성공', frame);
           this.connected = true;
           this.stompClient.subscribe(`/socket/${this.$route.query.storeId}/user/${this.$route.query.orderId}`, res => {
             console.log(res.body);
@@ -137,7 +137,7 @@ export default {
           });
         },
         error => {
-          console.log('소켓 연결 실패', error);
+          this.$log.info('소켓 연결 실패', error);
           this.connected = false;
         }
       )
