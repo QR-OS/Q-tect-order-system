@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.PositiveOrZero;
+import java.sql.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuStatisticResponseDto {
-    private String product_name;
+public class SaleStatisticResponseDto {
+    private Date order_time;
     @PositiveOrZero
-    private int order_quantity;
+    private int price;
 }

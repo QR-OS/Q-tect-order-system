@@ -11,7 +11,7 @@ import java.sql.Date;
 @Setter
 @AllArgsConstructor
 @Builder
-public class MenuStatisticRequestDto {
+public class StatisticRequestDto {
     private String store_id;
     private Date startDate;
     private Date endDate;

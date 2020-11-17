@@ -3,8 +3,12 @@
 
 <mapper namespace="com.smallB.QOS.statistic.dao.StatisticDao">
 
-    <select id="getMenuStatistic" parameterType="com.smallB.QOS.statistic.domain.MenuStatisticRequestDto" resultType="com.smallB.QOS.statistic.domain.MenuStatisticResponseDto">
+    <select id="getMenuStatistic" parameterType="com.smallB.QOS.statistic.domain.StatisticRequestDto" resultType="com.smallB.QOS.statistic.domain.MenuStatisticResponseDto">
         select product_name,SUM(order_quantity) as order_quantity from `order` right outer join detail_order on (`order`.order_id = detail_order.order_id AND `order`.store_id = detail_order.store_id AND order_time BETWEEN #{startDate} AND #{endDate} AND detail_order.store_id = #{store_id}) group by product_name;
+    </select>
+
+    <select id="getSaleStatistic" parameterType="com.smallB.QOS.statistic.domain.StatisticRequestDto" resultType="com.smallB.QOS.statistic.domain.SaleStatisticResponseDto">
+        select order_time,SUM(total_price) as price from `order` WHERE order_time BETWEEN #{startDate} AND #{endDate} group by order_time;
     </select>
 
 </mapper>

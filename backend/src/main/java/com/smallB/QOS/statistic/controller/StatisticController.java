@@ -1,6 +1,6 @@
 package com.smallB.QOS.statistic.controller;
 
-import com.smallB.QOS.statistic.domain.MenuStatisticRequestDto;
+import com.smallB.QOS.statistic.domain.StatisticRequestDto;
 import com.smallB.QOS.statistic.service.StatisticService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,23 @@ public class StatisticController {
 
     @GetMapping("/statistic/menu/{store_id}")
     public ResponseEntity<?> getMenuStatistic(@PathVariable @Valid String store_id, @RequestParam(value="startDate",required = true)Date startDate, @RequestParam(value="endDate", required = true) Date endDate) throws Exception{
-        MenuStatisticRequestDto menuStatisticRequestDto = MenuStatisticRequestDto.builder()
+        StatisticRequestDto menuStatisticRequestDto = StatisticRequestDto.builder()
                 .store_id(store_id)
                 .startDate(startDate)
                 .endDate(endDate)
                 .build();
         Object res = statisticService.getMenuStatistic(menuStatisticRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @GetMapping("/statistic/sale/{store_id}")
+    public ResponseEntity<?> getSaleStatistic(@PathVariable @Valid String store_id, @RequestParam(value="startDate",required = true)Date startDate, @RequestParam(value="endDate", required = true) Date endDate) throws Exception{
+        StatisticRequestDto statisticRequestDto = StatisticRequestDto.builder()
+                .store_id(store_id)
+                .startDate(startDate)
+                .endDate(endDate)
+                .build();
+        Object res = statisticService.getSaleStatistic(statisticRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 }
