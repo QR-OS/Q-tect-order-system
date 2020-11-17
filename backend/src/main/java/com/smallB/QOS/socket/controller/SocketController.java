@@ -12,5 +12,9 @@ public class SocketController {
     @SendTo("/socket/{store_id}/user/{order_id}")
     public OrderStateToUserDto ManagerToUserHandler(OrderStateToUserDto order_state) {
         return order_state;
+    @MessageMapping("/socket.user/{store_id}")
+    @SendTo("/socket/manager/{store_id}")
+    public OrderDto UserToManagerHandler(OrderDto orderDto) {
+        return orderDto;
     }
 }
