@@ -16,7 +16,7 @@ public class SocketController {
 
     @MessageMapping("/socket.user/{store_id}")
     @SendTo("/socket/manager/{store_id}")
-    public OrderDto UserToManagerHandler(String storeId,OrderDto orderDto) {
+    public OrderDto UserToManagerHandler(OrderDto orderDto) {
         return orderDto;
     }
 }

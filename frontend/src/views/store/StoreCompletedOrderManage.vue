@@ -10,27 +10,19 @@
       dark
       depressed
       color="yellow darken-2"
-      @click="selectAllComplete"
+      @click="selectAllCompleteToCancel"
     >
-      완료
-    </v-btn>
-    <v-btn
-      class="ma-3"
-      dark
-      depressed
-      color="yellow darken-2"
-      @click="selectAllReject"
-    >
-      삭제
+      완료 취소
     </v-btn>
     <v-data-table
       :loading="!!isLoading"
       loading-text="Loading... Please wait"
       v-model="selected"
       :headers="headers"
-      :items="orderList"
+      :items="orderLists"
       :sort-by="'order_time'"
       :sort-desc="true"
+      :selectable-key="'selectable'"
       multi-sort
       item-key="order_id"
       show-select
@@ -113,69 +105,8 @@
               >결제 방법 : {{ orderItem.pay_type }}</v-col
             >
           </v-row>
-          <v-card-actions
-            v-if="orderItem.order_state == '주문 접수'"
-            class="justify-center"
-          >
-            <v-btn
-              dark
-              depressed
-              color="yellow darken-2"
-              @click="
-                () => {
-                  dialog = false;
-                  patchOrderState('주문 준비 중');
-                }
-              "
-              >주문 확인</v-btn
-            >
-            <v-btn
-              dark
-              depressed
-              color="yellow darken-2"
-              @click="
-                orderRejectDialogOpen(() => {
-                  dialog = false;
-                  rejectDialog = false;
-                  patchOrderState('주문 거절');
-                })
-              "
-              >주문 거절</v-btn
-            >
-          </v-card-actions>
         </v-card>
       </v-container>
-    </v-dialog>
-    <v-dialog
-      persistent
-      v-if="rejectDialog"
-      v-model="rejectDialog"
-      max-width="350"
-      max-height="250"
-    >
-      <v-card>
-        <v-card-title>
-          정말 주문을 삭제하시겠습니까?
-        </v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="nextAction">
-            삭제
-          </v-btn>
-          <v-btn
-            color="green darken-1"
-            text
-            @click="
-              () => {
-                dialog = false;
-                rejectDialog = false;
-              }
-            "
-          >
-            취소
-          </v-btn>
-        </v-card-actions>
-      </v-card>
     </v-dialog>
   </v-container>
 </template>
@@ -205,11 +136,19 @@ export default {
       orderDetail: [],
       orderItem: {},
       dialog: false,
-      rejectDialog: false,
       errorMsg: "",
       isLoading: true,
       nextAction: () => {},
     };
+  },
+  computed: {
+    orderLists() {
+      let rtn = this.orderList.map((item) => ({
+        ...item,
+        selectable: item.order_state === "주문 완료",
+      }));
+      return rtn;
+    },
   },
   async created() {
     try {
@@ -223,8 +162,7 @@ export default {
       while (idx > -1) {
         idx = this.orderList.findIndex(
           (item) =>
-            item.order_state !== "주문 접수" &&
-            item.order_state !== "주문 준비 중"
+            item.order_state !== "주문 거절" && item.order_state !== "주문 완료"
         );
         if (idx > -1) this.orderList.splice(idx, 1);
         else break;
@@ -256,10 +194,6 @@ export default {
       }
       this.dialog = true;
     },
-    async orderRejectDialogOpen(callback) {
-      this.rejectDialog = true;
-      this.nextAction = callback;
-    },
     async patchOrderState(state) {
       this.isLoading = true;
       try {
@@ -272,25 +206,11 @@ export default {
       }
       this.isLoading = false;
     },
-    async selectAllComplete() {
+    async selectAllCompleteToCancel() {
       for (const val of this.selected) {
-        if (val.order_state === "주문 준비 중") {
-          this.orderItem = val;
-          await this.patchOrderState("주문 완료");
-        }
+        this.orderItem = val;
+        await this.patchOrderState("주문 준비 중");
       }
-      this.selected = [];
-    },
-    async selectAllReject() {
-      this.orderRejectDialogOpen(async () => {
-        this.rejectDialog = false;
-        for (const val of this.selected) {
-          if (val.order_state === "주문 접수") {
-            this.orderItem = val;
-            await this.patchOrderState("주문 거절");
-          }
-        }
-      });
     },
   },
 };
