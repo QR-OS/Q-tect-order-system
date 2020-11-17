@@ -107,6 +107,8 @@
 
 <script>
 import axios from "axios";
+import Stomp from "webstomp-client";
+import SockJS from "sockjs-client";
 
 export default {
   data() {
@@ -137,7 +139,33 @@ export default {
       this.errorMsg = error.response.data.message;
     }
   },
+  created() {
+    this.socketConnect();
+  },
   methods: {
+    socketConnect() {
+      console.log("start");
+      let socket = new SockJS("http://localhost:3000/api");
+      this.stompClient = Stomp.over(socket);
+      this.stompClient.connect(
+        {},
+        (frame) => {
+          this.connected = true;
+          console.log("연결 성공", frame);
+          this.stompClient.subscribe(
+            `/socket/${this.$route.query.storeId}/user/${this.$route.query.orderId}`,
+            (res) => {
+              this.orderForm.order_state = JSON.parse(res.body).order_state;
+              console.log(this.orderForm.order_state);
+            }
+          );
+        },
+        (error) => {
+          console.log("연결 실패", error);
+          this.connected = false;
+        }
+      );
+    },
     async moveToStoreMain(storeId) {
       const res = await axios.get("user/store_id/" + storeId);
       this.$router.push({
