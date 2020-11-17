@@ -28,7 +28,7 @@
       loading-text="Loading... Please wait"
       v-model="selected"
       :headers="headers"
-      :items="orderList"
+      :items="orderLists"
       :sort-by="'order_time'"
       :sort-desc="true"
       multi-sort
@@ -213,6 +213,24 @@ export default {
       nextAction: () => {},
     };
   },
+  computed: {
+    orderLists() {
+      let rtn = this.orderList.map((item) => ({
+        ...item,
+      }));
+      let idx = 0;
+      while (idx > -1) {
+        idx = rtn.findIndex(
+          (item) =>
+            item.order_state !== "주문 접수" &&
+            item.order_state !== "주문 준비 중"
+        );
+        if (idx > -1) rtn.splice(idx, 1);
+        else break;
+      }
+      return rtn;
+    },
+  },
   async created() {
     this.socketConnect();
     try {
@@ -274,7 +292,6 @@ export default {
         this.errorMsg = error.response.message;
       }
       this.isLoading = false;
-      this.orderItem.order_state = state;
       const socketMsg = { order_state : state };
       this.stompClient.send("/socket.manager/" + this.storeId + "/" + this.orderItem.order_id, JSON.stringify(socketMsg), {});
     },
@@ -307,8 +324,15 @@ export default {
         frame => {
           this.$log.info('소켓 연결 성공', frame);
           this.connected = true;
-          this.stompClient.subscribe(`/socket/manager/${this.$route.query.storeId}`, res => {
-            this.orderForm.order_state = JSON.parse(res.body).order_state;
+          this.stompClient.subscribe(`/socket/manager/${this.storeId}`, res => {
+            let result = JSON.parse(res.body);
+            result.order_time = moment(result.order_time).format("YYYY/MM/DD HH:mm");
+            result.order_type = result.order_type === 0 ? "주문" : "예약";
+            if (result.book_time === null || typeof result.book_time !== "undefined") {
+              result.book_time = result.order_time;
+            }
+            this.orderList.push(result);
+            console.log(this.orderList);
           });
         }
       ),

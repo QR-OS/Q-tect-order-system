@@ -359,9 +359,10 @@ export default {
       body.user_id = this.$store.state.auth.user.user_id;
       try {
         //socket으로 admin에게 주문 보내는 부분
-        this.stompClient.send(`/socket.user/${body.store_id}`, JSON.stringify(body), {});
+        this.$log.info(body.store_id);
 
         let res = await axios.post("/order", body);
+        this.stompClient.send(`/socket.user/${body.store_id}`, JSON.stringify(res.data), {});
         let orderId = Number(res.data.order_id);
         let productBody = {
           order_id: orderId,
