@@ -112,8 +112,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import moment from "moment";
+import axios from 'axios';
+import moment from 'moment';
 
 export default {
   data() {
@@ -211,7 +211,7 @@ export default {
         this.orderItem = val;
         await this.patchOrderState("주문 준비 중");
       }
-    },
+    }
   },
 };
 </script>
