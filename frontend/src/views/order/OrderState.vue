@@ -102,6 +102,9 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row>
+      <qrcode-vue :value="value" size="300" level="H"></qrcode-vue>
+    </v-row>
   </v-container>
 </template>
 
@@ -109,14 +112,19 @@
 import axios from "axios";
 import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
+import QrcodeVue from 'qrcode.vue';
 
 export default {
+  components: {
+    QrcodeVue,
+  },
   data() {
     return {
       orderForm: {},
       orderlist: [],
       storeName: "",
       errorMsg: "",
+      value: 'http://naver.com',
     };
   },
   async mounted() {
