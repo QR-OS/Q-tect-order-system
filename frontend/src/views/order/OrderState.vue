@@ -128,7 +128,10 @@ export default {
       );
       this.orderlist = list.data;
 
-      const storeInfo = await axios.get("/store/test123");
+      const res2 = await axios.get(
+        "user/store_id/" + this.$route.query.storeId
+      );
+      const storeInfo = await axios.get("/store/" + res2.data.user_id);
       this.storeName = storeInfo.data.store_name;
     } catch (error) {
       this.errorMsg = error.response.data.message;

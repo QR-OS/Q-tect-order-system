@@ -287,7 +287,6 @@ export default {
   },
   async mounted() {
     try {
-      console.log(this.cart[0].storeId);
       const storeUserId = await axios.get(
         "user/store_id/" + this.cart[0].storeId
       );
@@ -367,9 +366,7 @@ export default {
           productBody.order_quantity = item.productAmount;
           productBody.product_name = item.productName;
           productBody.product_price = item.totalPrice;
-          console.log(productBody);
           let res = await axios.post("/detailorder", productBody);
-          console.log(res.data);
         }
         this.clearCart();
         this.$router.push({
