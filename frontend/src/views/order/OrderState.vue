@@ -140,6 +140,13 @@ export default {
   created() {
     this.socketConnect();
   },
+  beforeDestroy() {
+    if (this.stompClient !== null) {
+        this.stompClient.disconnect();
+    }
+    this.connected = false;
+    this.$log.info('소켓 연결 해제');
+  },
   methods: {
     socketConnect() {
       const serverURL = 'http://localhost:3000/api';
