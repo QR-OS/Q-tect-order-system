@@ -97,7 +97,6 @@ export default {
       orderlist: [],
       storeName: "",
       errorMsg: "",
-      orderState: "",
     };
   },
   async mounted() {
@@ -130,9 +129,9 @@ export default {
         frame => {
           this.connected = true;
           console.log('연결 성공', frame);
-          this.stompClient.subscribe(`/socket/user/${this.$route.query.orderId}/user/${this.$store.state.auth.user.user_id}` , res => {
-              this.orderState = JSON.parse(res.body).order_state
-              console.log(this.orderState);
+          this.stompClient.subscribe(`/socket/${this.$route.query.storeId}/user/${this.$route.query.orderId}` , res => {
+              this.orderForm.order_state = JSON.parse(res.body).order_state
+              console.log(this.orderForm.order_state);
           })
         },
         error => {
