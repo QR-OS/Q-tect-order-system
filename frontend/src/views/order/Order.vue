@@ -366,7 +366,7 @@ export default {
           productBody.order_quantity = item.productAmount;
           productBody.product_name = item.productName;
           productBody.product_price = item.totalPrice;
-          let res = await axios.post("/detailorder", productBody);
+          await axios.post("/detailorder", productBody);
         }
         this.clearCart();
         this.$router.push({

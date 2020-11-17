@@ -139,7 +139,7 @@ export default {
         totalPrice: totalPrice,
       };
       try {
-        let res = await this.addProductToCart(order);
+        await this.addProductToCart(order);
       } catch (error) {
         if (error.name == "DifferentStoreIdError") this.dialog = true;
         else {
