@@ -214,7 +214,7 @@ export default {
     };
   },
   async created() {
-    this.connect();
+    this.socketConnect();
     try {
       const storeInfo = await axios.get(
         "/store/" + this.$store.state.auth.user.user_id
@@ -298,7 +298,7 @@ export default {
         }
       });
     },
-    connect() {
+    socketConnect() {
       const serverURL = "http://localhost:3000/api";
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
@@ -307,6 +307,9 @@ export default {
         frame => {
           this.$log.info('소켓 연결 성공', frame);
           this.connected = true;
+          this.stompClient.subscribe(`/socket/manager/${this.$route.query.storeId}`, res => {
+            this.orderForm.order_state = JSON.parse(res.body).order_state;
+          });
         }
       ),
       error => {

@@ -138,10 +138,10 @@ export default {
     }
   },
   created() {
-    this.connect();
+    this.socketConnect();
   },
   methods: {
-    connect() {
+    socketConnect() {
       const serverURL = 'http://localhost:3000/api';
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
@@ -151,7 +151,6 @@ export default {
           this.$log.info('소켓 연결 성공', frame);
           this.connected = true;
           this.stompClient.subscribe(`/socket/${this.$route.query.storeId}/user/${this.$route.query.orderId}`, res => {
-            console.log(res.body);
             this.orderForm.order_state = JSON.parse(res.body).order_state;
           });
         },
