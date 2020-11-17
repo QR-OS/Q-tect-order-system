@@ -12,7 +12,9 @@
             주문 현황
           </v-card-title>
           <v-row class="font-weight-bold title ml-md-10 ml-xs-6 ml-2">
-            {{ storeName }}
+            <v-col>
+              {{ storeName }}
+            </v-col>
           </v-row>
           <v-row
             align="center"
@@ -22,13 +24,10 @@
           >
             QR코드 이미지
           </v-row>
-          <v-row
-            class="text-h4 font-weight-bold"
-            align="center"
-            justify="center"
-            v-model="orderForm.order_state"
-          >
-            {{ orderForm.order_state }}
+          <v-row class="text-h4 font-weight-bold">
+            <v-col align="center" justify="center">
+              {{ orderForm.order_state }}
+            </v-col>
           </v-row>
           <v-row
             align="center"
@@ -38,7 +37,9 @@
             수령시 카운터에 QR코드를 보여주세요!
           </v-row>
           <v-row class="font-weight-bold title ml-md-10 ml-xs-6 ml-2 my-3">
-            주문 내역
+            <v-col>
+              주문 내역
+            </v-col>
           </v-row>
           <v-row align="center" justify="center">
             <v-card
@@ -76,10 +77,28 @@
             </v-card>
           </v-row>
           <v-row class="ml-md-10 ml-xs-6 ml-2 my-3 mb-10">
-            <v-col class="font-weight-bold"
-              >결제 방법 : {{ orderForm.pay_type }}</v-col
-            >
+            <v-col class="font-weight-bold">
+              결제 방법 : {{ orderForm.pay_type }}
+            </v-col>
           </v-row>
+          <v-card-actions class="justify-center mb-5">
+            <v-btn class="mx-2" outlined @click="moveToOrderHistory()">
+              <v-icon>
+                mdi-format-list-bulleted
+              </v-icon>
+              주문 목록
+            </v-btn>
+            <v-btn
+              class="mx-2"
+              outlined
+              @click="moveToStoreMain($route.query.storeId)"
+            >
+              <v-icon>
+                mdi-store
+              </v-icon>
+              가게 보기
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -141,7 +160,19 @@ export default {
           this.connected = false;
         }
       )
-    }
-  }
+    },
+    async moveToStoreMain(storeId) {
+      const res = await axios.get("user/store_id/" + storeId);
+      this.$router.push({
+        name: "StoreMain",
+        query: { id: res.data.user_id },
+      });
+    },
+    moveToOrderHistory() {
+      this.$router.push({
+        name: "OrderHistory",
+      });
+    },
+  },
 };
 </script>
