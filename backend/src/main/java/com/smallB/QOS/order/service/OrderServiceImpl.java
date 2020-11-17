@@ -90,7 +90,6 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<OrderHistoryDto> getOrdersByUserId(String user_id) throws Exception{
-        System.out.println(user_id);
         List<OrderDto> orderDtos = orderDao.findOrdersByUserId(user_id);
         if(orderDtos.size()==0){
             throw new OrderNotFoundException(user_id);
@@ -108,11 +107,7 @@ public class OrderServiceImpl implements OrderService{
             tmp.setOrder_state(order.getOrder_state());
             tmp.setStore_id(order.getStore_id());
             tmp.setUser_id(order.getUser_id());
-            System.out.println(order.getStore_id());
             tmp.setStore_name(storeInfoDao.findStoreByStoreId(order.getStore_id()).getStore_name());
-            System.out.println(order.getStore_id());
-            System.out.println(order.getUser_id());
-            System.out.println(order.getOrder_id());
             tmp.setCeo_product_name(detailOrderDao.findOneDetailOrder(tmp.getOrder_id(),tmp.getUser_id()).getProduct_name());
             tmp.setDetail_order_count(detailOrderDao.findDetailOrder(tmp.getOrder_id(),tmp.getUser_id()).size());
 

@@ -35,7 +35,6 @@ public class OrderController {
 
     @GetMapping("/order/{user_id}")
     public ResponseEntity<?> getOrdersByUserId(@PathVariable @Valid String user_id) throws Exception{
-        System.out.println("in");
         Object res = orderService.getOrdersByUserId(user_id);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
