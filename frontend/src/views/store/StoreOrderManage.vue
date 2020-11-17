@@ -28,7 +28,7 @@
       loading-text="Loading... Please wait"
       v-model="selected"
       :headers="headers"
-      :items="orderList"
+      :items="orderLists"
       :sort-by="'order_time'"
       :sort-desc="true"
       multi-sort
@@ -211,6 +211,24 @@ export default {
       nextAction: () => {},
     };
   },
+  computed: {
+    orderLists() {
+      let rtn = this.orderList.map((item) => ({
+        ...item,
+      }));
+      let idx = 0;
+      while (idx > -1) {
+        idx = rtn.findIndex(
+          (item) =>
+            item.order_state !== "주문 접수" &&
+            item.order_state !== "주문 준비 중"
+        );
+        if (idx > -1) rtn.splice(idx, 1);
+        else break;
+      }
+      return rtn;
+    },
+  },
   async created() {
     try {
       const storeInfo = await axios.get(
@@ -263,6 +281,16 @@ export default {
     async patchOrderState(state) {
       this.isLoading = true;
       try {
+        const idx = this.orderList.findIndex(
+          (item) => item.order_id === this.orderItem.order_id
+        );
+        if (idx > -1) {
+          if (state === "준비 완료" || state === "주문 거절") {
+            this.orderList.splice(idx, 1);
+          } else {
+            this.orderList[idx].order_state = state;
+          }
+        }
         await axios.patch(
           "/order/" + this.orderItem.order_id + "/" + this.storeId,
           { order_state: state }
@@ -276,7 +304,7 @@ export default {
       for (const val of this.selected) {
         if (val.order_state === "주문 준비 중") {
           this.orderItem = val;
-          await this.patchOrderState("주문 완료");
+          await this.patchOrderState("준비 완료");
         }
       }
       this.selected = [];
