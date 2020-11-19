@@ -303,6 +303,13 @@ export default {
       this.errorMsg = error.response.data.message;
     }
   },
+  beforeDestroy() {
+    if (this.stompClient !== null) {
+        this.stompClient.disconnect();
+    }
+    this.connected = false;
+    this.$log.info('소켓 연결 해제');
+  },
   methods: {
     ...mapActions({
       addProductToCart: "bucket/addProductToCart",
@@ -359,9 +366,10 @@ export default {
       body.user_id = this.$store.state.auth.user.user_id;
       try {
         //socket으로 admin에게 주문 보내는 부분
-        this.stompClient.send(`/socket.user/${body.store_id}`, JSON.stringify(body), {});
+        this.$log.info(body.store_id);
 
         let res = await axios.post("/order", body);
+        this.stompClient.send(`/socket.user/${body.store_id}`, JSON.stringify(res.data), {});
         let orderId = Number(res.data.order_id);
         let productBody = {
           order_id: orderId,
@@ -373,9 +381,7 @@ export default {
           productBody.order_quantity = item.productAmount;
           productBody.product_name = item.productName;
           productBody.product_price = item.totalPrice;
-          console.log(productBody);
-          let res = await axios.post("/detailorder", productBody);
-          console.log(res.data);
+          await axios.post("/detailorder", productBody);
         }
         this.clearCart();
         this.$router.push({
