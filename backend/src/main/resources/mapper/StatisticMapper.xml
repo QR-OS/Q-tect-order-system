@@ -8,7 +8,7 @@
     </select>
 
     <select id="getSaleStatistic" parameterType="com.smallB.QOS.statistic.domain.StatisticRequestDto" resultType="com.smallB.QOS.statistic.domain.SaleStatisticResponseDto">
-        select order_time,SUM(total_price) as price from `order` WHERE `store_id` = #{store_id} AND order_time BETWEEN #{startDate} AND #{endDate} group by order_time;
+        select SUBSTR(order_time,1,10) as order_time,SUM(total_price) as price from `order` WHERE `store_id` = #{store_id} AND order_time BETWEEN #{startDate} AND #{endDate} group by SUBSTR(order_time,1,10);
     </select>
 
 </mapper>
