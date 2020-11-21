@@ -15,5 +15,5 @@ import java.sql.Date;
 public class SaleStatisticResponseDto {
     private Date order_time;
     @PositiveOrZero
-    private int price;
+    private Long price;
 }
