@@ -105,6 +105,68 @@
               >결제 방법 : {{ orderItem.pay_type }}</v-col
             >
           </v-row>
+          <v-row 
+            justify="center">
+            <v-btn
+              dark
+              depressed
+              color="yellow darken-2"
+              v-on:click="checkQRcodeFlag=true"
+              v-if="orderItem.order_state!=='수령완료'"
+            >QR확인
+            </v-btn>
+          </v-row>
+          <div class="text-center">
+            <v-dialog
+              v-model="checkQRcodeFlag"
+              width="700px"
+            >
+              <v-card>
+                <v-card-title>
+                  QR_code
+                </v-card-title>
+                <v-row>
+                  <v-col 
+                    style="max-width:80%;"
+                    align="center">
+                    <v-text-field
+                      style="margin-left: 15px;"
+                      label="QRcode를 스캔해주세요!"
+                      type="password"
+                      solo
+                      dense
+                      outlined
+                      v-model="qrCode"
+                      :rules="qrCodeRules"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col 
+                    style="max-width:20%;"
+                    align="center">
+                    <v-btn
+                      dark
+                      depressed
+                      color="yellow darken-2"
+                      @click="
+                        checkQRcode(() => {
+                        qrErrorFlag = false;
+                      })
+                      "
+                    >수령완료</v-btn>
+                  </v-col>
+                </v-row>
+                <v-row justify="center">
+                  <v-alert
+                    dense
+                    outlined
+                    type="error"
+                    v-model="qrErrorFlag"
+                  >{{qrErrorMsg}}
+                  </v-alert>
+                </v-row>
+              </v-card>
+            </v-dialog>
+          </div>
         </v-card>
       </v-container>
     </v-dialog>
@@ -139,6 +201,13 @@ export default {
       errorMsg: "",
       isLoading: true,
       nextAction: () => {},
+      checkQRcodeFlag: false,
+      qrCode: "",
+      qrCodeRules: [
+        v => !!v || 'QR 코드를 스캔해주세요!'
+      ],
+      qrErrorFlag: false,
+      qrErrorMsg: '',
     };
   },
   computed: {
@@ -162,7 +231,7 @@ export default {
       while (idx > -1) {
         idx = this.orderList.findIndex(
           (item) =>
-            item.order_state !== "주문 거절" && item.order_state !== "주문 준비 완료"
+            item.order_state !== "주문 거절" && item.order_state !== "주문 준비 완료" && item.order_state !== "수령완료"
         );
         if (idx > -1) this.orderList.splice(idx, 1);
         else break;
@@ -216,6 +285,31 @@ export default {
       for (const val of this.selected) {
         this.orderItem = val;
         await this.patchOrderState("주문 준비 중");
+      }
+    },
+    async checkQRcode() {
+      this.qrCode = JSON.parse(this.qrCode);
+      const qrStoreId = this.qrCode.storeId;
+      const qrOrderId = this.qrCode.orderId;
+      if(qrStoreId !== this.storeId || qrOrderId !== this.orderItem.order_id){
+        this.qrErrorFlag = true;
+        this.qrErrorMsg = "해당 주문건이 아닙니다! 다시 확인바랍니당~";
+        this.qrCode = '';
+        return;
+      }
+      try {
+        await axios.patch(
+          "/order/" + qrOrderId + "/" + qrStoreId,
+          {
+            order_type : "3",
+            order_state : "수령완료"
+          }
+        );
+        this.qrCode = '';
+        this.checkQRcodeFlag = false;
+        window.location.reload(true);
+      } catch(error){
+        this.errorMsg = error.response.message;
       }
     }
   },
