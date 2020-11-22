@@ -289,7 +289,6 @@ export default {
   },
   async mounted() {
     try {
-      console.log(this.cart[0].storeId);
       const storeUserId = await axios.get(
         "user/store_id/" + this.cart[0].storeId
       );
@@ -361,7 +360,7 @@ export default {
       }
       let body = Object.assign({}, this.form);
       body.total_price = this.payValue;
-      body.order_state = "주문 접수";
+      body.order_state = "주문 접수 대기";
       body.store_id = this.cart[0].storeId;
       body.user_id = this.$store.state.auth.user.user_id;
       try {
