@@ -146,7 +146,7 @@ export default {
   },
   created() {
     this.socketConnect();
-    this.qrValue = `{"storeId" : "${this.$route.query.storeId}", "orderId" : "${this.$route.query.orderId}}"`;
+    this.qrValue = `{"storeId" : "${this.$route.query.storeId}", "orderId" : "${this.$route.query.orderId}"}`;
   },
   beforeDestroy() {
     if (this.stompClient !== null) {
