@@ -11,33 +11,20 @@
         ></v-text-field>
       </v-col>
     </v-row>
-    <v-row><v-divider light></v-divider></v-row>
+    <v-row><v-col><v-divider light></v-divider></v-col></v-row>
     <v-row justify="center">
+      <v-col cols="6" sm="6" align-self="center">
       <v-chip
         v-for="item in categoryItems"
         :key="item.category"
         class="ma-2"
         outlined
-        rounded-circle
         large
         chip
         color="amber darken-1"
         @click="gotoStoreListPage(item.category)"
         >{{ item.category }}</v-chip
-      >
-
-      <div style="border: 5px solid #FFBB00; width:400px; height:400px;">
-        <v-chip class="ma-2" large chip color="amber lighten-3" text-color="white"
-        >중식</v-chip
-      >
-      <v-chip class="ma-2" large chip color="amber darken-1" text-color="white"
-        >일식</v-chip
-      >
-      <v-chip class="ma-2" large chip color="amber lighten-3" text-color="white"
-        >마트</v-chip
-      >
-      </div>
-    </v-row>
+      ></v-col></v-row>
   </v-container>
 </template>
 
