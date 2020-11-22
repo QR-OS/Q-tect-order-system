@@ -114,7 +114,7 @@
             >
           </v-row>
           <v-card-actions
-            v-if="orderItem.order_state == '주문 접수'"
+            v-if="orderItem.order_state == '주문 접수 대기'"
             class="justify-center"
           >
             <v-btn
@@ -222,7 +222,7 @@ export default {
       while (idx > -1) {
         idx = rtn.findIndex(
           (item) =>
-            item.order_state !== "주문 접수" &&
+            item.order_state !== "주문 접수 대기" &&
             item.order_state !== "주문 준비 중"
         );
         if (idx > -1) rtn.splice(idx, 1);
@@ -244,7 +244,7 @@ export default {
       while (idx > -1) {
         idx = this.orderList.findIndex(
           (item) =>
-            item.order_state !== "주문 접수" &&
+            item.order_state !== "주문 접수 대기" &&
             item.order_state !== "주문 준비 중"
         );
         if (idx > -1) this.orderList.splice(idx, 1);
@@ -295,7 +295,7 @@ export default {
           (item) => item.order_id === this.orderItem.order_id
         );
         if (idx > -1) {
-          if (state === "준비 완료" || state === "주문 거절") {
+          if (state === "주문 준비 완료" || state === "주문 거절") {
             this.orderList.splice(idx, 1);
           } else {
             this.orderList[idx].order_state = state;
@@ -316,7 +316,7 @@ export default {
       for (const val of this.selected) {
         if (val.order_state === "주문 준비 중") {
           this.orderItem = val;
-          await this.patchOrderState("준비 완료");
+          await this.patchOrderState("주문 준비 완료");
         }
       }
       this.selected = [];
@@ -325,7 +325,7 @@ export default {
       this.orderRejectDialogOpen(async () => {
         this.rejectDialog = false;
         for (const val of this.selected) {
-          if (val.order_state === "주문 접수") {
+          if (val.order_state === "주문 접수 대기") {
             this.orderItem = val;
             await this.patchOrderState("주문 거절");
           }

@@ -40,11 +40,6 @@
                 <v-list-item-title>메뉴별</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>시간별</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
           </v-list-group>
           <v-list-group prepend-icon="mdi-credit-card-multiple-outline">
             <template v-slot:activator>

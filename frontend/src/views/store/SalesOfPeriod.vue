@@ -1,4 +1,5 @@
 <template>
+  <!-- Load with base style -->
   <v-container>
     <v-row>
       <v-col cols="11" sm="5">
@@ -48,7 +49,7 @@
           </v-date-picker>
         </v-menu>
       </v-col>
-      <v-col align="end">
+      <v-col col="12" md="1" align="end">
         <v-btn
           :disabled="!!day"
           class="white--text"
@@ -58,7 +59,7 @@
           일간
         </v-btn>
       </v-col>
-      <v-col align="end">
+      <v-col col="12" md="1" align="end">
         <v-btn
           :disabled="!!week"
           class="white--text"
@@ -68,7 +69,7 @@
           주간
         </v-btn>
       </v-col>
-      <v-col align="end">
+      <v-col col="12" md="1" align="end">
         <v-btn
           :disabled="!!month"
           class="white--text"
@@ -80,13 +81,14 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col><div class="areaRangeChart"></div> </v-col>
+      <v-col><div id="areaRangeChart"></div> </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import bb, { areaLineRange, areaSplineRange } from "billboard.js";
+import "billboard.js/dist/billboard.css";
 
 export default {
   data() {
@@ -96,9 +98,10 @@ export default {
       month: false,
       date: new Date().toISOString().substr(0, 7),
       menu: false,
+      data: [],
     };
   },
-  created() {
+  mounted() {
     var chart = bb.generate({
       data: {
         x: "x",
