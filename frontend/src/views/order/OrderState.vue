@@ -22,7 +22,7 @@
             class="my-3"
             v-if="orderForm.order_state == '주문 준비 완료'"
           >
-            QR코드 이미지
+            <qrcode-vue :value="qrValue" size="200" level="H"></qrcode-vue>
           </v-row>
           <v-row class="text-h4 font-weight-bold">
             <v-col align="center" justify="center">
@@ -34,7 +34,6 @@
             justify="center"
             v-if="orderForm.order_state == '주문 준비 완료'"
           >
-          <qrcode-vue :value="value" size="300" level="H"></qrcode-vue>
             수령시 카운터에 QR코드를 보여주세요!
           </v-row>
           <v-row class="font-weight-bold title ml-md-10 ml-xs-6 ml-2 my-3">
@@ -147,7 +146,7 @@ export default {
   },
   created() {
     this.socketConnect();
-    this.qrValue = this.$route.query.storeId + this.$route.query.orderId;
+    this.qrValue = `{${this.$route.query.storeId}, ${this.$route.query.orderId}}`;
   },
   beforeDestroy() {
     if (this.stompClient !== null) {
