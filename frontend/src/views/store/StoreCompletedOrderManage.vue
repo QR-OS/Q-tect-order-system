@@ -112,8 +112,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
+import axios from "axios";
+import moment from "moment";
 
 export default {
   data() {
@@ -162,7 +162,9 @@ export default {
       while (idx > -1) {
         idx = this.orderList.findIndex(
           (item) =>
-            item.order_state !== "주문 거절" && item.order_state !== "주문 준비 완료"
+            item.order_state !== "주문 거절" &&
+            item.order_state !== "주문 준비 완료" &&
+            item.order_state !== "수령 완료"
         );
         if (idx > -1) this.orderList.splice(idx, 1);
         else break;
@@ -217,7 +219,7 @@ export default {
         this.orderItem = val;
         await this.patchOrderState("주문 준비 중");
       }
-    }
+    },
   },
 };
 </script>
