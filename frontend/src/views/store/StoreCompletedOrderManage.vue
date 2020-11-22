@@ -155,7 +155,7 @@
                     >수령완료</v-btn>
                   </v-col>
                 </v-row>
-                <v-row>
+                <v-row justify="center">
                   <v-alert
                     dense
                     outlined
@@ -307,6 +307,7 @@ export default {
         );
         this.qrCode = '';
         this.checkQRcodeFlag = false;
+        window.location.reload(true);
       } catch(error){
         this.errorMsg = error.response.message;
       }
