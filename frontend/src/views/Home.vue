@@ -25,7 +25,9 @@
         @click="gotoStoreListPage(item.category)"
         >{{ item.category }}</v-chip
       >
-      <v-chip class="ma-2" large chip color="amber lighten-3" text-color="white"
+
+      <div style="border: 5px solid #FFBB00; width:400px; height:400px;">
+        <v-chip class="ma-2" large chip color="amber lighten-3" text-color="white"
         >중식</v-chip
       >
       <v-chip class="ma-2" large chip color="amber darken-1" text-color="white"
@@ -34,6 +36,7 @@
       <v-chip class="ma-2" large chip color="amber lighten-3" text-color="white"
         >마트</v-chip
       >
+      </div>
     </v-row>
   </v-container>
 </template>
