@@ -139,9 +139,7 @@ export default {
         totalPrice: totalPrice,
       };
       try {
-        let res = await this.addProductToCart(order);
-        console.log("response");
-        console.log(res);
+        await this.addProductToCart(order);
       } catch (error) {
         if (error.name == "DifferentStoreIdError") this.dialog = true;
         else {
@@ -149,7 +147,6 @@ export default {
         }
         return;
       }
-      console.log(this.$store.state.bucket.cart);
       this.$emit("close", 1);
     },
     cancel() {

@@ -30,7 +30,7 @@
                 <v-list-item-title>데이터 집계</v-list-item-title>
               </v-list-item-content>
             </template>
-            <v-list-item>
+            <v-list-item @click="moveToPage('SalesOfPeriod')">
               <v-list-item-content>
                 <v-list-item-title>매출 현황</v-list-item-title>
               </v-list-item-content>
@@ -38,11 +38,6 @@
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>메뉴별</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>시간별</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-group>

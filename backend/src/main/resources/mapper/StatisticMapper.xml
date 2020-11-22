@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smallB.QOS.statistic.dao.StatisticDao">
+
+    <select id="getMenuStatistic" parameterType="com.smallB.QOS.statistic.domain.StatisticRequestDto" resultType="com.smallB.QOS.statistic.domain.MenuStatisticResponseDto">
+        select product_name,SUM(order_quantity) as order_quantity from `order` right outer join detail_order on (`order`.order_id = detail_order.order_id AND `order`.store_id = detail_order.store_id AND order_time BETWEEN #{startDate} AND #{endDate} AND detail_order.store_id = #{store_id}) WHERE `order`.store_id = #{store_id} group by product_name;
+    </select>
+
+    <select id="getSaleStatistic" parameterType="com.smallB.QOS.statistic.domain.StatisticRequestDto" resultType="com.smallB.QOS.statistic.domain.SaleStatisticResponseDto">
+        select SUBSTR(order_time,1,10) as order_time,SUM(total_price) as price from `order` WHERE `store_id` = #{store_id} AND order_time BETWEEN #{startDate} AND #{endDate} group by SUBSTR(order_time,1,10);
+    </select>
+
+</mapper>

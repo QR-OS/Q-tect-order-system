@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "billboard.js": "^2.1.4",
     "core-js": "^3.6.5",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.27.0",
