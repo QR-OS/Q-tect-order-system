@@ -22,7 +22,7 @@
             class="my-3"
             v-if="orderForm.order_state == '주문 준비 완료'"
           >
-            QR코드 이미지
+            <qrcode-vue :value="qrValue" size="200" level="H"></qrcode-vue>
           </v-row>
           <v-row class="text-h4 font-weight-bold">
             <v-col align="center" justify="center">
@@ -109,14 +109,19 @@
 import axios from "axios";
 import Stomp from "webstomp-client";
 import SockJS from "sockjs-client";
+import QrcodeVue from 'qrcode.vue';
 
 export default {
+  components: {
+    QrcodeVue,
+  },
   data() {
     return {
       orderForm: {},
       orderlist: [],
       storeName: "",
       errorMsg: "",
+      qrValue: '',
     };
   },
   async mounted() {
@@ -141,6 +146,7 @@ export default {
   },
   created() {
     this.socketConnect();
+    this.qrValue = `{storeId : ${this.$route.query.storeId}, orderId : ${this.$route.query.orderId}}`;
   },
   beforeDestroy() {
     if (this.stompClient !== null) {
