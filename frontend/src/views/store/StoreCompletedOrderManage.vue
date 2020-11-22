@@ -145,7 +145,7 @@ export default {
     orderLists() {
       let rtn = this.orderList.map((item) => ({
         ...item,
-        selectable: item.order_state === "준비 완료",
+        selectable: item.order_state === "주문 준비 완료",
       }));
       return rtn;
     },
@@ -162,7 +162,7 @@ export default {
       while (idx > -1) {
         idx = this.orderList.findIndex(
           (item) =>
-            item.order_state !== "주문 거절" && item.order_state !== "준비 완료"
+            item.order_state !== "주문 거절" && item.order_state !== "주문 준비 완료"
         );
         if (idx > -1) this.orderList.splice(idx, 1);
         else break;

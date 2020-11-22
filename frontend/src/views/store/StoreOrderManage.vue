@@ -181,10 +181,10 @@
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
-import Stomp from 'webstomp-client';
-import SockJS from 'sockjs-client';
+import axios from "axios";
+import moment from "moment";
+import Stomp from "webstomp-client";
+import SockJS from "sockjs-client";
 
 export default {
   data() {
@@ -266,10 +266,10 @@ export default {
   },
   beforeDestroy() {
     if (this.stompClient !== null) {
-        this.stompClient.disconnect();
+      this.stompClient.disconnect();
     }
     this.connected = false;
-    this.$log.info('소켓 연결 해제');
+    this.$log.info("소켓 연결 해제");
   },
   methods: {
     async showDetailOrder(item) {
@@ -309,8 +309,12 @@ export default {
         this.errorMsg = error.response.message;
       }
       this.isLoading = false;
-      const socketMsg = { order_state : state };
-      this.stompClient.send("/socket.manager/" + this.storeId + "/" + this.orderItem.order_id, JSON.stringify(socketMsg), {});
+      const socketMsg = { order_state: state };
+      this.stompClient.send(
+        "/socket.manager/" + this.storeId + "/" + this.orderItem.order_id,
+        JSON.stringify(socketMsg),
+        {}
+      );
     },
     async selectAllComplete() {
       for (const val of this.selected) {
@@ -336,27 +340,29 @@ export default {
       const serverURL = "http://localhost:3000/api";
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
-      this.stompClient.connect(
-        {},
-        frame => {
-          this.$log.info('소켓 연결 성공', frame);
-          this.connected = true;
-          this.stompClient.subscribe(`/socket/manager/${this.storeId}`, res => {
-            let result = JSON.parse(res.body);
-            result.order_time = moment(result.order_time).format("YYYY/MM/DD HH:mm");
-            result.order_type = result.order_type === 0 ? "주문" : "예약";
-            if (result.book_time === null || typeof result.book_time !== "undefined") {
-              result.book_time = result.order_time;
-            }
-            this.orderList.push(result);
-            console.log(this.orderList);
-          });
-        }
-      ),
-      error => {
-        this.$log.info('소켓 연결 실패', error);
-        this.connected = false;
-      }
+      this.stompClient.connect({}, (frame) => {
+        this.$log.info("소켓 연결 성공", frame);
+        this.connected = true;
+        this.stompClient.subscribe(`/socket/manager/${this.storeId}`, (res) => {
+          let result = JSON.parse(res.body);
+          result.order_time = moment(result.order_time).format(
+            "YYYY/MM/DD HH:mm"
+          );
+          result.order_type = result.order_type === 0 ? "주문" : "예약";
+          if (
+            result.book_time === null ||
+            typeof result.book_time !== "undefined"
+          ) {
+            result.book_time = result.order_time;
+          }
+          this.orderList.push(result);
+          console.log(this.orderList);
+        });
+      }),
+        (error) => {
+          this.$log.info("소켓 연결 실패", error);
+          this.connected = false;
+        };
     },
   },
 };
