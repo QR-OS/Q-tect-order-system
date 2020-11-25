@@ -192,6 +192,9 @@ export default {
       return this.removeError("postNum");
     },
   },
+  created() {
+    this.storeCategory.value = this.storeInfo.category;
+  },
   methods: {
     removeError(field) {
       this.errors[field] = "";
