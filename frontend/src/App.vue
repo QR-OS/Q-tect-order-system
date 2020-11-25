@@ -35,7 +35,7 @@
                 <v-list-item-title>매출 현황</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item>
+            <v-list-item @click="moveToPage('SalesOfMenu')">
               <v-list-item-content>
                 <v-list-item-title>메뉴별</v-list-item-title>
               </v-list-item-content>

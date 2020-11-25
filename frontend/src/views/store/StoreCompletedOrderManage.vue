@@ -105,30 +105,24 @@
               >결제 방법 : {{ orderItem.pay_type }}</v-col
             >
           </v-row>
-          <v-row 
-            justify="center">
+          <v-row justify="center">
             <v-btn
               dark
               depressed
               color="yellow darken-2"
-              v-on:click="checkQRcodeFlag=true"
-              v-if="orderItem.order_state!=='수령완료'"
-            >QR확인
+              v-on:click="checkQRcodeFlag = true"
+              v-if="orderItem.order_state !== '수령완료'"
+              >QR확인
             </v-btn>
           </v-row>
           <div class="text-center">
-            <v-dialog
-              v-model="checkQRcodeFlag"
-              width="700px"
-            >
+            <v-dialog v-model="checkQRcodeFlag" width="700px">
               <v-card>
                 <v-card-title>
                   QR_code
                 </v-card-title>
                 <v-row>
-                  <v-col 
-                    style="max-width:80%;"
-                    align="center">
+                  <v-col style="max-width:80%;" align="center">
                     <v-text-field
                       style="margin-left: 15px;"
                       label="QRcode를 스캔해주세요!"
@@ -140,28 +134,23 @@
                       :rules="qrCodeRules"
                     ></v-text-field>
                   </v-col>
-                  <v-col 
-                    style="max-width:20%;"
-                    align="center">
+                  <v-col style="max-width:20%;" align="center">
                     <v-btn
                       dark
                       depressed
                       color="yellow darken-2"
                       @click="
                         checkQRcode(() => {
-                        qrErrorFlag = false;
-                      })
+                          qrErrorFlag = false;
+                        })
                       "
-                    >수령완료</v-btn>
+                      >수령완료</v-btn
+                    >
                   </v-col>
                 </v-row>
                 <v-row justify="center">
-                  <v-alert
-                    dense
-                    outlined
-                    type="error"
-                    v-model="qrErrorFlag"
-                  >{{qrErrorMsg}}
+                  <v-alert dense outlined type="error" v-model="qrErrorFlag"
+                    >{{ qrErrorMsg }}
                   </v-alert>
                 </v-row>
               </v-card>
@@ -174,8 +163,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
+import axios from "axios";
+import moment from "moment";
 
 export default {
   data() {
@@ -203,11 +192,9 @@ export default {
       nextAction: () => {},
       checkQRcodeFlag: false,
       qrCode: "",
-      qrCodeRules: [
-        v => !!v || 'QR 코드를 스캔해주세요!'
-      ],
+      qrCodeRules: [(v) => !!v || "QR 코드를 스캔해주세요!"],
       qrErrorFlag: false,
-      qrErrorMsg: '',
+      qrErrorMsg: "",
     };
   },
   computed: {
@@ -231,7 +218,9 @@ export default {
       while (idx > -1) {
         idx = this.orderList.findIndex(
           (item) =>
-            item.order_state !== "주문 거절" && item.order_state !== "주문 준비 완료" && item.order_state !== "수령완료"
+            item.order_state !== "주문 거절" &&
+            item.order_state !== "주문 준비 완료" &&
+            item.order_state !== "수령완료"
         );
         if (idx > -1) this.orderList.splice(idx, 1);
         else break;
@@ -291,27 +280,24 @@ export default {
       this.qrCode = JSON.parse(this.qrCode);
       const qrStoreId = this.qrCode.storeId;
       const qrOrderId = this.qrCode.orderId;
-      if(qrStoreId !== this.storeId || qrOrderId !== this.orderItem.order_id){
+      if (qrStoreId !== this.storeId || qrOrderId !== this.orderItem.order_id) {
         this.qrErrorFlag = true;
         this.qrErrorMsg = "해당 주문건이 아닙니다! 다시 확인바랍니당~";
-        this.qrCode = '';
+        this.qrCode = "";
         return;
       }
       try {
-        await axios.patch(
-          "/order/" + qrOrderId + "/" + qrStoreId,
-          {
-            order_type : "3",
-            order_state : "수령완료"
-          }
-        );
-        this.qrCode = '';
+        await axios.patch("/order/" + qrOrderId + "/" + qrStoreId, {
+          order_type: "3",
+          order_state: "수령완료",
+        });
+        this.qrCode = "";
         this.checkQRcodeFlag = false;
         window.location.reload(true);
-      } catch(error){
+      } catch (error) {
         this.errorMsg = error.response.message;
       }
-    }
+    },
   },
 };
 </script>
