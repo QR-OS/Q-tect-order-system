@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smallB.QOS.storeInfo.dao.StoreInfoDao">
+
+    <insert id="addStore"
+            parameterType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        INSERT INTO store_info(`store_id`, `store_name`, `store_num`, `post_num`,
+                                `address1`, `address2`, `store_tel`, `orderable`,
+                                `bookable`, `holiday`, `open_time`, `close_time`, `store_state`)
+        VALUES (#{store_id}, #{store_name}, #{store_num}, #{post_num},
+                                #{address1}, #{address2}, #{store_tel}, #{orderable},
+                                #{bookable}, #{holiday}, #{open_time}, #{close_time}, #{store_state})
+    </insert>
+
+    <select id="findStoreByNum"
+            parameterType="string"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        SELECT *
+        FROM store_info
+        WHERE store_num = #{value}
+    </select>
+
+    <select id="findStoreByUserId"
+            parameterType="string"
+            resultType="com.smallB.QOS.user.domain.UserDto">
+        SELECT *
+        FROM users
+        WHERE user_id = #{value}
+    </select>
+
+    <select id="findStoreById"
+            parameterType="string"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        SELECT *
+        FROM store_info
+        WHERE store_id = #{store_id}
+    </select>
+
+    <update id="updateStoreInfo"
+            parameterType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        UPDATE store_info
+        SET store_name = #{store_name}
+        <if test="post_num != null">, post_num = #{post_num}</if>
+        <if test="address1 != null">, address1 = #{address1}</if>
+        <if test="address2 != null">, address2 = #{address2}</if>
+        <if test="store_tel != null">, store_tel = #{store_tel}</if>
+        <if test="orderable != null">, orderable = #{orderable}</if>
+        <if test="bookable != null">, bookable = #{bookable}</if>
+        <if test="holiday != null">, holiday = #{holiday}</if>
+        <if test="open_time != null">, open_time = #{open_time}</if>
+        <if test="close_time != null">, close_time = #{close_time}</if>
+        <if test="store_state != null">, store_state = #{store_state}</if>
+        WHERE store_id = #{store_id}
+
+    </update>
+
+    <select id="findStores"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        SELECT *
+        FROM store_info
+    </select>
+
+    <select id="findStoreByStoreId"
+            parameterType="String"
+            resultType="com.smallB.QOS.storeInfo.domain.StoreInfoDto">
+        SELECT * FROM store_info WHERE store_id = #{store_id}
+    </select>
+</mapper>
