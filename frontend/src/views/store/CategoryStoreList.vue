@@ -77,6 +77,7 @@ export default {
   },
   methods: {
     gotoStoreListPage(categoryName) {
+      if(categoryName == this.$route.query.category) return;
       this.$router.push("/categorystorelist?category=" + categoryName);
     }
   }
