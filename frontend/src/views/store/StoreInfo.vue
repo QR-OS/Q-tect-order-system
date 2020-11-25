@@ -12,6 +12,7 @@
         :store-info="storeInfo"
         :btnName="btnName"
         @submit="edit"
+        @update="categoryUpdate"
       ></StoreInfoComponent>
       <v-snackbar v-model="snackbar" :timeout="timeout">
         {{ answerMsg }}
@@ -54,6 +55,7 @@ export default {
           ],
           value: [],
         },
+        category: [],
       },
       loadingFlag: false,
       answerMsg: "",
@@ -68,6 +70,12 @@ export default {
         "/store/" + this.$store.state.auth.user.user_id
       );
       this.storeInfo = Object.assign(this.storeInfo, res.data);
+      res = await axios.get(
+        "/store/category/" + this.$store.state.auth.user.user_id
+      );
+      for(let i in res.data) {
+        this.storeInfo.category.push(res.data[i].store_type);
+      }
       for (let i in this.storeInfo.holiday) {
         if (this.storeInfo.holiday[i] == "1") {
           this.storeInfo.Nholiday.value.push(this.storeInfo.Nholiday.items[i]);
@@ -100,6 +108,18 @@ export default {
           this.snackbar = true;
         });
     },
+    async categoryUpdate(ncategory) {
+      this.storeInfo.category = [];
+      for(let i of ncategory) {
+        this.storeInfo.category.push({"store_type" : i});
+      }
+      let res = await axios.patch(
+        "/store/category/" + this.$store.state.auth.user.user_id,
+        {store_id : this.storeInfo.store_id,
+        storeType : this.storeInfo.category}
+      );
+    this.$log.info(res.data);
+    }
   },
 };
 </script>
