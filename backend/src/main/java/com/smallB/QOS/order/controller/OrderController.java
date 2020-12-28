@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-@MapperScan(basePackages = "com.smallB.QOS.Order.dao")
+@MapperScan(basePackages = "com.smallB.QOS.order.dao")
 public class OrderController {
 
     @Autowired
