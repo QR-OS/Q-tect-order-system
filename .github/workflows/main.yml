@@ -38,12 +38,11 @@ jobs:
         run: ./backend/gradlew build
         shell: bash
         
-      - name: npm install #
-        run: npm install # npm install
-
-      - name: Build with Vue
+      - name: install and Build with Vue
         working-directory: ./frontend
-        run: npm run build
+        run: |
+          npm install
+          npm run build
         shell: bash
         
       - name: Deploy to s3
