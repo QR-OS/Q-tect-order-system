@@ -36,7 +36,7 @@ jobs:
       
       - name: Build with Gradle
         working-directory: ./backend
-        run: ./backend/gradlew build
+        run: ./gradlew build
         shell: bash
         
       - name: install and Build with Vue
@@ -52,10 +52,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          pwd
-          ls backend
-          ls backend/build
-          ls backend/public
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
