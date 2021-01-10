@@ -35,6 +35,7 @@ jobs:
         shell: bash
       
       - name: Build with Gradle
+        working-directory: ./backend
         run: ./backend/gradlew build
         shell: bash
         
