@@ -31,30 +31,31 @@ jobs:
           java-version: 11
         
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x ./backend/gradlew
         shell: bash
       
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./backend/gradlew build
         shell: bash
         
       - name: npm install #
-        run: npm install # npm install
+        run: ./frontend/ npm install # npm install
 
       - name: Build with Vue
-        run: npm run build
+        run: ./frontend/ npm run build
         shell: bash
         
       - name: Deploy to s3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            ./backend/build/libs/*.jar s3://bucket.domain.com
+            ./backend/build/libs/*.jar s3://q-tect-order-system
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            ./backend/public s3://bucket.domain.com
+            ./backend/public s3://q-tect-order-system
