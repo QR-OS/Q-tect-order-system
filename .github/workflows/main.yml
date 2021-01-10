@@ -39,10 +39,10 @@ jobs:
         shell: bash
         
       - name: npm install #
-        run: ./frontend npm install # npm install
+        run: npm install # npm install
 
       - name: Build with Vue
-        run: ./frontend npm run build
+        run: npm run build
         shell: bash
         
       - name: Deploy to s3
