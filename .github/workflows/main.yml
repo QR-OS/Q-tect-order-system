@@ -42,10 +42,8 @@ jobs:
         run: npm install # npm install
 
       - name: Build with Vue
-        run: |
-          cd frontend/
-          npm run build
-          cd ../
+        working-directory: ./frontend
+        run: npm run build
         shell: bash
         
       - name: Deploy to s3
