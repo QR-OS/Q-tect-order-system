@@ -55,7 +55,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
         run: |
           aws s3 rm \
             --recursive \
@@ -77,9 +77,11 @@ jobs:
             --application-name qos-deploy \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name develop \
+            --region ap-northeast-2 \
             --s3-location bucket=q-tect-order-system,bundleType=jar,key=backend/*.jar
           aws deploy create-deployment \
             --application-name qos-deploy \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name develop \
+            --region ap-northeast-2 \
             --s3-location bucket=q-tect-order-system,bundleType=zip,key=frontend/frontend_build.zip
