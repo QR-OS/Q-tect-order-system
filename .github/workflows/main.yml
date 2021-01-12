@@ -52,10 +52,22 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
+          aws s3 rm \
+            --recursive \
+            --region ap-northeast-2 \
+            s3://q-tect-order-system/backend/
           aws s3 cp \
             --region ap-northeast-2 \
-            ./backend/build/libs/*.jar s3://q-tect-order-system
+            ./backend/build/libs/*.jar s3://q-tect-order-system/backend/
+          aws s3 rm \
+            --recursive \
+            --region ap-northeast-2 \
+            s3://q-tect-order-system/frontend/
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            ./backend/public s3://q-tect-order-system
+            ./backend/public s3://q-tect-order-system/forntend/
+      - name: Code Deploy
+        run: |
+          aws deploy create-deployment --application-name logging-system-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name develop --s3-location bucket=q-tect-order-system,bundleType=zip,key=backend/*.jar
+          aws deploy create-deployment --application-name logging-system-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name develop --s3-location bucket=q-tect-order-system,bundleType=zip,key=frontend/
