@@ -52,9 +52,17 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
+          aws s3 rm \
+            --recursive \
+            --region ap-northeast-2 \
+            s3://q-tect-order-system/backend/
           aws s3 cp \
             --region ap-northeast-2 \
             ./backend/build/libs/*.jar s3://q-tect-order-system/backend/
+          aws s3 rm \
+            --recursive \
+            --region ap-northeast-2 \
+            s3://q-tect-order-system/frontend/
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
