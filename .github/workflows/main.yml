@@ -59,3 +59,7 @@ jobs:
             --recursive \
             --region ap-northeast-2 \
             ./backend/public s3://q-tect-order-system
+      - name: Code Deploy
+        run: |
+          aws deploy create-deployment --application-name logging-system-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name develop --s3-location bucket=q-tect-order-system,bundleType=zip,key=backend/*.jar
+          aws deploy create-deployment --application-name logging-system-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name develop --s3-location bucket=q-tect-order-system,bundleType=zip,key=frontend/
