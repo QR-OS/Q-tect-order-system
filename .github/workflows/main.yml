@@ -53,7 +53,7 @@ jobs:
         
       - name: Make zip file(backend)
         working-directory: ./backend/build/lib
-        run: zip -qq -r ./$GITHUB_SHA.zip .
+        run: zip -r ./$GITHUB_SHA.zip .
         shell: bash
         
       - name: Deploy to s3
