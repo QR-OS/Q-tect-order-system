@@ -1,0 +1,13 @@
+version: 0.0
+os: linux
+files:
+        - source: /
+          destination: /home/ubuntu/QOS/step1/Q-tect-order-system/build/
+          overwrite: yes
+
+permissions:
+- object: /home/ubuntu/QOS/step1/Q-tect-order-system/build/
+  pattern: "**"
+  owner: ubuntu
+  group: ubuntu
+  mode: 755
