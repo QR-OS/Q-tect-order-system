@@ -46,14 +46,16 @@ jobs:
           npm run build
         shell: bash
         
-      - name: Make zip file
-        working-directory: ./backend/public
-        run: zip -r ./$GITHUB_SHA.zip .
-        shell: bash
-        
       - name: Make zip file(backend)
         working-directory: ./backend/build/lib
-        run: zip -r ./$GITHUB_SHA.zip .
+        run: |
+          ls
+          zip -r ./2$GITHUB_SHA.zip .
+        shell: bash
+        
+      - name: Make zip file
+        working-directory: ./backend/public
+        run: zip -r ./1$GITHUB_SHA.zip .
         shell: bash
         
       - name: Deploy to s3
@@ -68,14 +70,14 @@ jobs:
             s3://q-tect-order-system/backend/
           aws s3 cp \
             --region ap-northeast-2 \
-            ./backend/build/libs/$GITHUB_SHA.zip s3://q-tect-order-system/backend/
+            ./backend/build/libs/2$GITHUB_SHA.zip s3://q-tect-order-system/backend/
           aws s3 rm \
             --recursive \
             --region ap-northeast-2 \
             s3://q-tect-order-system/frontend/
           aws s3 cp \
             --region ap-northeast-2 \
-            ./backend/public/$GITHUB_SHA.zip s3://q-tect-order-system/forntend/
+            ./backend/public/1$GITHUB_SHA.zip s3://q-tect-order-system/forntend/
       - name: Code Deploy
         run: |
           aws deploy create-deployment \
@@ -83,10 +85,10 @@ jobs:
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name develop \
             --region ap-northeast-2 \
-            --s3-location bucket=q-tect-order-system,bundleType=zip,key=frontend/$GITHUB_SHA.zip
+            --s3-location bucket=q-tect-order-system,bundleType=zip,key=frontend/1$GITHUB_SHA.zip
           aws deploy create-deployment \
             --application-name qos-deploy \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name develop \
             --region ap-northeast-2 \
-            --s3-location bucket=q-tect-order-system,bundleType=zip,key=backend/$GITHUB_SHA.zip
+            --s3-location bucket=q-tect-order-system,bundleType=zip,key=backend/2$GITHUB_SHA.zip
