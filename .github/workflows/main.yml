@@ -88,9 +88,3 @@ jobs:
             --deployment-group-name develop \
             --region ap-northeast-2 \
             --s3-location bucket=q-tect-order-system,bundleType=zip,key=frontend/$GITHUB_SHA.zip
-          aws deploy create-deployment \
-            --application-name qos-deploy \
-            --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --deployment-group-name develop \
-            --region ap-northeast-2 \
-            --s3-location bucket=q-tect-order-system,bundleType=zip,key=backend/$GITHUB_SHA.zip
