@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: gradle CI
 
 # Controls when the action will run. 
 on:
@@ -44,18 +44,6 @@ jobs:
         run: zip -r ./$GITHUB_SHA.zip .
         shell: bash
         
-      - name: install and Build with Vue
-        working-directory: ./frontend
-        run: |
-          npm install
-          npm run build
-        shell: bash
-        
-      - name: Make zip file
-        working-directory: ./backend/public
-        run: zip -r ./$GITHUB_SHA.zip .
-        shell: bash
-        
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -72,13 +60,6 @@ jobs:
           aws s3 cp \
             --region ap-northeast-2 \
             ./backend/build/libs/$GITHUB_SHA.zip s3://q-tect-order-system/backend/
-          aws s3 rm \
-            --recursive \
-            --region ap-northeast-2 \
-            s3://q-tect-order-system/frontend/
-          aws s3 cp \
-            --region ap-northeast-2 \
-            ./backend/public/$GITHUB_SHA.zip s3://q-tect-order-system/forntend/
 
       - name: Code Deploy
         run: |
