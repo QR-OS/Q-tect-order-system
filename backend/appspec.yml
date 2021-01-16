@@ -3,11 +3,11 @@
 version: 0.0
 os: linux
 files:
-        - source: /
-          destination: /home/ubuntu/QOS/step1/Q-tect-order-system/backend/build
+        - source: /backend/
+          destination: /home/ubuntu/QOS/build
 
 permissions:
-- object: /home/ubuntu/QOS/step1/Q-tect-order-system/backend/build
+- object: /home/ubuntu/QOS/build
   pattern: "**"
   owner: ubuntu
   group: ubuntu
