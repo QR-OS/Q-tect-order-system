@@ -1,0 +1,13 @@
+#frontend appspec.yml
+
+version: 0.0
+os: linux
+files:
+        - source: /frontend
+          destination: /home/ubuntu/QOS/step1/Q-tect-order-system/public/
+          
+permissions:
+- object: /home/ubuntu/QOS
+  pattern: "**"
+  owner: ubuntu
+  group: ubuntu
