@@ -1,0 +1,13 @@
+#backend appspec.yml
+
+version: 0.0
+os: linux
+files:
+        - source: /backend
+          destination: /home/ubuntu/QOS/step1/Q-tect-order-system/build/
+
+permissions:
+- object: /home/ubuntu/QOS
+  pattern: "**"
+  owner: ubuntu
+  group: ubuntu
