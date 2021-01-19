@@ -3,7 +3,7 @@
 version: 0.0
 os: linux
 files:
-        - source: /backend/
+        - source: /
           destination: /home/ubuntu/QOS/build
 
 permissions:
