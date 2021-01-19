@@ -1,0 +1,14 @@
+#backend appspec.yml
+
+version: 0.0
+os: linux
+files:
+        - source: /backend/
+          destination: /home/ubuntu/QOS/build
+
+permissions:
+- object: /home/ubuntu/QOS/build
+  pattern: "**"
+  owner: ubuntu
+  group: ubuntu
+  mode: 755
