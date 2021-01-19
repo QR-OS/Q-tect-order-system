@@ -41,6 +41,7 @@ jobs:
         
       # appspec.yml Copy
       - name: Copy appspec
+        working-directory: ./backend
         run: cp ./appspec.yml ./backend/build/libs
                 
       - name: Make zip file(backend)
