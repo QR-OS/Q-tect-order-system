@@ -52,7 +52,7 @@ jobs:
             s3://q-tect-order-system/frontend/
           aws s3 cp \
             --region ap-northeast-2 \
-            ./backend/public/$GITHUB_SHA.zip s3://q-tect-order-system/forntend/
+            ./backend/public/$GITHUB_SHA.zip s3://q-tect-order-system/frontend/
       - name: Code Deploy
         run: |
           aws deploy create-deployment \
