@@ -35,7 +35,7 @@ jobs:
       # appspec.yml Copy
       - name: Copy appspec
         working-directory: ./frontend
-        run: cp ./appspec.yml ./backend/public/
+        run: cp ./appspec.yml ../backend/public/
         
       - name: Make zip file
         working-directory: ./backend/public
