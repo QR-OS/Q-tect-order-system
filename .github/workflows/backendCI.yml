@@ -38,6 +38,10 @@ jobs:
         working-directory: ./backend
         run: ./gradlew build
         shell: bash
+        
+      # appspec.yml Copy
+      - name: Copy appspec
+        run: cp ./appspec.yml ./backend/build/libs
                 
       - name: Make zip file(backend)
         working-directory: ./backend/build/libs
