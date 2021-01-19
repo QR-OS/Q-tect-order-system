@@ -32,6 +32,10 @@ jobs:
           npm run build
         shell: bash
         
+      # appspec.yml Copy
+      - name: Copy appspec
+        run: cp ./appspec.yml ./backend/public/
+        
       - name: Make zip file
         working-directory: ./backend/public
         run: zip -r ./$GITHUB_SHA.zip .
