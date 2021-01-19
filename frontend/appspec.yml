@@ -3,7 +3,7 @@
 version: 0.0
 os: linux
 files:
-        - source: /frontend/
+        - source: /
           destination: /home/ubuntu/QOS/public
           
 permissions:
