@@ -14,6 +14,6 @@ permissions:
   mode: 755
 hooks:
   AfterInstall:
-  - location: /home/ubuntu/QOS/build/deploy.sh
+  - location: deploy.sh
   timeout: 60
   runas: root
