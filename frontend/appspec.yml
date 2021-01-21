@@ -15,6 +15,6 @@ permissions:
 
 hooks:
   AfterInstall:
-  - location: /frontend/script/deploy.sh
+  - location: /home/ubuntu/QOS/publicdeploy.sh
   timeout: 60
   runas: root
