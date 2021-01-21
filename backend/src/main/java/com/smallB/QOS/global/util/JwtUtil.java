@@ -8,13 +8,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
-@PropertySource("classpath:META-INF/application.properties")
 public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
