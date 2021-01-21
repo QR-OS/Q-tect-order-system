@@ -43,6 +43,11 @@ jobs:
       - name: Copy appspec
         working-directory: ./backend
         run: cp ./appspec.yml ./build/libs
+        
+      # script file Copy
+      - name: Copy shell
+        working-directory: ./backend
+        run: cp ./scripts/* ./build/libs
                 
       - name: Make zip file(backend)
         working-directory: ./backend/build/libs
