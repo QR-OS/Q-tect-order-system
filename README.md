@@ -15,31 +15,25 @@
 
 ## Screenshots
 회원가입 유형 선택
-![image](https://user-images.githubusercontent.com/44703262/133199719-f2719561-3974-4b7f-ab46-92e526886c9b.png)
+![image](https://user-images.githubusercontent.com/44703262/133200371-e7052fdf-c9eb-47c9-996c-526b62f5f1cf.png)
 
 카테고리 별 매장목록
-![image](https://user-images.githubusercontent.com/44703262/133199780-69fc4eaf-5732-4c08-8ddc-003c7a00b5bc.png)
-
-메뉴 선택
-![image](https://user-images.githubusercontent.com/44703262/133199806-390bf51c-d254-4c54-8105-5374fe2a9668.png)
+![image](https://user-images.githubusercontent.com/44703262/133200400-c3361089-f542-4af0-afcd-c1f2ef8a7881.png)
 
 주문하기
-![image](https://user-images.githubusercontent.com/44703262/133199847-ec681f6d-27d6-4e9d-8d8b-eff18d5cd5a7.png)
+![image](https://user-images.githubusercontent.com/44703262/133200445-e84ac035-c986-4fae-8d54-2c6c79a49cb9.png)
 
 주문 내역
-![image](https://user-images.githubusercontent.com/44703262/133199882-e8e81056-2e3a-44a9-ba24-19fc01113fe2.png)
+![image](https://user-images.githubusercontent.com/44703262/133200575-aa396d14-319f-43bd-9343-02288ce7b354.png)
 
 주문 상세내역
-![image](https://user-images.githubusercontent.com/44703262/133199892-f5f60852-e1ca-4027-91c3-0239d7e4b4e2.png)
-
-관리자 매장 정보 수정
-![image](https://user-images.githubusercontent.com/44703262/133199946-c6201526-5188-4dc3-b97f-44fa8c125c62.png)
+![image](https://user-images.githubusercontent.com/44703262/133200604-42736f70-1ae4-4bfd-a8c4-a9a041293989.png)
 
 메뉴/상품 관리
-![image](https://user-images.githubusercontent.com/44703262/133200015-2131cd6e-b5ce-44a1-b078-10655ef14b7f.png)
+![image](https://user-images.githubusercontent.com/44703262/133200635-7f612f1c-b0d9-4441-aeb3-36eb55912ee3.png)
 
 실시간 주문 현황
-![image](https://user-images.githubusercontent.com/44703262/133200032-57ea369e-3298-4ad1-b7cc-c9bd8e50042f.png)
+![image](https://user-images.githubusercontent.com/44703262/133200652-3e09bd9d-9c39-4c50-90cf-7d58e1147ba9.png)
 
 ## License
 이 소프트웨어는 MIT 라이선스에 의해 보호됩니다.
