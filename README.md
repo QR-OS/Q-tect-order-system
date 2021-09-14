@@ -1,5 +1,5 @@
 # Q-tect order
-본 작품은 [2020 한이음 ICT 멘토링](https://www.hanium.or.kr/portal/index.do#firstPage) 참가 작품입니다.
+본 작품은 [2020 한이음 ICT 공모전](https://www.hanium.or.kr/portal/noticeHaniumBoard.do) 참가 작품입니다.
 소상공인을 위한 QR코드 주문&집계 시스템
 
 ## 제작의도
@@ -22,7 +22,7 @@
 #### 사용자
 주문하기
 
-![image](https://user-images.githubusercontent.com/44703262/133200445-e84ac035-c986-4fae-8d54-2c6c79a49cb9.png)
+![image](https://user-images.githubusercontent.com/44703262/133204266-d408cf12-5a5f-49c5-9df4-6ee12948f2b3.png)
 
 주문 내역
 
@@ -36,11 +36,11 @@
 #### 판매자
 실시간 주문 현황
 
-![image](https://user-images.githubusercontent.com/44703262/133203552-2ab329b4-f980-4e20-8af2-c66fcf7aee99.png)
+![image](https://user-images.githubusercontent.com/44703262/133204294-61275ed4-2e3d-4005-8c2a-2b1cb59f78f2.png)
 
 주문 상세내역
 
-![image](https://user-images.githubusercontent.com/44703262/133203610-19ea4f0a-6cc0-40d5-ae01-ab3accbedd28.png)
+![image](https://user-images.githubusercontent.com/44703262/133204313-8c44c118-737b-4d9d-8429-c8d91c327857.png)
 
 ## License
 이 소프트웨어는 MIT 라이선스에 의해 보호됩니다.
